@@ -1,0 +1,23 @@
+{
+  "symbol": "BTCUSDT",
+  "timeframe": "720",
+  "start_date": "2023-12-15 00:00:00",
+  "end_date": "2025-12-13 00:00:00",
+  "initial_capital": 10000,
+  "final_capital": 10379.30841683833,
+  "total_trades": 121,
+  "winning_trades": 88,
+  "losing_trades": 33,
+  "win_rate": 72.72727272727273,
+  "total_pnl": 379.3084168383238,
+  "total_pnl_pct": 3.7930841683833023,
+  "max_drawdown": -31.044088915461543,
+  "max_drawdown_pct": 0.3023098437090635,
+  "sharpe_ratio": 2.4228168085666817,
+  "profit_factor": 2.6020781048349595,
+  "avg_trade_duration": 1.3471074380165289,
+  "avg_win": 7.000780334899999,
+  "avg_loss": -7.174553110087146,
+  "largest_win": 41.380838651336106,
+  "largest_loss": -29.767023308268982
+}

@@ -1,0 +1,23 @@
+{
+  "symbol": "ETHUSDT",
+  "timeframe": "240",
+  "start_date": "2021-03-15 00:00:00",
+  "end_date": "2025-12-13 00:00:00",
+  "initial_capital": 10000,
+  "final_capital": 10370.804131329036,
+  "total_trades": 606,
+  "winning_trades": 400,
+  "losing_trades": 206,
+  "win_rate": 66.006600660066,
+  "total_pnl": 370.804131329024,
+  "total_pnl_pct": 3.7080413132903596,
+  "max_drawdown": -35.09007173703867,
+  "max_drawdown_pct": 0.3469478618088211,
+  "sharpe_ratio": 2.063431678347227,
+  "profit_factor": 1.7969368397797663,
+  "avg_trade_duration": 1.4290429042904291,
+  "avg_win": 2.0902271380495923,
+  "avg_loss": -2.2586734169456917,
+  "largest_win": 19.059607763713537,
+  "largest_loss": -13.975339616112926
+}

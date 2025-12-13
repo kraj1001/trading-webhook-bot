@@ -1,0 +1,5489 @@
+[
+  {
+    "entry_time": "2024-12-16 12:00:00",
+    "exit_time": "2024-12-16 16:00:00",
+    "direction": "LONG",
+    "entry_price": 106405.7763,
+    "exit_price": 107310.75,
+    "pnl": 3.502465098551244,
+    "pnl_pct": 0.7004930197102488,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": NaN,
+      "rsi": 78.37541518669367,
+      "macd": 917.7652927321906,
+      "gold_line": 104605.96783435918,
+      "slow_ema": 102800.91825831572
+    },
+    "indicators_at_exit": {
+      "cci": NaN,
+      "rsi": 79.23541411240708,
+      "macd": 1080.795956434813,
+      "gold_line": 105495.9807006155,
+      "slow_ema": 103083.41320214419
+    },
+    "market_context": {
+      "volatility": NaN,
+      "trend_strength": 511.7123612488116,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-18 08:00:00",
+    "exit_time": "2024-12-18 16:00:00",
+    "direction": "LONG",
+    "entry_price": 105023.98574999999,
+    "exit_price": 102725.6115,
+    "pnl": -11.69623484133998,
+    "pnl_pct": -2.338427942042748,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -24.906947504072416,
+      "rsi": 53.8268515015967,
+      "macd": 788.4926073694951,
+      "gold_line": 104872.1608075664,
+      "slow_ema": 104537.16650786759
+    },
+    "indicators_at_exit": {
+      "cci": -100.96964057137866,
+      "rsi": 39.49880474315387,
+      "macd": 414.82565322062874,
+      "gold_line": 104372.4698907239,
+      "slow_ema": 104396.42258904972
+    },
+    "market_context": {
+      "volatility": 1.4180539744625085,
+      "trend_strength": 597.300874833839,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2024-12-19 12:00:00",
+    "exit_time": "2024-12-19 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 100561.0943,
+    "exit_price": 96680.99999999999,
+    "pnl": 18.527030859837847,
+    "pnl_pct": 3.7084447862357957,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -127.8097100634432,
+      "rsi": 36.79311587611104,
+      "macd": -590.2408288900915,
+      "gold_line": 101454.56543470269,
+      "slow_ema": 103379.75094695287
+    },
+    "indicators_at_exit": {
+      "cci": -180.41914102050063,
+      "rsi": 27.672281981775072,
+      "macd": -996.0038538320077,
+      "gold_line": 100346.13926082161,
+      "slow_ema": 102918.65087680821
+    },
+    "market_context": {
+      "volatility": 1.8756816863242776,
+      "trend_strength": 915.2942678944754,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-20 08:00:00",
+    "exit_time": "2024-12-20 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 92634.75945000001,
+    "exit_price": 96990.37094999998,
+    "pnl": -24.28466385543169,
+    "pnl_pct": -4.85191915633022,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -160.4316416425517,
+      "rsi": 22.48150660134631,
+      "macd": -2106.8284115306888,
+      "gold_line": 96748.47564820248,
+      "slow_ema": 101111.26717989995
+    },
+    "indicators_at_exit": {
+      "cci": -120.88711139835586,
+      "rsi": 39.23965060356683,
+      "macd": -2115.3000548769633,
+      "gold_line": 96000.00538892149,
+      "slow_ema": 100802.42516657403
+    },
+    "market_context": {
+      "volatility": 2.282133250259519,
+      "trend_strength": 889.7267727996773,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2024-12-21 12:00:00",
+    "exit_time": "2024-12-21 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 97416.06760000001,
+    "exit_price": 97242.2925,
+    "pnl": 0.14172416449632352,
+    "pnl_pct": 0.028384433165123436,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -49.12297197709642,
+      "rsi": 42.305398886454,
+      "macd": -1538.2942639504618,
+      "gold_line": 97629.43813942552,
+      "slow_ema": 99709.74089612572
+    },
+    "indicators_at_exit": {
+      "cci": -47.97565861421257,
+      "rsi": 41.65304293771476,
+      "macd": -1499.6072406974563,
+      "gold_line": 97467.0428836553,
+      "slow_ema": 99525.90823715345
+    },
+    "market_context": {
+      "volatility": 2.169100807723427,
+      "trend_strength": 338.62136489581053,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-22 12:00:00",
+    "exit_time": "2024-12-22 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 95273.23955,
+    "exit_price": 95084.1555,
+    "pnl": 0.24199043624229213,
+    "pnl_pct": 0.04846501587759322,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -94.89083916645436,
+      "rsi": 37.28450550906534,
+      "macd": -1439.5738828690082,
+      "gold_line": 96565.30605463304,
+      "slow_ema": 98555.3933224497
+    },
+    "indicators_at_exit": {
+      "cci": -136.88854882044927,
+      "rsi": 35.778572062533854,
+      "macd": -1519.9819266116392,
+      "gold_line": 96148.82363277982,
+      "slow_ema": 98275.07529856454
+    },
+    "market_context": {
+      "volatility": 2.2355162421174106,
+      "trend_strength": 45.41752305243176,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-23 12:00:00",
+    "exit_time": "2024-12-23 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 93156.09865,
+    "exit_price": 93079.1805,
+    "pnl": -0.3366970713513469,
+    "pnl_pct": -0.06743090241575107,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -137.02929997753665,
+      "rsi": 34.1506073090154,
+      "macd": -1502.7571723932779,
+      "gold_line": 95220.62756568496,
+      "slow_ema": 97244.33318607084
+    },
+    "indicators_at_exit": {
+      "cci": -183.29837403356296,
+      "rsi": 33.62880706319774,
+      "macd": -1610.127092338429,
+      "gold_line": 94501.99653941097,
+      "slow_ema": 96929.95295006559
+    },
+    "market_context": {
+      "volatility": 2.3440881489143752,
+      "trend_strength": 137.72729265774092,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2024-12-27 04:00:00",
+    "exit_time": "2024-12-27 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 95012.07020000002,
+    "exit_price": 96948.45,
+    "pnl": -10.924966276397553,
+    "pnl_pct": -2.1880355842409385,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -69.13624372013699,
+      "rsi": 41.28459461836205,
+      "macd": -315.16511628923763,
+      "gold_line": 95876.08994198176,
+      "slow_ema": 96860.47451202353
+    },
+    "indicators_at_exit": {
+      "cci": -28.28294793367615,
+      "rsi": 50.05349064893187,
+      "macd": -263.5251449417701,
+      "gold_line": 96036.59396518905,
+      "slow_ema": 96863.40232594771
+    },
+    "market_context": {
+      "volatility": 1.7744272445820415,
+      "trend_strength": 272.60338792206153,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2024-12-27 12:00:00",
+    "exit_time": "2024-12-27 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 94481.9354,
+    "exit_price": 93847.0005,
+    "pnl": 2.603605553878308,
+    "pnl_pct": 0.5220172457432612,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -98.48065168355386,
+      "rsi": 41.46295105989859,
+      "macd": -409.18698910040257,
+      "gold_line": 95807.09637911344,
+      "slow_ema": 96690.49844995158
+    },
+    "indicators_at_exit": {
+      "cci": -139.25202826901923,
+      "rsi": 42.231725184936195,
+      "macd": -505.029322967137,
+      "gold_line": 95156.25782746806,
+      "slow_ema": 96543.04671291813
+    },
+    "market_context": {
+      "volatility": 1.8378231304010502,
+      "trend_strength": 320.01311506198385,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-29 12:00:00",
+    "exit_time": "2024-12-29 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 94418.56710000001,
+    "exit_price": 93699.165,
+    "pnl": 3.052842892501588,
+    "pnl_pct": 0.6119286355384872,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -79.08170623260426,
+      "rsi": 42.67484369868138,
+      "macd": -522.4660804523592,
+      "gold_line": 94853.9090379748,
+      "slow_ema": 95544.05371970005
+    },
+    "indicators_at_exit": {
+      "cci": -155.29566427599846,
+      "rsi": 38.09640014722606,
+      "macd": -601.1006554015767,
+      "gold_line": 94467.92542278487,
+      "slow_ema": 95396.39788861116
+    },
+    "market_context": {
+      "volatility": 1.3108791988372777,
+      "trend_strength": 11.325031820636127,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2024-12-31 16:00:00",
+    "exit_time": "2024-12-31 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 94093.7296,
+    "exit_price": 93796.3485,
+    "pnl": 0.8286468601917851,
+    "pnl_pct": 0.16604773374825738,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 20.827735517651895,
+      "rsi": 48.81669390278452,
+      "macd": -440.477862272106,
+      "gold_line": 94161.77556039068,
+      "slow_ema": 94353.03149799476
+    },
+    "indicators_at_exit": {
+      "cci": -27.52349474200997,
+      "rsi": 46.15585687851736,
+      "macd": -438.36697162014025,
+      "gold_line": 94005.52533623441,
+      "slow_ema": 94292.066201847
+    },
+    "market_context": {
+      "volatility": 1.4360918065504829,
+      "trend_strength": 222.47309393230535,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-03 12:00:00",
+    "exit_time": "2025-01-03 16:00:00",
+    "direction": "LONG",
+    "entry_price": 97540.5459,
+    "exit_price": 98455.25,
+    "pnl": 3.931614867199818,
+    "pnl_pct": 0.7877680753783876,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 102.85583058756154,
+      "rsi": 62.84071983294387,
+      "macd": 721.9634651330416,
+      "gold_line": 96782.14161330875,
+      "slow_ema": 95539.4051754878
+    },
+    "indicators_at_exit": {
+      "cci": 142.0847014178355,
+      "rsi": 67.35513959801327,
+      "macd": 851.468388122099,
+      "gold_line": 97331.32496798525,
+      "slow_ema": 95762.79738471092
+    },
+    "market_context": {
+      "volatility": 1.3317409938795726,
+      "trend_strength": 277.6564228665601,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-10 12:00:00",
+    "exit_time": "2025-01-10 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 93649.05205,
+    "exit_price": 93619.66949999999,
+    "pnl": -0.5922692976203607,
+    "pnl_pct": -0.11862482923551455,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -57.2598022716322,
+      "rsi": 42.14384073310235,
+      "macd": -1114.2219644194847,
+      "gold_line": 93834.68349349458,
+      "slow_ema": 95397.32973760266
+    },
+    "indicators_at_exit": {
+      "cci": 2.5970580953731783,
+      "rsi": 49.31200284895497,
+      "macd": -952.5297894172691,
+      "gold_line": 94106.31009609674,
+      "slow_ema": 95388.29790518765
+    },
+    "market_context": {
+      "volatility": 1.81134549596923,
+      "trend_strength": 300.08337635376506,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-01-11 00:00:00",
+    "exit_time": "2025-01-13 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 94116.01845000002,
+    "exit_price": 93616.75499999999,
+    "pnl": 1.8995284662289988,
+    "pnl_pct": 0.38047659497545133,
+    "duration_candles": 13,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -6.324542996421961,
+      "rsi": 44.93749148470326,
+      "macd": -823.0910472435644,
+      "gold_line": 94425.27563459483,
+      "slow_ema": 95249.25046741053
+    },
+    "indicators_at_exit": {
+      "cci": -106.94912619634813,
+      "rsi": 41.58459233895012,
+      "macd": -360.9158240495599,
+      "gold_line": 94403.80632351956,
+      "slow_ema": 94684.95147881837
+    },
+    "market_context": {
+      "volatility": 1.5090904491585777,
+      "trend_strength": 52.27961281452576,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-16 16:00:00",
+    "exit_time": "2025-01-17 00:00:00",
+    "direction": "LONG",
+    "entry_price": 100423.48664999999,
+    "exit_price": 101639.25,
+    "pnl": 5.296232307826313,
+    "pnl_pct": 1.0606364661856804,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 98.92248306473321,
+      "rsi": 67.19040988253352,
+      "macd": 1394.7093738302065,
+      "gold_line": 99263.62738364919,
+      "slow_ema": 97299.64946134725
+    },
+    "indicators_at_exit": {
+      "cci": 118.32728703366249,
+      "rsi": 68.04032708238086,
+      "macd": 1458.0253840258229,
+      "gold_line": 100140.2458581137,
+      "slow_ema": 97756.433900332
+    },
+    "market_context": {
+      "volatility": 1.553303549302206,
+      "trend_strength": 137.72760423217073,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-18 12:00:00",
+    "exit_time": "2025-01-19 00:00:00",
+    "direction": "LONG",
+    "entry_price": 104573.6607,
+    "exit_price": 104903.94450000001,
+    "pnl": 0.8285445824962347,
+    "pnl_pct": 0.16583842220799228,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 99.39896000569118,
+      "rsi": 67.37056803522798,
+      "macd": 2020.1106488490623,
+      "gold_line": 103619.36440357132,
+      "slow_ema": 100689.22326130081
+    },
+    "indicators_at_exit": {
+      "cci": 91.95533448929902,
+      "rsi": 68.30694830424821,
+      "macd": 1971.5709732403484,
+      "gold_line": 104240.4899111714,
+      "slow_ema": 101501.45553309076
+    },
+    "market_context": {
+      "volatility": 1.4452719940876304,
+      "trend_strength": 74.72831332732403,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-20 04:00:00",
+    "exit_time": "2025-01-20 08:00:00",
+    "direction": "LONG",
+    "entry_price": 107226.48644999998,
+    "exit_price": 108691.014,
+    "pnl": 6.074887886622395,
+    "pnl_pct": 1.2158262976684655,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 135.65383637401533,
+      "rsi": 63.29306152229395,
+      "macd": 1407.1237225070072,
+      "gold_line": 104019.71260077736,
+      "slow_ema": 102712.86631538357
+    },
+    "indicators_at_exit": {
+      "cci": 222.2584853457663,
+      "rsi": 65.50154613467512,
+      "macd": 1634.0988283585175,
+      "gold_line": 105690.04756046641,
+      "slow_ema": 103124.64658831812
+    },
+    "market_context": {
+      "volatility": 1.901770758002154,
+      "trend_strength": 53.679522383927406,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-21 08:00:00",
+    "exit_time": "2025-01-21 12:00:00",
+    "direction": "LONG",
+    "entry_price": 103797.77294999998,
+    "exit_price": 104813.69799999999,
+    "pnl": 4.1433956324387236,
+    "pnl_pct": 0.8287541881937897,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -47.63476319577036,
+      "rsi": 51.853216029592424,
+      "macd": 582.7063024372474,
+      "gold_line": 102784.23935818112,
+      "slow_ema": 103152.29248361645
+    },
+    "indicators_at_exit": {
+      "cci": -5.898883851639,
+      "rsi": 52.34666414615047,
+      "macd": 555.2341375572578,
+      "gold_line": 103294.04361490867,
+      "slow_ema": 103210.02637371894
+    },
+    "market_context": {
+      "volatility": 2.358000494555559,
+      "trend_strength": 508.39217889582505,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-23 12:00:00",
+    "exit_time": "2025-01-23 16:00:00",
+    "direction": "LONG",
+    "entry_price": 105288.11774999999,
+    "exit_price": 106340.625,
+    "pnl": 4.2495997037722715,
+    "pnl_pct": 0.849644853086957,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -1.74245593996528,
+      "rsi": 54.76487388240393,
+      "macd": 106.54285155187245,
+      "gold_line": 103081.67000261408,
+      "slow_ema": 103795.09316034456
+    },
+    "indicators_at_exit": {
+      "cci": 34.871469957096316,
+      "rsi": 49.93341937222573,
+      "macd": 85.48552256768744,
+      "gold_line": 103894.00200156844,
+      "slow_ema": 103790.76033365238
+    },
+    "market_context": {
+      "volatility": 2.518243320101101,
+      "trend_strength": 279.1734737559843,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-25 12:00:00",
+    "exit_time": "2025-01-26 04:00:00",
+    "direction": "LONG",
+    "entry_price": 104898.92324999999,
+    "exit_price": 105063.5425,
+    "pnl": 0.03468247718086474,
+    "pnl_pct": 0.006931305774869698,
+    "duration_candles": 4,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 38.81453710824452,
+      "rsi": 52.28872689561033,
+      "macd": 305.1193848173134,
+      "gold_line": 104711.32668497454,
+      "slow_ema": 104410.60988309106
+    },
+    "indicators_at_exit": {
+      "cci": 61.85486491892741,
+      "rsi": 52.70362836229588,
+      "macd": 272.66226234918577,
+      "gold_line": 105000.04169837269,
+      "slow_ema": 104547.35815750468
+    },
+    "market_context": {
+      "volatility": 1.571207184548647,
+      "trend_strength": 52.530994058796864,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-01-26 16:00:00",
+    "exit_time": "2025-01-26 20:00:00",
+    "direction": "LONG",
+    "entry_price": 105109.22834999999,
+    "exit_price": 102502.42315,
+    "pnl": -13.16034999321047,
+    "pnl_pct": -2.6300916541025945,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 42.51963278569259,
+      "rsi": 53.248140113674026,
+      "macd": 240.20798557066882,
+      "gold_line": 104957.2250068485,
+      "slow_ema": 104626.00110811414
+    },
+    "indicators_at_exit": {
+      "cci": -228.56506385927815,
+      "rsi": 39.21873621207333,
+      "macd": 37.941141559233074,
+      "gold_line": 104503.43500410911,
+      "slow_ema": 104472.49732232791
+    },
+    "market_context": {
+      "volatility": 1.4174232621543639,
+      "trend_strength": 207.37128037351553,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-01-28 20:00:00",
+    "exit_time": "2025-01-29 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 101227.361,
+    "exit_price": 102751.45005,
+    "pnl": -8.273381427128383,
+    "pnl_pct": -1.6556097827147693,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -55.30903566029118,
+      "rsi": 42.98313335533797,
+      "macd": -573.0425921627029,
+      "gold_line": 101998.71213049455,
+      "slow_ema": 102726.98276169748
+    },
+    "indicators_at_exit": {
+      "cci": 2.4601312427166726,
+      "rsi": 50.002730714223624,
+      "macd": -459.02766852382047,
+      "gold_line": 102092.75236697803,
+      "slow_ema": 102673.09962422623
+    },
+    "market_context": {
+      "volatility": 1.4020109685060362,
+      "trend_strength": 211.57736338360542,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-01-29 12:00:00",
+    "exit_time": "2025-01-29 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 101868.34035000001,
+    "exit_price": 101842.57949999998,
+    "pnl": -0.6226906349929524,
+    "pnl_pct": -0.1247116229522089,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -4.5660706568094,
+      "rsi": 46.28114255894621,
+      "macd": -393.8108641028957,
+      "gold_line": 102227.75085211209,
+      "slow_ema": 102611.66593297859
+    },
+    "indicators_at_exit": {
+      "cci": 50.84739284175698,
+      "rsi": 53.99356153949145,
+      "macd": -259.4805491793668,
+      "gold_line": 102400.87051126725,
+      "slow_ema": 102680.14253053573
+    },
+    "market_context": {
+      "volatility": 1.4104259287340366,
+      "trend_strength": 229.4919560006577,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-01-31 12:00:00",
+    "exit_time": "2025-01-31 16:00:00",
+    "direction": "LONG",
+    "entry_price": 105457.40234999999,
+    "exit_price": 102180.884,
+    "pnl": -16.261126384190337,
+    "pnl_pct": -3.2569590915255313,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 78.92378337914596,
+      "rsi": 59.31717692112725,
+      "macd": 547.9607088658813,
+      "gold_line": 104723.09881738157,
+      "slow_ema": 103934.5182970176
+    },
+    "indicators_at_exit": {
+      "cci": -25.54833770763234,
+      "rsi": 42.474967786538166,
+      "macd": 327.84563594493375,
+      "gold_line": 104352.69929042895,
+      "slow_ema": 103808.40583057185
+    },
+    "market_context": {
+      "volatility": 1.7196050812530974,
+      "trend_strength": 171.47277110019542,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-02-04 00:00:00",
+    "exit_time": "2025-02-04 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 100530.20975000001,
+    "exit_price": 98661.453,
+    "pnl": 8.518190086239152,
+    "pnl_pct": 1.708900677365805,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 43.75935223446091,
+      "rsi": 51.09970968587538,
+      "macd": -888.5719722649228,
+      "gold_line": 99960.81224324928,
+      "slow_ema": 100197.6526878045
+    },
+    "indicators_at_exit": {
+      "cci": -8.909422075444231,
+      "rsi": 44.48341706090344,
+      "macd": -894.5052735647041,
+      "gold_line": 99756.00734594958,
+      "slow_ema": 100065.20434055972
+    },
+    "market_context": {
+      "volatility": 1.8868348887371422,
+      "trend_strength": 571.1566058756757,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-06 12:00:00",
+    "exit_time": "2025-02-06 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 97243.95370000001,
+    "exit_price": 96109.95899999999,
+    "pnl": 5.069351040136124,
+    "pnl_pct": 1.016133889926387,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -38.46890527065977,
+      "rsi": 43.750629884088674,
+      "macd": -680.9219118424953,
+      "gold_line": 97896.7069429066,
+      "slow_ema": 98649.33634418
+    },
+    "indicators_at_exit": {
+      "cci": -128.19671514292202,
+      "rsi": 39.110300451546244,
+      "macd": -791.2171665363567,
+      "gold_line": 97364.18416574395,
+      "slow_ema": 98449.64476312963
+    },
+    "market_context": {
+      "volatility": 2.2108799227403546,
+      "trend_strength": 3.8802042174567077,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-07 16:00:00",
+    "exit_time": "2025-02-07 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 96804.27365,
+    "exit_price": 96034.28249999999,
+    "pnl": 3.2214983052927253,
+    "pnl_pct": 0.6454102861036407,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -30.922507311440555,
+      "rsi": 44.787117201093814,
+      "macd": -582.6738854337309,
+      "gold_line": 97704.03726443695,
+      "slow_ema": 98011.91693657753
+    },
+    "indicators_at_exit": {
+      "cci": -132.3306902879017,
+      "rsi": 43.24935738963042,
+      "macd": -618.378969225043,
+      "gold_line": 97111.90235866218,
+      "slow_ema": 97895.52308942364
+    },
+    "market_context": {
+      "volatility": 2.1314985597352134,
+      "trend_strength": 81.79890627865097,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-09 08:00:00",
+    "exit_time": "2025-02-09 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 96465.1433,
+    "exit_price": 96159.40499999998,
+    "pnl": 0.8335412116353016,
+    "pnl_pct": 0.16694173619707028,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -21.34445950947811,
+      "rsi": 45.5111991166438,
+      "macd": -475.99213882078766,
+      "gold_line": 96775.82567968027,
+      "slow_ema": 97216.25007740309
+    },
+    "indicators_at_exit": {
+      "cci": -68.56877660132957,
+      "rsi": 45.152773161854824,
+      "macd": -464.0873715015914,
+      "gold_line": 96533.11540780816,
+      "slow_ema": 97159.30562722508
+    },
+    "market_context": {
+      "volatility": 1.387742899850522,
+      "trend_strength": 133.60918869566785,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-10 12:00:00",
+    "exit_time": "2025-02-11 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 97140.30555,
+    "exit_price": 98279.11499999999,
+    "pnl": -6.602976854367048,
+    "pnl_pct": -1.322334638595324,
+    "duration_candles": 4,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 84.74596148460233,
+      "rsi": 50.523338973163206,
+      "macd": -177.6005899472657,
+      "gold_line": 97208.0366420667,
+      "slow_ema": 97088.76444646774
+    },
+    "indicators_at_exit": {
+      "cci": 153.95685647866054,
+      "rsi": 58.04540302934647,
+      "macd": 52.11859811680915,
+      "gold_line": 97662.64362881186,
+      "slow_ema": 97239.87757230147
+    },
+    "market_context": {
+      "volatility": 1.1757507889646746,
+      "trend_strength": 251.150142402144,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-02-13 04:00:00",
+    "exit_time": "2025-02-13 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 95974.9885,
+    "exit_price": 95786.65049999999,
+    "pnl": 0.2307259929926307,
+    "pnl_pct": 0.046236543440708947,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -32.85704709841863,
+      "rsi": 45.41372414127202,
+      "macd": -126.67231316684047,
+      "gold_line": 96873.10189884431,
+      "slow_ema": 96790.49045932251
+    },
+    "indicators_at_exit": {
+      "cci": -79.17316126694281,
+      "rsi": 44.71701276727017,
+      "macd": -179.01826174239977,
+      "gold_line": 96447.36113930658,
+      "slow_ema": 96723.78746233566
+    },
+    "market_context": {
+      "volatility": 1.2038585879653774,
+      "trend_strength": 63.71739018129463,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-22 00:00:00",
+    "exit_time": "2025-02-22 12:00:00",
+    "direction": "LONG",
+    "entry_price": 96358.155,
+    "exit_price": 96570.72,
+    "pnl": 0.3523051138090583,
+    "pnl_pct": 0.0705988688762278,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -45.04929860871642,
+      "rsi": 46.616155858082855,
+      "macd": 132.65434239557362,
+      "gold_line": 96574.9626083739,
+      "slow_ema": 96822.95162350882
+    },
+    "indicators_at_exit": {
+      "cci": -25.301781687002745,
+      "rsi": 48.852375056395424,
+      "macd": 26.633289343779325,
+      "gold_line": 96595.25672340876,
+      "slow_ema": 96760.52353387824
+    },
+    "market_context": {
+      "volatility": 1.1317604633735339,
+      "trend_strength": 233.9324032540834,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-23 00:00:00",
+    "exit_time": "2025-02-23 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 96372.48965,
+    "exit_price": 95835.2925,
+    "pnl": 2.0331819441199537,
+    "pnl_pct": 0.4074175285405291,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -58.57135698060089,
+      "rsi": 47.202369178758545,
+      "macd": -30.223047417981434,
+      "gold_line": 96551.72505225628,
+      "slow_ema": 96712.28983472272
+    },
+    "indicators_at_exit": {
+      "cci": -111.75392232880466,
+      "rsi": 39.13898633585257,
+      "macd": -165.66705387135153,
+      "gold_line": 96132.75581128735,
+      "slow_ema": 96564.4270419927
+    },
+    "market_context": {
+      "volatility": 1.0345315314088273,
+      "trend_strength": 146.8998992997432,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-24 00:00:00",
+    "exit_time": "2025-02-24 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 95398.87670000001,
+    "exit_price": 94285.48199999999,
+    "pnl": 5.0767543217373134,
+    "pnl_pct": 1.0170941404281952,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -84.54166595403656,
+      "rsi": 41.285810292977565,
+      "macd": -245.14411108891363,
+      "gold_line": 95914.09765523806,
+      "slow_ema": 96410.52305701042
+    },
+    "indicators_at_exit": {
+      "cci": -182.36120552912047,
+      "rsi": 35.23279005810649,
+      "macd": -371.74011287189205,
+      "gold_line": 95444.15789353142,
+      "slow_ema": 96185.59199135232
+    },
+    "market_context": {
+      "volatility": 0.9995570945401856,
+      "trend_strength": 170.7911080278702,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-26 12:00:00",
+    "exit_time": "2025-02-26 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 87456.15005,
+    "exit_price": 83615.99999999999,
+    "pnl": 21.179137722676323,
+    "pnl_pct": 4.240943401698496,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -98.78725928817622,
+      "rsi": 25.24566421364449,
+      "macd": -2199.112893347061,
+      "gold_line": 88016.15611695757,
+      "slow_ema": 91912.66088796244
+    },
+    "indicators_at_exit": {
+      "cci": -128.690643280347,
+      "rsi": 17.925895558470685,
+      "macd": -2510.4485304473637,
+      "gold_line": 87000.13367017455,
+      "slow_ema": 91309.40452589115
+    },
+    "market_context": {
+      "volatility": 1.8052645757504502,
+      "trend_strength": 413.691280939875,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-02-27 12:00:00",
+    "exit_time": "2025-02-27 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 85437.26000000001,
+    "exit_price": 83968.65449999999,
+    "pnl": 7.851794287816982,
+    "pnl_pct": 1.5689286032815417,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -81.53218923619143,
+      "rsi": 32.0640539820229,
+      "macd": -2462.485136158837,
+      "gold_line": 85771.98857019279,
+      "slow_ema": 89487.87917004102
+    },
+    "indicators_at_exit": {
+      "cci": -105.05039944460229,
+      "rsi": 28.580482066555902,
+      "macd": -2515.8208039895253,
+      "gold_line": 85304.57314211567,
+      "slow_ema": 89086.56960188983
+    },
+    "market_context": {
+      "volatility": 2.1263618579076384,
+      "trend_strength": 28.097393085151907,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-01 08:00:00",
+    "exit_time": "2025-03-01 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 84546.9054,
+    "exit_price": 85482.82005,
+    "pnl": -6.29554826880515,
+    "pnl_pct": -1.2569768261441199,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 8.067422881355489,
+      "rsi": 44.08119975722546,
+      "macd": -1762.428330817027,
+      "gold_line": 84678.52506117824,
+      "slow_ema": 86075.12415431357
+    },
+    "indicators_at_exit": {
+      "cci": 49.31555027188375,
+      "rsi": 47.53659509205415,
+      "macd": -1394.2707648847427,
+      "gold_line": 84832.71302202417,
+      "slow_ema": 85937.04114738818
+    },
+    "market_context": {
+      "volatility": 2.707698141739065,
+      "trend_strength": 818.5239934661058,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-03-07 08:00:00",
+    "exit_time": "2025-03-07 12:00:00",
+    "direction": "LONG",
+    "entry_price": 88991.0733,
+    "exit_price": 90663.405,
+    "pnl": 8.655291732457554,
+    "pnl_pct": 1.7292128670730336,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 21.68291688110512,
+      "rsi": 51.08056614298669,
+      "macd": 409.73746835879865,
+      "gold_line": 88663.11008303172,
+      "slow_ema": 88594.79376224265
+    },
+    "indicators_at_exit": {
+      "cci": 26.09697144982021,
+      "rsi": 49.625313711586266,
+      "macd": 334.3447372073133,
+      "gold_line": 89016.38604981903,
+      "slow_ema": 88583.32015022468
+    },
+    "market_context": {
+      "volatility": 3.232338194261488,
+      "trend_strength": 365.4437796334387,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-10 12:00:00",
+    "exit_time": "2025-03-10 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 79970.9945,
+    "exit_price": 77790.1155,
+    "pnl": 12.910342067354343,
+    "pnl_pct": 2.5770875067084487,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -136.2038588829727,
+      "rsi": 32.528005841997626,
+      "macd": -1696.2756214781111,
+      "gold_line": 82050.7416652281,
+      "slow_ema": 84991.67454057053
+    },
+    "indicators_at_exit": {
+      "cci": -169.45403785315733,
+      "rsi": 30.44321746754099,
+      "macd": -1911.7229251138779,
+      "gold_line": 80753.46499913686,
+      "slow_ema": 84549.291241269
+    },
+    "market_context": {
+      "volatility": 2.631291432283592,
+      "trend_strength": 528.6388979328071,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-12 00:00:00",
+    "exit_time": "2025-03-12 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 82057.15090000001,
+    "exit_price": 81651.32549999999,
+    "pnl": 1.7283756913258175,
+    "pnl_pct": 0.34456433174797935,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 13.21560316575983,
+      "rsi": 45.81803414323081,
+      "macd": -1199.045017321012,
+      "gold_line": 82247.8971577839,
+      "slow_ema": 83102.04178185068
+    },
+    "indicators_at_exit": {
+      "cci": -0.34914635097216395,
+      "rsi": 47.14003482548611,
+      "macd": -1068.6892878522922,
+      "gold_line": 82105.39829467033,
+      "slow_ema": 83051.79424245433
+    },
+    "market_context": {
+      "volatility": 2.3394889253131472,
+      "trend_strength": 611.2178228856403,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-12 12:00:00",
+    "exit_time": "2025-03-12 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 81605.77670000002,
+    "exit_price": 82910.2344,
+    "pnl": -8.772129688296197,
+    "pnl_pct": -1.7484869610339535,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 26.224091431628832,
+      "rsi": 44.48284037890631,
+      "macd": -881.0635946035036,
+      "gold_line": 82376.56338608133,
+      "slow_ema": 82943.46063310555
+    },
+    "indicators_at_exit": {
+      "cci": 52.81984785120582,
+      "rsi": 49.457787889938544,
+      "macd": -751.4711832598259,
+      "gold_line": 82355.59803164878,
+      "slow_ema": 82937.93021583848
+    },
+    "market_context": {
+      "volatility": 2.295427631790653,
+      "trend_strength": 508.93058606494105,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-03-13 04:00:00",
+    "exit_time": "2025-03-13 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 83086.63590000001,
+    "exit_price": 82769.48849999999,
+    "pnl": 1.161453206420649,
+    "pnl_pct": 0.23170687327107942,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 79.99574076275694,
+      "rsi": 50.16730394012622,
+      "macd": -369.1761793007172,
+      "gold_line": 83190.64837483614,
+      "slow_ema": 83039.21913440412
+    },
+    "indicators_at_exit": {
+      "cci": 59.63234827030899,
+      "rsi": 49.273713323221074,
+      "macd": -321.547182380702,
+      "gold_line": 83083.02902490168,
+      "slow_ema": 83030.70660592974
+    },
+    "market_context": {
+      "volatility": 2.2057949238039978,
+      "trend_strength": 403.41163327920526,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-15 12:00:00",
+    "exit_time": "2025-03-16 08:00:00",
+    "direction": "LONG",
+    "entry_price": 84341.64975,
+    "exit_price": 82305.42670000001,
+    "pnl": -12.85506965954502,
+    "pnl_pct": -2.564255656648436,
+    "duration_candles": 5,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 85.47171981235186,
+      "rsi": 55.58848296059192,
+      "macd": 329.2654813322879,
+      "gold_line": 84063.60470813309,
+      "slow_ema": 83243.45628669072
+    },
+    "indicators_at_exit": {
+      "cci": -17.462308262159254,
+      "rsi": 43.52713071756683,
+      "macd": 242.85058364842553,
+      "gold_line": 83809.22231810442,
+      "slow_ema": 83429.76319700964
+    },
+    "market_context": {
+      "volatility": 1.6372382101993266,
+      "trend_strength": 73.10262537779477,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-03-17 00:00:00",
+    "exit_time": "2025-03-17 16:00:00",
+    "direction": "LONG",
+    "entry_price": 83672.01509999999,
+    "exit_price": 84304.8575,
+    "pnl": 3.035777912887439,
+    "pnl_pct": 0.6063369894267179,
+    "duration_candles": 4,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -15.360574386669606,
+      "rsi": 51.62196401556157,
+      "macd": 62.632390592072625,
+      "gold_line": 83168.77649242633,
+      "slow_ema": 83350.51167868472
+    },
+    "indicators_at_exit": {
+      "cci": 40.64884676640944,
+      "rsi": 56.62705464088139,
+      "macd": 139.09906435878656,
+      "gold_line": 83517.54735341846,
+      "slow_ema": 83458.55649806136
+    },
+    "market_context": {
+      "volatility": 1.3961891857961413,
+      "trend_strength": 26.317170236191785,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-23 00:00:00",
+    "exit_time": "2025-03-23 08:00:00",
+    "direction": "LONG",
+    "entry_price": 84240.69930000001,
+    "exit_price": 84565.05,
+    "pnl": 1.177085758227961,
+    "pnl_pct": 0.23502849892652228,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -47.35964405343118,
+      "rsi": 51.265981167749196,
+      "macd": 32.69417395850178,
+      "gold_line": 84032.85680718163,
+      "slow_ema": 84090.11751223066
+    },
+    "indicators_at_exit": {
+      "cci": 49.047455217872,
+      "rsi": 55.784470907292544,
+      "macd": 75.32074413110968,
+      "gold_line": 84291.18845058538,
+      "slow_ema": 84139.91720870255
+    },
+    "market_context": {
+      "volatility": 1.133642433351294,
+      "trend_strength": 11.597809924761854,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-25 08:00:00",
+    "exit_time": "2025-03-25 12:00:00",
+    "direction": "LONG",
+    "entry_price": 87377.0667,
+    "exit_price": 87759.0,
+    "pnl": 1.4380894426276398,
+    "pnl_pct": 0.2871093176099997,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 67.86013986476364,
+      "rsi": 62.66031609701986,
+      "macd": 823.8314975369576,
+      "gold_line": 86978.5063163112,
+      "slow_ema": 85808.99317245751
+    },
+    "indicators_at_exit": {
+      "cci": 85.00547470750092,
+      "rsi": 64.91374401738067,
+      "macd": 850.4266266087361,
+      "gold_line": 87201.66378978672,
+      "slow_ema": 85951.37886338659
+    },
+    "market_context": {
+      "volatility": 0.9493011988133462,
+      "trend_strength": 30.482432028862377,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-26 04:00:00",
+    "exit_time": "2025-03-26 12:00:00",
+    "direction": "LONG",
+    "entry_price": 88147.45169999999,
+    "exit_price": 86643.15675000001,
+    "pnl": -9.300610984401482,
+    "pnl_pct": -1.856566577919554,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 71.5456642182775,
+      "rsi": 63.52163464552399,
+      "macd": 817.8719020781282,
+      "gold_line": 87576.27082715636,
+      "slow_ema": 86404.32757899821
+    },
+    "indicators_at_exit": {
+      "cci": 7.5011069252491716,
+      "rsi": 51.47889818701278,
+      "macd": 701.4064942214463,
+      "gold_line": 87518.9574977763,
+      "slow_ema": 86529.1505306912
+    },
+    "market_context": {
+      "volatility": 0.9966834512871109,
+      "trend_strength": 116.00208738077424,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-03-27 00:00:00",
+    "exit_time": "2025-03-28 00:00:00",
+    "direction": "LONG",
+    "entry_price": 87670.51335,
+    "exit_price": 86701.12775,
+    "pnl": -6.284757628113403,
+    "pnl_pct": -1.2557145247113968,
+    "duration_candles": 6,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 18.202902767005114,
+      "rsi": 57.78443833109833,
+      "macd": 532.4184948534821,
+      "gold_line": 87101.91161951968,
+      "slow_ema": 86632.52734044862
+    },
+    "indicators_at_exit": {
+      "cci": -44.558676741056175,
+      "rsi": 50.03655655431179,
+      "macd": 284.1689892739232,
+      "gold_line": 87107.78940612031,
+      "slow_ema": 86770.39114594868
+    },
+    "market_context": {
+      "volatility": 1.1450139970449629,
+      "trend_strength": 158.4410756165081,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-03-29 08:00:00",
+    "exit_time": "2025-03-29 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 82203.8775,
+    "exit_price": 82010.91449999998,
+    "pnl": 0.4238366067203765,
+    "pnl_pct": 0.0847371022735733,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -156.83398395611923,
+      "rsi": 27.420320555677307,
+      "macd": -823.3230250286288,
+      "gold_line": 83687.1858032475,
+      "slow_ema": 85468.73252308815
+    },
+    "indicators_at_exit": {
+      "cci": -129.21098088595338,
+      "rsi": 32.23678437149421,
+      "macd": -998.9068687498802,
+      "gold_line": 82787.16288916909,
+      "slow_ema": 85053.24503008244
+    },
+    "market_context": {
+      "volatility": 1.273036280252682,
+      "trend_strength": 435.0254820781055,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-03-30 12:00:00",
+    "exit_time": "2025-03-30 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 82651.55355,
+    "exit_price": 82395.72899999999,
+    "pnl": 0.7979270910688037,
+    "pnl_pct": 0.15952176820880196,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -71.33973662222847,
+      "rsi": 34.10038754481701,
+      "macd": -966.7622774391639,
+      "gold_line": 82958.63135426179,
+      "slow_ema": 84362.66826279512
+    },
+    "indicators_at_exit": {
+      "cci": -82.53901072771914,
+      "rsi": 32.99260481948663,
+      "macd": -965.6612756629474,
+      "gold_line": 82746.33881255706,
+      "slow_ema": 84225.5817248103
+    },
+    "market_context": {
+      "volatility": 1.1786810807316894,
+      "trend_strength": 5.729639279814592,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-02 12:00:00",
+    "exit_time": "2025-04-02 16:00:00",
+    "direction": "LONG",
+    "entry_price": 86742.64964999999,
+    "exit_price": 86841.61,
+    "pnl": -0.17966099081044548,
+    "pnl_pct": -0.035915002136427725,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 165.41060237845372,
+      "rsi": 67.07718545805042,
+      "macd": 345.20169614464976,
+      "gold_line": 85122.3032322254,
+      "slow_ema": 84131.3581589852
+    },
+    "indicators_at_exit": {
+      "cci": 166.39317760904078,
+      "rsi": 67.74125747259947,
+      "macd": 509.27656781587575,
+      "gold_line": 85753.90193933524,
+      "slow_ema": 84333.0279249863
+    },
+    "market_context": {
+      "volatility": 1.2661607596204663,
+      "trend_strength": 463.4528600383783,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-04-05 12:00:00",
+    "exit_time": "2025-04-05 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 82538.21025,
+    "exit_price": 83538.44834999999,
+    "pnl": -6.812380640318956,
+    "pnl_pct": -1.3618485450197748,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -64.06404375619975,
+      "rsi": 44.46692097145165,
+      "macd": -170.59083548952185,
+      "gold_line": 83337.00875516866,
+      "slow_ema": 83481.86350676052
+    },
+    "indicators_at_exit": {
+      "cci": -6.139745818332618,
+      "rsi": 50.28947031635793,
+      "macd": -161.24566067999694,
+      "gold_line": 83172.98715186071,
+      "slow_ema": 83438.09532472609
+    },
+    "market_context": {
+      "volatility": 1.7042430020188433,
+      "trend_strength": 11.55757026275549,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-04-06 04:00:00",
+    "exit_time": "2025-04-06 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 82947.40555,
+    "exit_price": 82570.49849999999,
+    "pnl": 1.5216286181869438,
+    "pnl_pct": 0.30439281373642546,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 3.013286610212743,
+      "rsi": 47.13681211701075,
+      "macd": -158.93672176646942,
+      "gold_line": 83267.81937466985,
+      "slow_ema": 83396.29654040303
+    },
+    "indicators_at_exit": {
+      "cci": -84.19837638073967,
+      "rsi": 44.09623878307905,
+      "macd": -220.68425611770363,
+      "gold_line": 82887.17097488114,
+      "slow_ema": 83290.38921502317
+    },
+    "market_context": {
+      "volatility": 1.5988159402847364,
+      "trend_strength": 58.24267071535803,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-08 12:00:00",
+    "exit_time": "2025-04-08 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 78416.772,
+    "exit_price": 76697.6805,
+    "pnl": 10.210551974794699,
+    "pnl_pct": 2.042249765139523,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -43.055534479453385,
+      "rsi": 41.27689916451322,
+      "macd": -1114.8213178030273,
+      "gold_line": 79306.56031484544,
+      "slow_ema": 80433.28146003123
+    },
+    "indicators_at_exit": {
+      "cci": -91.22425697860061,
+      "rsi": 36.24241484193998,
+      "macd": -1230.9430548956443,
+      "gold_line": 78544.41618890727,
+      "slow_ema": 80166.19394447336
+    },
+    "market_context": {
+      "volatility": 2.254593401329731,
+      "trend_strength": 160.12765739013003,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-10 00:00:00",
+    "exit_time": "2025-04-10 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 81714.92210000001,
+    "exit_price": 81661.7775,
+    "pnl": -0.42522181366066436,
+    "pnl_pct": -0.08496340859876537,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 152.99562223713696,
+      "rsi": 56.216387699147084,
+      "macd": -254.66921363849542,
+      "gold_line": 80836.12419767148,
+      "slow_ema": 79662.38846702497
+    },
+    "indicators_at_exit": {
+      "cci": 121.17681309584464,
+      "rsi": 55.54702230771103,
+      "macd": -64.32032343969331,
+      "gold_line": 81215.25451860289,
+      "slow_ema": 79802.75969168979
+    },
+    "market_context": {
+      "volatility": 2.4276399198601246,
+      "trend_strength": 931.2868757261635,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-04-11 00:00:00",
+    "exit_time": "2025-04-11 04:00:00",
+    "direction": "LONG",
+    "entry_price": 80846.6031,
+    "exit_price": 80996.98,
+    "pnl": 0.18017758339197523,
+    "pnl_pct": 0.0360027437565932,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 39.51111155365928,
+      "rsi": 52.943795105391864,
+      "macd": 40.501279867603444,
+      "gold_line": 79999.89863936655,
+      "slow_ema": 79895.29822428692
+    },
+    "indicators_at_exit": {
+      "cci": 67.66825886374728,
+      "rsi": 54.20722251084541,
+      "macd": 140.10407362006663,
+      "gold_line": 80377.05918361993,
+      "slow_ema": 79993.5724298953
+    },
+    "market_context": {
+      "volatility": 2.665369809493324,
+      "trend_strength": 209.18791990677872,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-12 04:00:00",
+    "exit_time": "2025-04-12 12:00:00",
+    "direction": "LONG",
+    "entry_price": 83726.6424,
+    "exit_price": 84959.468,
+    "pnl": 6.6183442902834,
+    "pnl_pct": 1.3224412261872769,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 92.78548693667848,
+      "rsi": 60.23513265788989,
+      "macd": 912.53913225008,
+      "gold_line": 83069.02445727096,
+      "slow_ema": 81152.32063706008
+    },
+    "indicators_at_exit": {
+      "cci": 125.46315998975207,
+      "rsi": 63.85857164684314,
+      "macd": 1101.9294072418998,
+      "gold_line": 83739.89680461756,
+      "slow_ema": 81595.39149267839
+    },
+    "market_context": {
+      "volatility": 2.179906445823894,
+      "trend_strength": 428.2851652217149,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-14 00:00:00",
+    "exit_time": "2025-04-14 04:00:00",
+    "direction": "LONG",
+    "entry_price": 84572.36505000001,
+    "exit_price": 84647.834,
+    "pnl": -0.30430338733639734,
+    "pnl_pct": -0.060764054008213005,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 65.04275242234971,
+      "rsi": 58.83815294000165,
+      "macd": 965.997076738684,
+      "gold_line": 84255.4951248923,
+      "slow_ema": 83000.1925911925
+    },
+    "indicators_at_exit": {
+      "cci": 63.33087465719507,
+      "rsi": 58.9422093484774,
+      "macd": 941.2368639259221,
+      "gold_line": 84401.87707493539,
+      "slow_ema": 83115.20054740047
+    },
+    "market_context": {
+      "volatility": 1.921399015368698,
+      "trend_strength": 206.30480437661117,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-04-15 00:00:00",
+    "exit_time": "2025-04-15 04:00:00",
+    "direction": "LONG",
+    "entry_price": 85409.98365,
+    "exit_price": 85443.9335,
+    "pnl": -0.5521134173380079,
+    "pnl_pct": -0.11025072415523814,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 83.88630974475835,
+      "rsi": 60.71879256462469,
+      "macd": 834.0102766246564,
+      "gold_line": 84690.13104934698,
+      "slow_ema": 83644.19634814748
+    },
+    "indicators_at_exit": {
+      "cci": 145.80613167758924,
+      "rsi": 62.28084733310452,
+      "macd": 870.5343430467037,
+      "gold_line": 85013.93862960818,
+      "slow_ema": 83797.25587791433
+    },
+    "market_context": {
+      "volatility": 1.600122894316721,
+      "trend_strength": 24.615172203866223,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-04-16 08:00:00",
+    "exit_time": "2025-04-16 12:00:00",
+    "direction": "LONG",
+    "entry_price": 84046.8024,
+    "exit_price": 84799.273,
+    "pnl": 3.732104005891322,
+    "pnl_pct": 0.7452994980330157,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -92.32453652572588,
+      "rsi": 50.96771956279444,
+      "macd": 280.9495882601623,
+      "gold_line": 83746.70181226179,
+      "slow_ema": 83901.2193875962
+    },
+    "indicators_at_exit": {
+      "cci": 9.594568368205831,
+      "rsi": 55.88163925812676,
+      "macd": 309.4161961839709,
+      "gold_line": 83984.44108735707,
+      "slow_ema": 83967.78832184833
+    },
+    "market_context": {
+      "volatility": 1.406389237094225,
+      "trend_strength": 262.85172140822885,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-17 04:00:00",
+    "exit_time": "2025-04-17 16:00:00",
+    "direction": "LONG",
+    "entry_price": 84680.61915,
+    "exit_price": 85028.52100000001,
+    "pnl": 1.306648876179911,
+    "pnl_pct": 0.2608399932501076,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 4.689549842375485,
+      "rsi": 54.64973474211254,
+      "macd": 223.03194389674172,
+      "gold_line": 84274.14148492148,
+      "slow_ema": 84036.52540173229
+    },
+    "indicators_at_exit": {
+      "cci": 59.91952219089889,
+      "rsi": 55.761312674057784,
+      "macd": 247.3748144627025,
+      "gold_line": 84541.99456074304,
+      "slow_ema": 84155.94927613002
+    },
+    "market_context": {
+      "volatility": 1.367533260848544,
+      "trend_strength": 2.4829704131342396,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-19 00:00:00",
+    "exit_time": "2025-04-19 12:00:00",
+    "direction": "LONG",
+    "entry_price": 84880.81919999998,
+    "exit_price": 85216.37700000001,
+    "pnl": 1.2291044688563826,
+    "pnl_pct": 0.2453281826950419,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 73.42161563628774,
+      "rsi": 55.636105197685225,
+      "macd": 187.97321233349794,
+      "gold_line": 84556.20304489737,
+      "slow_ema": 84369.94648153274
+    },
+    "indicators_at_exit": {
+      "cci": 160.66574425916468,
+      "rsi": 58.36911240086889,
+      "macd": 264.96504200312484,
+      "gold_line": 85107.69185769784,
+      "slow_ema": 84536.12959274242
+    },
+    "market_context": {
+      "volatility": 0.9749657467214718,
+      "trend_strength": 40.42386803383448,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-20 20:00:00",
+    "exit_time": "2025-04-21 00:00:00",
+    "direction": "LONG",
+    "entry_price": 85188.07274999999,
+    "exit_price": 87188.268,
+    "pnl": 11.013301086912529,
+    "pnl_pct": 2.1979757029718745,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 52.81492722377547,
+      "rsi": 56.80415962754921,
+      "macd": 116.94747709995136,
+      "gold_line": 84683.25075911259,
+      "slow_ema": 84629.9056547545
+    },
+    "indicators_at_exit": {
+      "cci": 329.82234449437954,
+      "rsi": 71.60369897060843,
+      "macd": 301.9670722665469,
+      "gold_line": 85356.45045546755,
+      "slow_ema": 84818.41634699491
+    },
+    "market_context": {
+      "volatility": 0.8728478107587669,
+      "trend_strength": 105.02305967562359,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-21 12:00:00",
+    "exit_time": "2025-04-22 00:00:00",
+    "direction": "LONG",
+    "entry_price": 88036.09605000001,
+    "exit_price": 88397.8895,
+    "pnl": 1.3090196817105693,
+    "pnl_pct": 0.2609603517567581,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 210.0225958014065,
+      "rsi": 72.2293445843088,
+      "macd": 688.0913857263076,
+      "gold_line": 86986.61569838099,
+      "slow_ema": 85364.1798619009
+    },
+    "indicators_at_exit": {
+      "cci": 132.600105684776,
+      "rsi": 69.35563415472211,
+      "macd": 859.3475316058611,
+      "gold_line": 87454.8097908503,
+      "slow_ema": 85839.37100758022
+    },
+    "market_context": {
+      "volatility": 0.9020352393511384,
+      "trend_strength": 349.82326237660243,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-24 12:00:00",
+    "exit_time": "2025-04-24 20:00:00",
+    "direction": "LONG",
+    "entry_price": 93206.58,
+    "exit_price": 93515.871,
+    "pnl": 0.9122273492441029,
+    "pnl_pct": 0.18183386838139262,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 56.206851634753086,
+      "rsi": 68.5088950884291,
+      "macd": 1821.7772972922394,
+      "gold_line": 92738.85689009866,
+      "slow_ema": 90442.94644784206
+    },
+    "indicators_at_exit": {
+      "cci": 66.49667660022646,
+      "rsi": 71.55381525246827,
+      "macd": 1773.235440306773,
+      "gold_line": 93131.43648043551,
+      "slow_ema": 90913.39990384264
+    },
+    "market_context": {
+      "volatility": 1.3023224458152145,
+      "trend_strength": 229.62645704083366,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-26 20:00:00",
+    "exit_time": "2025-04-27 00:00:00",
+    "direction": "LONG",
+    "entry_price": 94625.58915,
+    "exit_price": 94803.003,
+    "pnl": 0.1880993562572636,
+    "pnl_pct": 0.0374903518103984,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 63.086518367906635,
+      "rsi": 64.47178054766529,
+      "macd": 1169.9977428551938,
+      "gold_line": 94343.52754502573,
+      "slow_ema": 93035.23010208237
+    },
+    "indicators_at_exit": {
+      "cci": 53.77136013329994,
+      "rsi": 59.643822185324304,
+      "macd": 1076.5324409392779,
+      "gold_line": 94453.81652701544,
+      "slow_ema": 93115.58342785404
+    },
+    "market_context": {
+      "volatility": 1.2432178778863845,
+      "trend_strength": 322.564004313778,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-04-28 20:00:00",
+    "exit_time": "2025-04-30 12:00:00",
+    "direction": "LONG",
+    "entry_price": 95017.18484999999,
+    "exit_price": 93904.12445000002,
+    "pnl": -6.6301033929857525,
+    "pnl_pct": -1.321430622531197,
+    "duration_candles": 10,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 92.98762353859439,
+      "rsi": 58.99434144020784,
+      "macd": 577.9835474866413,
+      "gold_line": 94457.19145937944,
+      "slow_ema": 93822.81927842404
+    },
+    "indicators_at_exit": {
+      "cci": -82.79954392457523,
+      "rsi": 47.8583124274557,
+      "macd": 321.7348714079999,
+      "gold_line": 94466.55316916069,
+      "slow_ema": 94304.22097762862
+    },
+    "market_context": {
+      "volatility": 1.0121861266126746,
+      "trend_strength": 147.94270703701477,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-01 04:00:00",
+    "exit_time": "2025-05-01 08:00:00",
+    "direction": "LONG",
+    "entry_price": 95026.0893,
+    "exit_price": 95884.17,
+    "pnl": 3.7755559009095787,
+    "pnl_pct": 0.7529948578553061,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 73.82968085713192,
+      "rsi": 55.1371539986155,
+      "macd": 229.76089123592828,
+      "gold_line": 94596.09361072323,
+      "slow_ema": 94360.12598197388
+    },
+    "indicators_at_exit": {
+      "cci": 233.41428015673165,
+      "rsi": 62.08693131087693,
+      "macd": 336.25372422164946,
+      "gold_line": 95003.85616643394,
+      "slow_ema": 94491.83516849433
+    },
+    "market_context": {
+      "volatility": 1.0163805854488652,
+      "trend_strength": 21.264656088745028,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-02 12:00:00",
+    "exit_time": "2025-05-03 00:00:00",
+    "direction": "LONG",
+    "entry_price": 97311.73155,
+    "exit_price": 96244.75355,
+    "pnl": -6.252137150932627,
+    "pnl_pct": -1.2464536166451585,
+    "duration_candles": 3,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 124.39073734332128,
+      "rsi": 63.972458197221165,
+      "macd": 747.1715827609296,
+      "gold_line": 96869.76644910069,
+      "slow_ema": 95439.63173377574
+    },
+    "indicators_at_exit": {
+      "cci": 47.77886580995644,
+      "rsi": 55.24691072035525,
+      "macd": 672.0581369705178,
+      "gold_line": 96778.13675300575,
+      "slow_ema": 95687.59940254259
+    },
+    "market_context": {
+      "volatility": 1.0738624896885798,
+      "trend_strength": 0.6557385815330008,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-07 20:00:00",
+    "exit_time": "2025-05-08 00:00:00",
+    "direction": "LONG",
+    "entry_price": 97036.59405,
+    "exit_price": 98691.96049999999,
+    "pnl": 7.799537085681799,
+    "pnl_pct": 1.5559197782096792,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 102.27528504001069,
+      "rsi": 60.129508464269264,
+      "macd": 403.4922227294737,
+      "gold_line": 96595.45484348168,
+      "slow_ema": 95664.46707914972
+    },
+    "indicators_at_exit": {
+      "cci": 166.02455169089356,
+      "rsi": 69.80089266277989,
+      "macd": 615.9387804400612,
+      "gold_line": 97161.27290608901,
+      "slow_ema": 95919.38062884234
+    },
+    "market_context": {
+      "volatility": 0.9653252719147964,
+      "trend_strength": 425.4060812069672,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-10 20:00:00",
+    "exit_time": "2025-05-11 04:00:00",
+    "direction": "LONG",
+    "entry_price": 104834.69115,
+    "exit_price": 103302.62285000001,
+    "pnl": -8.084000814147114,
+    "pnl_pct": -1.6114134721948714,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 85.45641578080713,
+      "rsi": 74.56104412583268,
+      "macd": 1846.577969977574,
+      "gold_line": 103601.04020565563,
+      "slow_ema": 101037.33088440457
+    },
+    "indicators_at_exit": {
+      "cci": 61.36660338392305,
+      "rsi": 62.76739868084214,
+      "macd": 1687.0609741070512,
+      "gold_line": 103813.45447403603,
+      "slow_ema": 101409.54595713697
+    },
+    "market_context": {
+      "volatility": 1.2156920418405417,
+      "trend_strength": 205.2124951406504,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-13 08:00:00",
+    "exit_time": "2025-05-13 16:00:00",
+    "direction": "LONG",
+    "entry_price": 103735.34174999999,
+    "exit_price": 104425.15049999999,
+    "pnl": 2.5813750571363063,
+    "pnl_pct": 0.514969853439555,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -20.749618081989514,
+      "rsi": 56.38931669354941,
+      "macd": 500.0721466292889,
+      "gold_line": 102706.71878013905,
+      "slow_ema": 102557.05196041748
+    },
+    "indicators_at_exit": {
+      "cci": 79.37050839122196,
+      "rsi": 61.08525470995599,
+      "macd": 599.051996650931,
+      "gold_line": 103462.85476085007,
+      "slow_ema": 102793.05579596835
+    },
+    "market_context": {
+      "volatility": 1.3069559359486065,
+      "trend_strength": 123.93091870341357,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-15 12:00:00",
+    "exit_time": "2025-05-15 16:00:00",
+    "direction": "LONG",
+    "entry_price": 103243.3959,
+    "exit_price": 103682.8805,
+    "pnl": 1.3822401155656439,
+    "pnl_pct": 0.2756781716340232,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -55.23261995825663,
+      "rsi": 51.63081056964149,
+      "macd": 71.87103823071811,
+      "gold_line": 102417.80032745718,
+      "slow_ema": 102962.0550245105
+    },
+    "indicators_at_exit": {
+      "cci": 22.122328256761172,
+      "rsi": 51.0404828078885,
+      "macd": 71.81811301490234,
+      "gold_line": 102791.4601964743,
+      "slow_ema": 102972.27317084305
+    },
+    "market_context": {
+      "volatility": 1.3067927578402843,
+      "trend_strength": 199.41567428034455,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-16 12:00:00",
+    "exit_time": "2025-05-17 08:00:00",
+    "direction": "LONG",
+    "entry_price": 104189.0685,
+    "exit_price": 102880.9338,
+    "pnl": -7.048293247077734,
+    "pnl_pct": -1.4055392987317044,
+    "duration_candles": 5,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 74.73880748016467,
+      "rsi": 57.03914428298979,
+      "macd": 248.78503102420655,
+      "gold_line": 103622.19389687786,
+      "slow_ema": 103246.03438910114
+    },
+    "indicators_at_exit": {
+      "cci": -42.865641055924904,
+      "rsi": 46.921118229617875,
+      "macd": 124.76706284716784,
+      "gold_line": 103319.76246942123,
+      "slow_ema": 103294.7837938364
+    },
+    "market_context": {
+      "volatility": 1.1289836824945307,
+      "trend_strength": 80.42582169278953,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-18 12:00:00",
+    "exit_time": "2025-05-18 16:00:00",
+    "direction": "LONG",
+    "entry_price": 105537.14219999999,
+    "exit_price": 103790.37885000001,
+    "pnl": -9.04567646087388,
+    "pnl_pct": -1.8051171593122595,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 229.15780429445581,
+      "rsi": 67.33823458305767,
+      "macd": 255.2405506997602,
+      "gold_line": 104005.75360922399,
+      "slow_ema": 103483.18239917472
+    },
+    "indicators_at_exit": {
+      "cci": 152.20726918955523,
+      "rsi": 52.53137916129479,
+      "macd": 244.62033156961843,
+      "gold_line": 104356.9321655344,
+      "slow_ema": 103509.78370293956
+    },
+    "market_context": {
+      "volatility": 0.944040466489412,
+      "trend_strength": 136.77883728121782,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-19 12:00:00",
+    "exit_time": "2025-05-19 16:00:00",
+    "direction": "LONG",
+    "entry_price": 104802.07484999999,
+    "exit_price": 104972.5,
+    "pnl": 0.0631643474045755,
+    "pnl_pct": 0.01261619843303135,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 26.940020792522347,
+      "rsi": 54.871108210621486,
+      "macd": 225.4698717152787,
+      "gold_line": 103613.22848519195,
+      "slow_ema": 103701.17544872368
+    },
+    "indicators_at_exit": {
+      "cci": 140.73738015304147,
+      "rsi": 57.626735140881735,
+      "macd": 331.22290408881963,
+      "gold_line": 104160.45709111517,
+      "slow_ema": 103831.58467474414
+    },
+    "market_context": {
+      "volatility": 1.1489984831776214,
+      "trend_strength": 67.44055719309995,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-20 16:00:00",
+    "exit_time": "2025-05-21 04:00:00",
+    "direction": "LONG",
+    "entry_price": 107039.49299999999,
+    "exit_price": 107493.1335,
+    "pnl": 1.3708509875992858,
+    "pnl_pct": 0.2738066598465752,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 138.12280941807336,
+      "rsi": 63.20049165272631,
+      "macd": 637.6422572622541,
+      "gold_line": 105489.32633724308,
+      "slow_ema": 104504.65329848998
+    },
+    "indicators_at_exit": {
+      "cci": 136.3807995684686,
+      "rsi": 59.347585911169574,
+      "macd": 787.7040290180157,
+      "gold_line": 106618.61928884451,
+      "slow_ema": 104949.92564085282
+    },
+    "market_context": {
+      "volatility": 1.1957118530093174,
+      "trend_strength": 196.8439650568762,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-25 20:00:00",
+    "exit_time": "2025-05-26 00:00:00",
+    "direction": "LONG",
+    "entry_price": 109030.68809999998,
+    "exit_price": 109288.81,
+    "pnl": 0.43434745025156546,
+    "pnl_pct": 0.08674242958392636,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -18.849666892194715,
+      "rsi": 54.74590200761861,
+      "macd": 4.319953450351022,
+      "gold_line": 107709.3595597161,
+      "slow_ema": 108149.00349371423
+    },
+    "indicators_at_exit": {
+      "cci": 47.487496150680016,
+      "rsi": 57.6846699016022,
+      "macd": 119.39637706769281,
+      "gold_line": 108321.35573582967,
+      "slow_ema": 108256.47730899465
+    },
+    "market_context": {
+      "volatility": 1.4482890343269779,
+      "trend_strength": 27.258377533017978,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-05-27 12:00:00",
+    "exit_time": "2025-05-27 20:00:00",
+    "direction": "LONG",
+    "entry_price": 110142.84389999999,
+    "exit_price": 108809.568,
+    "pnl": -6.812745115028085,
+    "pnl_pct": -1.3604970716122877,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 89.00436852840423,
+      "rsi": 58.10585335498716,
+      "macd": 393.84992350982793,
+      "gold_line": 109438.63632703914,
+      "slow_ema": 108911.49107466794
+    },
+    "indicators_at_exit": {
+      "cci": 18.081564878226825,
+      "rsi": 49.48712002375936,
+      "macd": 333.870882106974,
+      "gold_line": 109453.7210777341,
+      "slow_ema": 108969.96971422149
+    },
+    "market_context": {
+      "volatility": 1.230608833039388,
+      "trend_strength": 27.481034725752465,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-05-29 12:00:00",
+    "exit_time": "2025-05-29 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 106911.61745,
+    "exit_price": 106127.99999999999,
+    "pnl": 2.9172013425926044,
+    "pnl_pct": 0.5829581842370861,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -119.8073304234302,
+      "rsi": 41.27840158078731,
+      "macd": -280.9421739069803,
+      "gold_line": 107760.5418833018,
+      "slow_ema": 108392.65295913808
+    },
+    "indicators_at_exit": {
+      "cci": -186.58036644046385,
+      "rsi": 35.73129191281626,
+      "macd": -453.0852094194852,
+      "gold_line": 107200.32512998108,
+      "slow_ema": 108192.67125846118
+    },
+    "market_context": {
+      "volatility": 1.1971602002909687,
+      "trend_strength": 276.2041831538744,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-01 00:00:00",
+    "exit_time": "2025-06-01 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 104280.93345000001,
+    "exit_price": 104215.18349999998,
+    "pnl": -0.4352324039768143,
+    "pnl_pct": -0.08694921226270753,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -66.13029685512713,
+      "rsi": 38.87912697816182,
+      "macd": -1030.6839558053762,
+      "gold_line": 104321.07018337626,
+      "slow_ema": 105779.08454751123
+    },
+    "indicators_at_exit": {
+      "cci": -67.15649265029803,
+      "rsi": 37.1855016842666,
+      "macd": -972.0844598427793,
+      "gold_line": 104238.81726601547,
+      "slow_ema": 105544.01624443692
+    },
+    "market_context": {
+      "volatility": 1.1246796104062535,
+      "trend_strength": 139.95035584636048,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-02 00:00:00",
+    "exit_time": "2025-06-02 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 104734.4066,
+    "exit_price": 104387.33999999998,
+    "pnl": 0.9078641815386645,
+    "pnl_pct": 0.181377826319799,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 41.21594639082817,
+      "rsi": 44.87102469490883,
+      "macd": -605.6641087786847,
+      "gold_line": 104933.48175767562,
+      "slow_ema": 105412.55735685273
+    },
+    "indicators_at_exit": {
+      "cci": 2.69837167226631,
+      "rsi": 40.876250444143615,
+      "macd": -550.8235054764809,
+      "gold_line": 104924.01343276323,
+      "slow_ema": 105302.84766534014
+    },
+    "market_context": {
+      "volatility": 1.1359263005539513,
+      "trend_strength": 227.3514509470681,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-08 08:00:00",
+    "exit_time": "2025-06-08 20:00:00",
+    "direction": "LONG",
+    "entry_price": 105687.0171,
+    "exit_price": 105909.591,
+    "pnl": 0.30333927091122764,
+    "pnl_pct": 0.06059720115802478,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 73.86427078421606,
+      "rsi": 57.02465316070302,
+      "macd": 235.26634913084854,
+      "gold_line": 105391.77369267208,
+      "slow_ema": 104852.71649232467
+    },
+    "indicators_at_exit": {
+      "cci": 82.3029500378539,
+      "rsi": 55.48468703451923,
+      "macd": 343.07370234039263,
+      "gold_line": 105847.53191761716,
+      "slow_ema": 105076.3260982865
+    },
+    "market_context": {
+      "volatility": 0.8781076071472271,
+      "trend_strength": 143.99299693310684,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-09 08:00:00",
+    "exit_time": "2025-06-09 16:00:00",
+    "direction": "LONG",
+    "entry_price": 107776.96154999999,
+    "exit_price": 108189.733,
+    "pnl": 1.1663271861158968,
+    "pnl_pct": 0.23298672004081955,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 174.78611220368603,
+      "rsi": 68.2502550631076,
+      "macd": 470.7031868282065,
+      "gold_line": 106022.62529420531,
+      "slow_ema": 105336.16014254568
+    },
+    "indicators_at_exit": {
+      "cci": 258.75859301494745,
+      "rsi": 71.18047553940079,
+      "macd": 729.4148583562928,
+      "gold_line": 107217.62110591392,
+      "slow_ema": 105726.25060231968
+    },
+    "market_context": {
+      "volatility": 0.911415447687171,
+      "trend_strength": 325.8383785389742,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-11 12:00:00",
+    "exit_time": "2025-06-11 20:00:00",
+    "direction": "LONG",
+    "entry_price": 109752.4488,
+    "exit_price": 108556.79445000002,
+    "pnl": -6.205187082272865,
+    "pnl_pct": -1.23941017997585,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 66.19648069677793,
+      "rsi": 63.623103685233765,
+      "macd": 1139.7181169564428,
+      "gold_line": 109560.33469918309,
+      "slow_ema": 107904.40187610142
+    },
+    "indicators_at_exit": {
+      "cci": 9.674203145306105,
+      "rsi": 54.82850561229811,
+      "macd": 921.2455313222308,
+      "gold_line": 109054.18049170592,
+      "slow_ema": 108011.15990749435
+    },
+    "market_context": {
+      "volatility": 0.8584236172300367,
+      "trend_strength": 243.56048851772448,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-14 04:00:00",
+    "exit_time": "2025-06-14 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 104963.49200000001,
+    "exit_price": 104806.42499999999,
+    "pnl": -0.001803007322886025,
+    "pnl_pct": -0.0003603519593035724,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -77.71704806704047,
+      "rsi": 39.90015535092567,
+      "macd": -657.9674996210961,
+      "gold_line": 105278.40326700662,
+      "slow_ema": 106455.3718519302
+    },
+    "indicators_at_exit": {
+      "cci": -74.29193367110702,
+      "rsi": 37.60335665306146,
+      "macd": -715.2309862672846,
+      "gold_line": 104865.50150567344,
+      "slow_ema": 106113.58045960522
+    },
+    "market_context": {
+      "volatility": 1.100160436412535,
+      "trend_strength": 74.82992168834608,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-15 08:00:00",
+    "exit_time": "2025-06-16 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 104880.7334,
+    "exit_price": 107067.507,
+    "pnl": -11.182784658458438,
+    "pnl_pct": -2.2350098288881726,
+    "duration_candles": 5,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -40.91866791178162,
+      "rsi": 41.32330416798833,
+      "macd": -563.1586448838934,
+      "gold_line": 105229.71875513528,
+      "slow_ema": 105888.75355539615
+    },
+    "indicators_at_exit": {
+      "cci": 271.67879209784775,
+      "rsi": 59.035862761239805,
+      "macd": -202.02006835391512,
+      "gold_line": 105787.63739439932,
+      "slow_ema": 105892.39996275783
+    },
+    "market_context": {
+      "volatility": 1.0155680565159708,
+      "trend_strength": 283.63810125221306,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-18 16:00:00",
+    "exit_time": "2025-06-18 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 103709.31940000001,
+    "exit_price": 104899.72365,
+    "pnl": -6.486373482488706,
+    "pnl_pct": -1.29782765607465,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -110.68776810287375,
+      "rsi": 38.09543727742506,
+      "macd": -469.16035364299023,
+      "gold_line": 104478.20610535132,
+      "slow_ema": 105532.25693260826
+    },
+    "indicators_at_exit": {
+      "cci": -72.33792221654181,
+      "rsi": 45.899539020270495,
+      "macd": -451.62227676638577,
+      "gold_line": 104424.38366321079,
+      "slow_ema": 105481.51938204469
+    },
+    "market_context": {
+      "volatility": 1.0610828000975363,
+      "trend_strength": 156.36767016027687,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-19 12:00:00",
+    "exit_time": "2025-06-20 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 103993.7771,
+    "exit_price": 105822.78494999999,
+    "pnl": -9.533576370649198,
+    "pnl_pct": -1.908766631046792,
+    "duration_candles": 4,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -69.60141670746654,
+      "rsi": 41.53212009026641,
+      "macd": -450.4673592103791,
+      "gold_line": 104616.28988275211,
+      "slow_ema": 105239.46059188359
+    },
+    "indicators_at_exit": {
+      "cci": 37.32077334332237,
+      "rsi": 54.44275076348674,
+      "macd": -295.7978616074106,
+      "gold_line": 104707.78652880467,
+      "slow_ema": 105130.94199940261
+    },
+    "market_context": {
+      "volatility": 1.0740516284248456,
+      "trend_strength": 122.27972046315944,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-06-20 12:00:00",
+    "exit_time": "2025-06-20 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 104114.21685000001,
+    "exit_price": 102771.29999999999,
+    "pnl": 5.68768977409565,
+    "pnl_pct": 1.1398496388200257,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -14.387694017207265,
+      "rsi": 43.77361355770524,
+      "macd": -239.90947667733417,
+      "gold_line": 105140.45915036969,
+      "slow_ema": 105113.86001320525
+    },
+    "indicators_at_exit": {
+      "cci": -272.1723842434413,
+      "rsi": 39.21716613288719,
+      "macd": -350.519643712003,
+      "gold_line": 104380.43549022182,
+      "slow_ema": 104976.87779000486
+    },
+    "market_context": {
+      "volatility": 1.1914505713154981,
+      "trend_strength": 10.490753161232647,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-21 16:00:00",
+    "exit_time": "2025-06-21 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 102149.6996,
+    "exit_price": 101303.99999999999,
+    "pnl": 3.3845646651603234,
+    "pnl_pct": 0.6779021899346063,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -160.63322174564354,
+      "rsi": 34.793790168586355,
+      "macd": -613.6424812159821,
+      "gold_line": 103313.9844206318,
+      "slow_ema": 104334.48896468047
+    },
+    "indicators_at_exit": {
+      "cci": -190.66033876783445,
+      "rsi": 34.23228132118459,
+      "macd": -698.770108068944,
+      "gold_line": 102718.07065237907,
+      "slow_ema": 104167.77867100043
+    },
+    "market_context": {
+      "volatility": 1.10608039073742,
+      "trend_strength": 216.68728590702005,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-27 12:00:00",
+    "exit_time": "2025-06-29 08:00:00",
+    "direction": "LONG",
+    "entry_price": 107321.93415,
+    "exit_price": 107964.465,
+    "pnl": 2.2409594868658083,
+    "pnl_pct": 0.44869481023511304,
+    "duration_candles": 11,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 17.618547487039162,
+      "rsi": 59.73463026121183,
+      "macd": 803.7838452183059,
+      "gold_line": 106974.08587945637,
+      "slow_ema": 106180.06084218876
+    },
+    "indicators_at_exit": {
+      "cci": 293.20256470616727,
+      "rsi": 66.86840123629344,
+      "macd": 516.5781519302982,
+      "gold_line": 107523.02567378305,
+      "slow_ema": 106864.61761615465
+    },
+    "market_context": {
+      "volatility": 0.7415691370880488,
+      "trend_strength": 35.775746566298494,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-06-29 20:00:00",
+    "exit_time": "2025-06-30 20:00:00",
+    "direction": "LONG",
+    "entry_price": 108368.9574,
+    "exit_price": 107027.6594,
+    "pnl": -6.932349031448144,
+    "pnl_pct": -1.3877142238705298,
+    "duration_candles": 6,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 191.25036577118522,
+      "rsi": 61.60526128748075,
+      "macd": 496.3969094818749,
+      "gold_line": 107692.04394553714,
+      "slow_ema": 107057.07735875712
+    },
+    "indicators_at_exit": {
+      "cci": -53.51950376125149,
+      "rsi": 48.531233977399744,
+      "macd": 297.78827627438295,
+      "gold_line": 107431.84466152298,
+      "slow_ema": 107260.65392724263
+    },
+    "market_context": {
+      "volatility": 0.7129822975461614,
+      "trend_strength": 143.94488969489208,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-03 04:00:00",
+    "exit_time": "2025-07-03 08:00:00",
+    "direction": "LONG",
+    "entry_price": 109296.72105,
+    "exit_price": 109705.11799999999,
+    "pnl": 1.116516552228618,
+    "pnl_pct": 0.22365892231402387,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 124.16657649443013,
+      "rsi": 62.48119902834425,
+      "macd": 472.8934366931353,
+      "gold_line": 108749.90258718195,
+      "slow_ema": 107553.5965072276
+    },
+    "indicators_at_exit": {
+      "cci": 152.8051407260114,
+      "rsi": 64.0977516631676,
+      "macd": 559.4856082492479,
+      "gold_line": 109149.64155230917,
+      "slow_ema": 107701.55972891445
+    },
+    "market_context": {
+      "volatility": 0.7611242607331183,
+      "trend_strength": 394.3609227627086,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-04 20:00:00",
+    "exit_time": "2025-07-06 12:00:00",
+    "direction": "LONG",
+    "entry_price": 108001.37369999998,
+    "exit_price": 108543.157,
+    "pnl": 1.755624893328522,
+    "pnl_pct": 0.35164482306026884,
+    "duration_candles": 10,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -21.058280600024876,
+      "rsi": 48.881750715596034,
+      "macd": 235.76193654992676,
+      "gold_line": 108075.78765863636,
+      "slow_ema": 108114.5708494646
+    },
+    "indicators_at_exit": {
+      "cci": 18.784934727520856,
+      "rsi": 58.61262832397149,
+      "macd": 87.91080109623726,
+      "gold_line": 108214.37785977393,
+      "slow_ema": 108138.27631491463
+    },
+    "market_context": {
+      "volatility": 0.7117980280482575,
+      "trend_strength": 1.2191789899160455,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-08 08:00:00",
+    "exit_time": "2025-07-09 12:00:00",
+    "direction": "LONG",
+    "entry_price": 108772.45905,
+    "exit_price": 109197.27,
+    "pnl": 1.2011836160023501,
+    "pnl_pct": 0.2405501022135797,
+    "duration_candles": 7,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 55.48441771417392,
+      "rsi": 54.27994601733467,
+      "macd": 68.98993761502788,
+      "gold_line": 108281.50425998388,
+      "slow_ema": 108341.78375667984
+    },
+    "indicators_at_exit": {
+      "cci": 107.94935108209917,
+      "rsi": 55.854253560785374,
+      "macd": 148.95071001556062,
+      "gold_line": 108853.2165646923,
+      "slow_ema": 108499.36705764779
+    },
+    "market_context": {
+      "volatility": 0.6336305234662171,
+      "trend_strength": 62.78331855552905,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-13 00:00:00",
+    "exit_time": "2025-07-13 12:00:00",
+    "direction": "LONG",
+    "entry_price": 117765.4533,
+    "exit_price": 118793.44799999999,
+    "pnl": 3.6103104030651383,
+    "pnl_pct": 0.7229170322821623,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 53.676946240871466,
+      "rsi": 70.98931588240468,
+      "macd": 1999.857844897415,
+      "gold_line": 117407.63725597558,
+      "slow_ema": 114844.97161048748
+    },
+    "indicators_at_exit": {
+      "cci": 85.1588237573976,
+      "rsi": 74.62050868008684,
+      "macd": 1853.9754529515485,
+      "gold_line": 118075.76884729072,
+      "slow_ema": 115540.51112197667
+    },
+    "market_context": {
+      "volatility": 0.9815493903655536,
+      "trend_strength": 246.6413088289587,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-16 08:00:00",
+    "exit_time": "2025-07-16 12:00:00",
+    "direction": "LONG",
+    "entry_price": 118835.48805,
+    "exit_price": 119179.6075,
+    "pnl": 0.6973082840329283,
+    "pnl_pct": 0.1395763341799128,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 2.2436209853815012,
+      "rsi": 56.82983697216573,
+      "macd": 438.1329037260148,
+      "gold_line": 118015.69255295083,
+      "slow_ema": 117612.80863990948
+    },
+    "indicators_at_exit": {
+      "cci": 12.263952545986742,
+      "rsi": 58.185624373571834,
+      "macd": 486.7636196272506,
+      "gold_line": 118390.6955317705,
+      "slow_ema": 117720.55614806432
+    },
+    "market_context": {
+      "volatility": 1.1334980579626879,
+      "trend_strength": 138.17866419511847,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-19 00:00:00",
+    "exit_time": "2025-07-20 20:00:00",
+    "direction": "LONG",
+    "entry_price": 118408.7748,
+    "exit_price": 117231.7548,
+    "pnl": -5.715854434904049,
+    "pnl_pct": -1.1440310606102175,
+    "duration_candles": 11,
+    "exit_reason": "SIGNAL",
+    "indicators_at_entry": {
+      "cci": -46.126395730218285,
+      "rsi": 50.41435455929826,
+      "macd": 151.64498888744856,
+      "gold_line": 118033.46613197705,
+      "slow_ema": 118316.74497403367
+    },
+    "indicators_at_exit": {
+      "cci": -116.26150765993297,
+      "rsi": 42.87189047056522,
+      "macd": -77.11442208610242,
+      "gold_line": 117911.90610779302,
+      "slow_ema": 118153.39534604426
+    },
+    "market_context": {
+      "volatility": 1.0292061413380797,
+      "trend_strength": 65.63388803399478,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-20 20:00:00",
+    "exit_time": "2025-07-21 00:00:00",
+    "direction": "SHORT",
+    "entry_price": 117231.7548,
+    "exit_price": 117132.74999999999,
+    "pnl": -0.32730523196453204,
+    "pnl_pct": -0.06554779661115359,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -116.26150765993297,
+      "rsi": 42.87189047056522,
+      "macd": -77.11442208610242,
+      "gold_line": 117911.90610779302,
+      "slow_ema": 118153.39534604426
+    },
+    "indicators_at_exit": {
+      "cci": -52.78949258384545,
+      "rsi": 52.00013505221867,
+      "macd": -43.24915398520534,
+      "gold_line": 117787.10366467581,
+      "slow_ema": 118173.82532041134
+    },
+    "market_context": {
+      "volatility": 1.0441006103224537,
+      "trend_strength": 19.68397393713369,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-23 20:00:00",
+    "exit_time": "2025-07-24 12:00:00",
+    "direction": "LONG",
+    "entry_price": 118802.77169999998,
+    "exit_price": 118895.43549999999,
+    "pnl": -0.3595216966445738,
+    "pnl_pct": -0.07200198810680664,
+    "duration_candles": 4,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -4.214410850317146,
+      "rsi": 52.137919578427756,
+      "macd": 136.48762528599764,
+      "gold_line": 118169.50719025676,
+      "slow_ema": 118460.28832179694
+    },
+    "indicators_at_exit": {
+      "cci": 53.894607043543665,
+      "rsi": 55.085653785931086,
+      "macd": 131.03669785011152,
+      "gold_line": 118424.34237185729,
+      "slow_ema": 118518.90282251826
+    },
+    "market_context": {
+      "volatility": 1.0954669138099131,
+      "trend_strength": 6.511154059896285,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-26 20:00:00",
+    "exit_time": "2025-07-27 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 117839.8506,
+    "exit_price": 118646.0934,
+    "pnl": -4.165119380581644,
+    "pnl_pct": -0.8341851851431257,
+    "duration_candles": 4,
+    "exit_reason": "SIGNAL",
+    "indicators_at_entry": {
+      "cci": 31.886265863430985,
+      "rsi": 50.94320521019831,
+      "macd": -119.98319647517928,
+      "gold_line": 117927.05419962804,
+      "slow_ema": 117758.11347694603
+    },
+    "indicators_at_exit": {
+      "cci": 61.840251083873014,
+      "rsi": 55.85324700426458,
+      "macd": 54.89872866588121,
+      "gold_line": 118157.7044642718,
+      "slow_ema": 117888.19757175686
+    },
+    "market_context": {
+      "volatility": 0.9271464727383935,
+      "trend_strength": 196.04472938055955,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-27 12:00:00",
+    "exit_time": "2025-07-27 16:00:00",
+    "direction": "LONG",
+    "entry_price": 118646.0934,
+    "exit_price": 119002.0,
+    "pnl": 0.7485102395696155,
+    "pnl_pct": 0.14997329857301656,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 61.840251083873014,
+      "rsi": 55.85324700426458,
+      "macd": 54.89872866588121,
+      "gold_line": 118157.7044642718,
+      "slow_ema": 117888.19757175686
+    },
+    "indicators_at_exit": {
+      "cci": 110.41863234296368,
+      "rsi": 58.58449972833423,
+      "macd": 133.45239431502705,
+      "gold_line": 118531.96267856308,
+      "slow_ema": 117968.98293681191
+    },
+    "market_context": {
+      "volatility": 0.9007823242460001,
+      "trend_strength": 216.6883804696069,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-07-29 00:00:00",
+    "exit_time": "2025-07-29 12:00:00",
+    "direction": "LONG",
+    "entry_price": 118821.28094999999,
+    "exit_price": 117313.5139,
+    "pnl": -7.082383552625146,
+    "pnl_pct": -1.4189368755706724,
+    "duration_candles": 3,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 11.609512438265442,
+      "rsi": 54.90882394062755,
+      "macd": 170.83177396582323,
+      "gold_line": 118183.06161339917,
+      "slow_ema": 118268.95639362268
+    },
+    "indicators_at_exit": {
+      "cci": -81.54963919027749,
+      "rsi": 42.03992137176139,
+      "macd": 81.4350770682795,
+      "gold_line": 118380.1037084942,
+      "slow_ema": 118264.80700352357
+    },
+    "market_context": {
+      "volatility": 0.870691697011728,
+      "trend_strength": 122.64114534015567,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-07-30 08:00:00",
+    "exit_time": "2025-07-30 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 117483.52885,
+    "exit_price": 116316.79049999999,
+    "pnl": 4.205245564809726,
+    "pnl_pct": 0.8431080223932295,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -86.41133008597521,
+      "rsi": 44.058087819961486,
+      "macd": -68.4015677783027,
+      "gold_line": 117882.9179523725,
+      "slow_ema": 118131.20500797621
+    },
+    "indicators_at_exit": {
+      "cci": -177.32785528543278,
+      "rsi": 39.83411986275179,
+      "macd": -157.9197499295551,
+      "gold_line": 117521.7384628541,
+      "slow_ema": 118028.45120711267
+    },
+    "market_context": {
+      "volatility": 0.7912250199361349,
+      "trend_strength": 150.19987521555353,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-02 12:00:00",
+    "exit_time": "2025-08-02 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 112759.89185000001,
+    "exit_price": 112509.74999999999,
+    "pnl": 0.3584530967158365,
+    "pnl_pct": 0.07183583710135408,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -107.37426990824383,
+      "rsi": 27.372023091440326,
+      "macd": -1241.6138368039683,
+      "gold_line": 113587.27691242461,
+      "slow_ema": 115798.74355978817
+    },
+    "indicators_at_exit": {
+      "cci": -116.65210662095521,
+      "rsi": 25.05202121272069,
+      "macd": -1338.154214258815,
+      "gold_line": 113221.42614745477,
+      "slow_ema": 115531.72551832238
+    },
+    "market_context": {
+      "volatility": 1.1007005722231125,
+      "trend_strength": 299.2743709085835,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-05 00:00:00",
+    "exit_time": "2025-08-05 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 114155.19385000001,
+    "exit_price": 113140.58849999998,
+    "pnl": 3.686638624215047,
+    "pnl_pct": 0.7387947326629913,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 65.87388407011795,
+      "rsi": 44.532470527589275,
+      "macd": -316.13602300822095,
+      "gold_line": 114761.79806105432,
+      "slow_ema": 114717.28756757794
+    },
+    "indicators_at_exit": {
+      "cci": -57.30944103769368,
+      "rsi": 37.39372120555407,
+      "macd": -370.85255617562507,
+      "gold_line": 114171.09478118774,
+      "slow_ema": 114535.51669173424
+    },
+    "market_context": {
+      "volatility": 1.0360869142819509,
+      "trend_strength": 39.89091558552013,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-05 12:00:00",
+    "exit_time": "2025-08-05 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 112825.65895000001,
+    "exit_price": 114136.6398,
+    "pnl": -6.5491565386715624,
+    "pnl_pct": -1.3119527527696238,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -57.30944103769368,
+      "rsi": 37.39372120555407,
+      "macd": -370.85255617562507,
+      "gold_line": 114171.09478118774,
+      "slow_ema": 114535.51669173424
+    },
+    "indicators_at_exit": {
+      "cci": -16.711421852278928,
+      "rsi": 47.14397554758142,
+      "macd": -360.6123995011294,
+      "gold_line": 113767.9021212276,
+      "slow_ema": 114436.35299359931
+    },
+    "market_context": {
+      "volatility": 0.9741239158155061,
+      "trend_strength": 0.16911328471258003,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-07 00:00:00",
+    "exit_time": "2025-08-07 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 114441.1508,
+    "exit_price": 116504.42309999999,
+    "pnl": -9.742371512840638,
+    "pnl_pct": -1.952911177995584,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 44.03781085240722,
+      "rsi": 49.80209542856088,
+      "macd": -28.249363498791354,
+      "gold_line": 114750.3385080208,
+      "slow_ema": 114506.7663066137
+    },
+    "indicators_at_exit": {
+      "cci": 204.06929398672824,
+      "rsi": 61.91922304351673,
+      "macd": 149.31982937760768,
+      "gold_line": 115098.09786288749,
+      "slow_ema": 114666.94614764549
+    },
+    "market_context": {
+      "volatility": 0.8655270273597023,
+      "trend_strength": 281.594849434235,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-07 08:00:00",
+    "exit_time": "2025-08-07 16:00:00",
+    "direction": "LONG",
+    "entry_price": 116504.42309999999,
+    "exit_price": 116862.75,
+    "pnl": 0.7852678933131642,
+    "pnl_pct": 0.15756506102128806,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 204.06929398672824,
+      "rsi": 61.91922304351673,
+      "macd": 149.31982937760768,
+      "gold_line": 115098.09786288749,
+      "slow_ema": 114666.94614764549
+    },
+    "indicators_at_exit": {
+      "cci": 206.24142035281386,
+      "rsi": 66.40841174862827,
+      "macd": 444.2454519214516,
+      "gold_line": 115960.7792306395,
+      "slow_ema": 115002.54971505958
+    },
+    "market_context": {
+      "volatility": 0.8661709572677829,
+      "trend_strength": 415.67996910314673,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-09 04:00:00",
+    "exit_time": "2025-08-09 08:00:00",
+    "direction": "LONG",
+    "entry_price": 116761.7517,
+    "exit_price": 117310.5,
+    "pnl": 1.594795466046355,
+    "pnl_pct": 0.31997265115542683,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 58.024571288258045,
+      "rsi": 58.03064515090143,
+      "macd": 522.8737115107651,
+      "gold_line": 116563.0714677743,
+      "slow_ema": 115810.35388165554
+    },
+    "indicators_at_exit": {
+      "cci": 91.47808486685594,
+      "rsi": 60.49048657033482,
+      "macd": 541.9748821434187,
+      "gold_line": 116855.60288066458,
+      "slow_ema": 115902.78692745883
+    },
+    "market_context": {
+      "volatility": 0.8634707635461114,
+      "trend_strength": 35.470340592364664,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-10 00:00:00",
+    "exit_time": "2025-08-10 20:00:00",
+    "direction": "LONG",
+    "entry_price": 118548.14444999999,
+    "exit_price": 118691.56,
+    "pnl": -0.14468031568123277,
+    "pnl_pct": -0.02902337007012919,
+    "duration_candles": 5,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 195.48360553830543,
+      "rsi": 67.32429704088295,
+      "macd": 574.6600074804883,
+      "gold_line": 117202.32181333413,
+      "slow_ema": 116220.98981060664
+    },
+    "indicators_at_exit": {
+      "cci": 153.2371926714962,
+      "rsi": 67.83169543373134,
+      "macd": 871.0007021429337,
+      "gold_line": 118467.61798420486,
+      "slow_ema": 116983.5957886413
+    },
+    "market_context": {
+      "volatility": 0.8243971612177674,
+      "trend_strength": 231.44292233407032,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-12 12:00:00",
+    "exit_time": "2025-08-13 08:00:00",
+    "direction": "LONG",
+    "entry_price": 119948.14409999999,
+    "exit_price": 120143.265,
+    "pnl": 0.06316372795734287,
+    "pnl_pct": 0.0126710454455535,
+    "duration_candles": 5,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 37.256803516353905,
+      "rsi": 59.57482200597633,
+      "macd": 754.020752670971,
+      "gold_line": 118944.98578441722,
+      "slow_ema": 118395.12021177252
+    },
+    "indicators_at_exit": {
+      "cci": 70.74747335577901,
+      "rsi": 61.46111124983161,
+      "macd": 709.931255904361,
+      "gold_line": 119705.14503859627,
+      "slow_ema": 118869.54242462447
+    },
+    "market_context": {
+      "volatility": 0.9639452543787034,
+      "trend_strength": 51.39101493593057,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-15 00:00:00",
+    "exit_time": "2025-08-15 12:00:00",
+    "direction": "LONG",
+    "entry_price": 118992.6666,
+    "exit_price": 117165.98770000001,
+    "pnl": -8.400180221993772,
+    "pnl_pct": -1.6851188877382337,
+    "duration_candles": 3,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -64.39831632386606,
+      "rsi": 46.67671791639025,
+      "macd": 192.1866702936386,
+      "gold_line": 118777.96275468126,
+      "slow_ema": 119629.00895825302
+    },
+    "indicators_at_exit": {
+      "cci": -106.88734839119945,
+      "rsi": 38.972405443212175,
+      "macd": -147.7581805223017,
+      "gold_line": 118472.67115501115,
+      "slow_ema": 119362.35516804876
+    },
+    "market_context": {
+      "volatility": 1.2311864005791717,
+      "trend_strength": 601.5262407950229,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-15 12:00:00",
+    "exit_time": "2025-08-18 00:00:00",
+    "direction": "SHORT",
+    "entry_price": 117165.98770000001,
+    "exit_price": 115511.484,
+    "pnl": 6.286176483520717,
+    "pnl_pct": 1.262102379264128,
+    "duration_candles": 15,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -106.88734839119945,
+      "rsi": 38.972405443212175,
+      "macd": -147.7581805223017,
+      "gold_line": 118472.67115501115,
+      "slow_ema": 119362.35516804876
+    },
+    "indicators_at_exit": {
+      "cci": -254.80381271348975,
+      "rsi": 30.84942359198385,
+      "macd": -571.8946082159528,
+      "gold_line": 117173.26961806805,
+      "slow_ema": 117998.07522100542
+    },
+    "market_context": {
+      "volatility": 1.0258821569794365,
+      "trend_strength": 90.72171628686351,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-19 00:00:00",
+    "exit_time": "2025-08-19 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 114693.2247,
+    "exit_price": 114050.81699999998,
+    "pnl": 2.0439291522200764,
+    "pnl_pct": 0.4101095458605805,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -116.62075076211453,
+      "rsi": 33.62323119350063,
+      "macd": -850.6648300653469,
+      "gold_line": 115948.92014410059,
+      "slow_ema": 117096.86971883842
+    },
+    "indicators_at_exit": {
+      "cci": -129.12551940583495,
+      "rsi": 31.870274224368316,
+      "macd": -986.2455053602462,
+      "gold_line": 115090.12435112572,
+      "slow_ema": 116597.05092500383
+    },
+    "market_context": {
+      "volatility": 0.8904550037516408,
+      "trend_strength": 149.77437894718287,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-19 12:00:00",
+    "exit_time": "2025-08-19 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 113671.13600000001,
+    "exit_price": 113275.76099999998,
+    "pnl": 0.9861274168856885,
+    "pnl_pct": 0.1978235671015279,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -129.12551940583495,
+      "rsi": 31.870274224368316,
+      "macd": -986.2455053602462,
+      "gold_line": 115090.12435112572,
+      "slow_ema": 116597.05092500383
+    },
+    "indicators_at_exit": {
+      "cci": -168.00868781997733,
+      "rsi": 29.489242349722943,
+      "macd": -1115.2294615159626,
+      "gold_line": 114362.51461067543,
+      "slow_ema": 116336.38789352207
+    },
+    "market_context": {
+      "volatility": 0.8878612805367849,
+      "trend_strength": 233.80628186965703,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-22 08:00:00",
+    "exit_time": "2025-08-22 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 112223.86,
+    "exit_price": 112176.89399999999,
+    "pnl": -0.5391670676393653,
+    "pnl_pct": -0.10814971967635502,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -101.577671266431,
+      "rsi": 35.02749984431726,
+      "macd": -942.9461413501122,
+      "gold_line": 112834.34770466562,
+      "slow_ema": 114042.25349707907
+    },
+    "indicators_at_exit": {
+      "cci": 164.70269552497572,
+      "rsi": 60.88809350294963,
+      "macd": -616.6794925903087,
+      "gold_line": 113479.60862279937,
+      "slow_ema": 114210.50879359174
+    },
+    "market_context": {
+      "volatility": 1.1001197623323817,
+      "trend_strength": 312.70505835734855,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-23 20:00:00",
+    "exit_time": "2025-08-24 16:00:00",
+    "direction": "LONG",
+    "entry_price": 115462.5024,
+    "exit_price": 112538.80245000002,
+    "pnl": -13.370874357908997,
+    "pnl_pct": -2.6821640266130076,
+    "duration_candles": 5,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 51.9286388023591,
+      "rsi": 53.461678985267234,
+      "macd": 151.14918865005893,
+      "gold_line": 115210.69155039793,
+      "slow_ema": 114843.19881982307
+    },
+    "indicators_at_exit": {
+      "cci": -96.4332122103944,
+      "rsi": 36.883540470099554,
+      "macd": -138.24662958770932,
+      "gold_line": 114018.80699095895,
+      "slow_ema": 114654.48672975821
+    },
+    "market_context": {
+      "volatility": 1.0328868663023518,
+      "trend_strength": 224.81185663118796,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-25 20:00:00",
+    "exit_time": "2025-08-26 00:00:00",
+    "direction": "SHORT",
+    "entry_price": 110014.66515,
+    "exit_price": 109212.34499999999,
+    "pnl": 2.883923507948257,
+    "pnl_pct": 0.5792847266372051,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -151.52679969916994,
+      "rsi": 32.26441737758891,
+      "macd": -1007.2413424121187,
+      "gold_line": 111193.32328306211,
+      "slow_ema": 113362.8254110791
+    },
+    "indicators_at_exit": {
+      "cci": -149.65442966390694,
+      "rsi": 31.51606487481257,
+      "macd": -1132.8256131242524,
+      "gold_line": 110463.73396983727,
+      "slow_ema": 113102.31982507324
+    },
+    "market_context": {
+      "volatility": 1.2304620407965083,
+      "trend_strength": 518.0222183540706,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-27 04:00:00",
+    "exit_time": "2025-08-27 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 110630.657,
+    "exit_price": 112017.18059999999,
+    "pnl": -6.988195400980774,
+    "pnl_pct": -1.4032905774933486,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -43.27598870117966,
+      "rsi": 41.28866766500207,
+      "macd": -949.6778202402493,
+      "gold_line": 111049.83202805804,
+      "slow_ema": 112113.60999055688
+    },
+    "indicators_at_exit": {
+      "cci": 16.485441500653874,
+      "rsi": 49.19809774055056,
+      "macd": -744.3711401783512,
+      "gold_line": 111283.3235301009,
+      "slow_ema": 112044.11665857073
+    },
+    "market_context": {
+      "volatility": 1.1357386904272788,
+      "trend_strength": 316.0646116794071,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-27 20:00:00",
+    "exit_time": "2025-08-28 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 111128.70785,
+    "exit_price": 113133.5385,
+    "pnl": -9.724133547565993,
+    "pnl_pct": -1.9540618745482776,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 17.64866772469269,
+      "rsi": 44.847511814145264,
+      "macd": -601.9551629423513,
+      "gold_line": 111606.17647083632,
+      "slow_ema": 111979.9658595428
+    },
+    "indicators_at_exit": {
+      "cci": 138.7711854998507,
+      "rsi": 55.582956820984066,
+      "macd": -345.57108446993516,
+      "gold_line": 111957.56752950109,
+      "slow_ema": 112058.89116901818
+    },
+    "market_context": {
+      "volatility": 1.1644248314570302,
+      "trend_strength": 399.0234854345391,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-28 12:00:00",
+    "exit_time": "2025-08-28 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 112564.18975,
+    "exit_price": 112387.13999999998,
+    "pnl": 0.03623140507116249,
+    "pnl_pct": 0.007287810975444009,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 129.90989454150932,
+      "rsi": 52.718588368949945,
+      "macd": -152.0352658633492,
+      "gold_line": 112587.2923106204,
+      "slow_ema": 112156.82301870557
+    },
+    "indicators_at_exit": {
+      "cci": 78.04765704834226,
+      "rsi": 48.03187844981939,
+      "macd": -153.71144867569092,
+      "gold_line": 112547.97538637224,
+      "slow_ema": 112133.5472395422
+    },
+    "market_context": {
+      "volatility": 1.2005741402053713,
+      "trend_strength": 317.20569584744226,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-08-31 04:00:00",
+    "exit_time": "2025-08-31 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 108586.0798,
+    "exit_price": 108548.44199999998,
+    "pnl": -0.5734071976405148,
+    "pnl_pct": -0.11533828270681719,
+    "duration_candles": 4,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -53.520295590703284,
+      "rsi": 38.086459504589946,
+      "macd": -868.8329847932182,
+      "gold_line": 108815.15152182618,
+      "slow_ema": 110013.50785953095
+    },
+    "indicators_at_exit": {
+      "cci": -53.38700823185267,
+      "rsi": 37.2137661828972,
+      "macd": -776.05493351919,
+      "gold_line": 108673.79083722866,
+      "slow_ema": 109623.03042601017
+    },
+    "market_context": {
+      "volatility": 0.9757085643869379,
+      "trend_strength": 106.07376779411504,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-08-31 20:00:00",
+    "exit_time": "2025-09-01 00:00:00",
+    "direction": "SHORT",
+    "entry_price": 108145.90000000001,
+    "exit_price": 107876.69999999998,
+    "pnl": 0.4917697560034382,
+    "pnl_pct": 0.09892298274832996,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -53.38700823185267,
+      "rsi": 37.2137661828972,
+      "macd": -776.05493351919,
+      "gold_line": 108673.79083722866,
+      "slow_ema": 109623.03042601017
+    },
+    "indicators_at_exit": {
+      "cci": -99.69465316140781,
+      "rsi": 33.752421711172374,
+      "macd": -817.4449207506696,
+      "gold_line": 108361.73450233719,
+      "slow_ema": 109473.73187593534
+    },
+    "market_context": {
+      "volatility": 0.9867806611992658,
+      "trend_strength": 43.655658263496434,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-02 08:00:00",
+    "exit_time": "2025-09-02 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 109645.15000000001,
+    "exit_price": 108862.30349999998,
+    "pnl": 2.8038271839275914,
+    "pnl_pct": 0.5639818769913932,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 188.6815318008662,
+      "rsi": 51.43945492707577,
+      "macd": -149.39393026228936,
+      "gold_line": 109788.64997521878,
+      "slow_ema": 109486.5217691785
+    },
+    "indicators_at_exit": {
+      "cci": 185.1889329809927,
+      "rsi": 58.53390317129892,
+      "macd": -22.117968162099714,
+      "gold_line": 109883.32998513128,
+      "slow_ema": 109583.36460109119
+    },
+    "market_context": {
+      "volatility": 1.0815667649572762,
+      "trend_strength": 378.64527218746986,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-04 20:00:00",
+    "exit_time": "2025-09-05 00:00:00",
+    "direction": "LONG",
+    "entry_price": 110740.84275,
+    "exit_price": 110892.75,
+    "pnl": -0.06378400932815788,
+    "pnl_pct": -0.01282635545501675,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 8.930350013051608,
+      "rsi": 52.004311765182216,
+      "macd": 159.56702483913978,
+      "gold_line": 110483.68343016197,
+      "slow_ema": 110413.71674402399
+    },
+    "indicators_at_exit": {
+      "cci": 33.68599304406765,
+      "rsi": 55.77688561347964,
+      "macd": 203.81235767679755,
+      "gold_line": 110660.65005809718,
+      "slow_ema": 110477.59698520739
+    },
+    "market_context": {
+      "volatility": 1.0822659433007928,
+      "trend_strength": 166.02299957098631,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-09-09 04:00:00",
+    "exit_time": "2025-09-09 12:00:00",
+    "direction": "LONG",
+    "entry_price": 113014.87919999998,
+    "exit_price": 110766.38910000001,
+    "pnl": -10.639682295718346,
+    "pnl_pct": -2.1395522748122944,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 166.25497272452688,
+      "rsi": 63.103568892361196,
+      "macd": 414.7345876584295,
+      "gold_line": 112062.73702298648,
+      "slow_ema": 111364.41432920078
+    },
+    "indicators_at_exit": {
+      "cci": 17.571680078708763,
+      "rsi": 46.17962250148886,
+      "macd": 316.7408485759224,
+      "gold_line": 112122.95332827512,
+      "slow_ema": 111394.4734646783
+    },
+    "market_context": {
+      "volatility": 0.8782327424146998,
+      "trend_strength": 8.436328285260572,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-09-09 20:00:00",
+    "exit_time": "2025-09-10 04:00:00",
+    "direction": "LONG",
+    "entry_price": 111555.75,
+    "exit_price": 111979.9865,
+    "pnl": 1.1439786403509324,
+    "pnl_pct": 0.23029102040907712,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 3.9788679296904657,
+      "rsi": 50.906792321004026,
+      "macd": 225.24564614894916,
+      "gold_line": 111555.29919817904,
+      "slow_ema": 111391.20838878455
+    },
+    "indicators_at_exit": {
+      "cci": 72.91875670159413,
+      "rsi": 57.488498726967975,
+      "macd": 255.74075780295243,
+      "gold_line": 111609.40771134445,
+      "slow_ema": 111480.24230862873
+    },
+    "market_context": {
+      "volatility": 0.7889680489350138,
+      "trend_strength": 52.48882000048536,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-12 16:00:00",
+    "exit_time": "2025-09-14 12:00:00",
+    "direction": "LONG",
+    "entry_price": 116618.28,
+    "exit_price": 115109.4165,
+    "pnl": -7.173191863518208,
+    "pnl_pct": -1.44384818572182,
+    "duration_candles": 11,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 129.07731647483956,
+      "rsi": 72.92519805754202,
+      "macd": 1035.1768974150036,
+      "gold_line": 115348.90365946107,
+      "slow_ema": 113688.5414469868
+    },
+    "indicators_at_exit": {
+      "cci": -1.2486283753971914,
+      "rsi": 54.38323966777675,
+      "macd": 670.151979047645,
+      "gold_line": 115655.62016155572,
+      "slow_ema": 114837.19421578675
+    },
+    "market_context": {
+      "volatility": 0.6711963207052953,
+      "trend_strength": 211.10303287780937,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-09-15 04:00:00",
+    "exit_time": "2025-09-16 16:00:00",
+    "direction": "LONG",
+    "entry_price": 115827.885,
+    "exit_price": 116299.182,
+    "pnl": 1.2753566550118596,
+    "pnl_pct": 0.2568942465797472,
+    "duration_candles": 9,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 84.03136659893539,
+      "rsi": 59.19703645246113,
+      "macd": 495.09042634398793,
+      "gold_line": 115650.26565293763,
+      "slow_ema": 115012.04896788487
+    },
+    "indicators_at_exit": {
+      "cci": 217.9133519681949,
+      "rsi": 64.06474070878656,
+      "macd": 351.419908214375,
+      "gold_line": 115697.52942788956,
+      "slow_ema": 115290.9989767343
+    },
+    "market_context": {
+      "volatility": 0.68737814405817,
+      "trend_strength": 46.660140252279234,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-17 04:00:00",
+    "exit_time": "2025-09-17 12:00:00",
+    "direction": "LONG",
+    "entry_price": 117176.7591,
+    "exit_price": 115764.78865,
+    "pnl": -6.727748569760357,
+    "pnl_pct": -1.3549918950181934,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 172.88385929456516,
+      "rsi": 64.48790897424146,
+      "macd": 488.8240399743372,
+      "gold_line": 116472.00715642415,
+      "slow_ema": 115588.15854348797
+    },
+    "indicators_at_exit": {
+      "cci": 23.052469465160513,
+      "rsi": 51.787550013182205,
+      "macd": 406.57695756293833,
+      "gold_line": 116296.8985763127,
+      "slow_ema": 115647.71589805209
+    },
+    "market_context": {
+      "volatility": 0.6973129331872486,
+      "trend_strength": 36.241156260298624,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-09-17 20:00:00",
+    "exit_time": "2025-09-18 00:00:00",
+    "direction": "LONG",
+    "entry_price": 116458.40009999998,
+    "exit_price": 117274.68,
+    "pnl": 2.7335501520397276,
+    "pnl_pct": 0.5509197269575136,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 60.56062528622397,
+      "rsi": 56.16033749325967,
+      "macd": 348.80992174733547,
+      "gold_line": 116028.28348747257,
+      "slow_ema": 115700.8754955865
+    },
+    "indicators_at_exit": {
+      "cci": 150.03560795851206,
+      "rsi": 63.34456040901866,
+      "macd": 443.4610623434128,
+      "gold_line": 116385.79009248354,
+      "slow_ema": 115838.59582924675
+    },
+    "market_context": {
+      "volatility": 0.7378410418727672,
+      "trend_strength": 34.75311477765274,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-20 16:00:00",
+    "exit_time": "2025-09-22 00:00:00",
+    "direction": "SHORT",
+    "entry_price": 115576.28295000001,
+    "exit_price": 114650.199,
+    "pnl": 3.2323828634736866,
+    "pnl_pct": 0.6512750768257984,
+    "duration_candles": 8,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -56.75710826360874,
+      "rsi": 45.914769653218336,
+      "macd": -69.9367587257293,
+      "gold_line": 115816.06689773443,
+      "slow_ema": 116045.91372313655
+    },
+    "indicators_at_exit": {
+      "cci": -170.46953781564994,
+      "rsi": 35.281553294113465,
+      "macd": -257.5490187143878,
+      "gold_line": 115141.85694007305,
+      "slow_ema": 115728.94653370643
+    },
+    "market_context": {
+      "volatility": 0.6674275097715698,
+      "trend_strength": 117.90016818116581,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-22 00:00:00",
+    "exit_time": "2025-09-22 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 114552.39515,
+    "exit_price": 112057.49999999999,
+    "pnl": 10.068324748706331,
+    "pnl_pct": 2.02795109978546,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -170.46953781564994,
+      "rsi": 35.281553294113465,
+      "macd": -257.5490187143878,
+      "gold_line": 115141.85694007305,
+      "slow_ema": 115728.94653370643
+    },
+    "indicators_at_exit": {
+      "cci": -373.14078751646736,
+      "rsi": 22.564954502348115,
+      "macd": -478.8164145354822,
+      "gold_line": 114308.73416404382,
+      "slow_ema": 115486.69123491336
+    },
+    "market_context": {
+      "volatility": 0.7388414392864927,
+      "trend_strength": 293.7364911345099,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-23 16:00:00",
+    "exit_time": "2025-09-24 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 111534.205,
+    "exit_price": 111458.72099999999,
+    "pnl": -0.4091253166336082,
+    "pnl_pct": -0.08232210692673939,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -92.39176105414107,
+      "rsi": 29.169044993124885,
+      "macd": -958.1070243055583,
+      "gold_line": 112504.72918622765,
+      "slow_ema": 114003.01967902454
+    },
+    "indicators_at_exit": {
+      "cci": -68.55732277912546,
+      "rsi": 40.9049653841876,
+      "macd": -940.0107164386718,
+      "gold_line": 112009.61910422516,
+      "slow_ema": 113600.35224735855
+    },
+    "market_context": {
+      "volatility": 0.7515680685092518,
+      "trend_strength": 0.920164079777237,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-09-25 00:00:00",
+    "exit_time": "2025-09-25 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 112419.86195,
+    "exit_price": 111930.468,
+    "pnl": 1.4179626341278055,
+    "pnl_pct": 0.2853269444661619,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -18.518696012274283,
+      "rsi": 41.22130484994842,
+      "macd": -554.9484127656178,
+      "gold_line": 113008.91828554455,
+      "slow_ema": 113427.21390631431
+    },
+    "indicators_at_exit": {
+      "cci": -106.24859397637256,
+      "rsi": 36.35108236431374,
+      "macd": -605.7677150090894,
+      "gold_line": 112593.41097132672,
+      "slow_ema": 113300.74620955029
+    },
+    "market_context": {
+      "volatility": 0.7938752779645052,
+      "trend_strength": 155.76345026315857,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-09-30 16:00:00",
+    "exit_time": "2025-10-01 08:00:00",
+    "direction": "LONG",
+    "entry_price": 114371.85734999999,
+    "exit_price": 116176.1005,
+    "pnl": 7.095243102143359,
+    "pnl_pct": 1.4275236949057115,
+    "duration_candles": 4,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 85.05498271137274,
+      "rsi": 67.53776589725832,
+      "macd": 838.2238327408995,
+      "gold_line": 113503.35009671697,
+      "slow_ema": 112149.86956792811
+    },
+    "indicators_at_exit": {
+      "cci": 136.762935917784,
+      "rsi": 76.45588666224678,
+      "macd": 1096.0715443919908,
+      "gold_line": 114719.84681253452,
+      "slow_ema": 112885.4897062363
+    },
+    "market_context": {
+      "volatility": 0.7160998315200313,
+      "trend_strength": 233.1005897817554,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-03 08:00:00",
+    "exit_time": "2025-10-03 12:00:00",
+    "direction": "LONG",
+    "entry_price": 120347.14349999999,
+    "exit_price": 121721.335,
+    "pnl": 4.933357689285115,
+    "pnl_pct": 0.9918563499182808,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 81.16824091931267,
+      "rsi": 74.74407391999486,
+      "macd": 2070.23695029362,
+      "gold_line": 119861.10068991059,
+      "slow_ema": 116834.53585148496
+    },
+    "indicators_at_exit": {
+      "cci": 112.69081703065575,
+      "rsi": 80.0936106883967,
+      "macd": 2181.579972637104,
+      "gold_line": 120344.26041394635,
+      "slow_ema": 117233.67393656015
+    },
+    "market_context": {
+      "volatility": 0.9250912335849767,
+      "trend_strength": 134.3978449112749,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-04 20:00:00",
+    "exit_time": "2025-10-05 00:00:00",
+    "direction": "LONG",
+    "entry_price": 122420.47965,
+    "exit_price": 123762.47799999999,
+    "pnl": 4.708705062540492,
+    "pnl_pct": 0.9462204639589439,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 78.7777883389903,
+      "rsi": 74.5097695226733,
+      "macd": 1919.09289730835,
+      "gold_line": 122003.79279174631,
+      "slow_ema": 119482.76252299768
+    },
+    "indicators_at_exit": {
+      "cci": 122.74420157299568,
+      "rsi": 79.17099019047313,
+      "macd": 1962.6747574263427,
+      "gold_line": 122495.67567504778,
+      "slow_ema": 119797.38752129415
+    },
+    "market_context": {
+      "volatility": 0.9267691584862322,
+      "trend_strength": 165.10010666222843,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-06 00:00:00",
+    "exit_time": "2025-10-06 08:00:00",
+    "direction": "LONG",
+    "entry_price": 123844.99155,
+    "exit_price": 123913.0215,
+    "pnl": -0.4733158767383638,
+    "pnl_pct": -0.09506846893963355,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 104.22231159961814,
+      "rsi": 67.99081084760876,
+      "macd": 1660.967916687543,
+      "gold_line": 123299.06516269503,
+      "slow_ema": 121134.45345079403
+    },
+    "indicators_at_exit": {
+      "cci": 108.31207171629332,
+      "rsi": 67.82165368069505,
+      "macd": 1567.11559211422,
+      "gold_line": 123648.10745857022,
+      "slow_ema": 121510.5434934791
+    },
+    "market_context": {
+      "volatility": 0.9828747660048891,
+      "trend_strength": 225.14462698995249,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-10-08 08:00:00",
+    "exit_time": "2025-10-08 16:00:00",
+    "direction": "LONG",
+    "entry_price": 122903.52105,
+    "exit_price": 123541.6875,
+    "pnl": 1.8382508824420065,
+    "pnl_pct": 0.3692417959615521,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -55.7616713913429,
+      "rsi": 53.55891569979719,
+      "macd": 297.19283178146,
+      "gold_line": 122030.80612483519,
+      "slow_ema": 122299.80518659964
+    },
+    "indicators_at_exit": {
+      "cci": -0.9757804297441376,
+      "rsi": 55.90136002782115,
+      "macd": 288.9136140842311,
+      "gold_line": 122569.94220494067,
+      "slow_ema": 122368.55478960874
+    },
+    "market_context": {
+      "volatility": 1.0638717475322648,
+      "trend_strength": 302.4291423625368,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-09 08:00:00",
+    "exit_time": "2025-10-09 12:00:00",
+    "direction": "LONG",
+    "entry_price": 122738.3385,
+    "exit_price": 123115.23049999999,
+    "pnl": 0.7821066109130497,
+    "pnl_pct": 0.15706949809328935,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -54.882715082651224,
+      "rsi": 51.910313457368524,
+      "macd": 153.22991643543355,
+      "gold_line": 122181.72882976031,
+      "slow_ema": 122383.32550874117
+    },
+    "indicators_at_exit": {
+      "cci": -70.56317133052181,
+      "rsi": 43.91472028750457,
+      "macd": 25.95832175661053,
+      "gold_line": 122178.37729785619,
+      "slow_ema": 122287.03473031589
+    },
+    "market_context": {
+      "volatility": 1.215867190162592,
+      "trend_strength": 195.7752185908838,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-10 12:00:00",
+    "exit_time": "2025-10-10 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 118903.41855,
+    "exit_price": 116479.49999999999,
+    "pnl": 9.404575367638355,
+    "pnl_pct": 1.888560858517904,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -179.3096277716462,
+      "rsi": 36.457474028746915,
+      "macd": -452.4140287024493,
+      "gold_line": 120977.41359680878,
+      "slow_ema": 121716.01653311534
+    },
+    "indicators_at_exit": {
+      "cci": -351.1194170172413,
+      "rsi": 29.58770185004326,
+      "macd": -790.4086309169797,
+      "gold_line": 119646.50815808526,
+      "slow_ema": 121337.53382695865
+    },
+    "market_context": {
+      "volatility": 1.3522516612138535,
+      "trend_strength": 570.708648072103,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-13 08:00:00",
+    "exit_time": "2025-10-13 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 114082.03045,
+    "exit_price": 115807.875,
+    "pnl": -8.288210624675676,
+    "pnl_pct": -1.662810162294928,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 10.24820052978124,
+      "rsi": 43.82019487177235,
+      "macd": -1444.2482138670748,
+      "gold_line": 114498.04259893173,
+      "slow_ema": 115454.4646548474
+    },
+    "indicators_at_exit": {
+      "cci": 62.48238004453604,
+      "rsi": 51.15319128084577,
+      "macd": -1083.5777073710778,
+      "gold_line": 114727.41533561541,
+      "slow_ema": 115394.9456917416
+    },
+    "market_context": {
+      "volatility": 1.937543556515479,
+      "trend_strength": 843.8633205337392,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-10-14 00:00:00",
+    "exit_time": "2025-10-14 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 113373.6848,
+    "exit_price": 111755.99999999999,
+    "pnl": 6.359170636755952,
+    "pnl_pct": 1.2768609182578294,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 44.48143133922397,
+      "rsi": 42.103051475451146,
+      "macd": -949.6691533093835,
+      "gold_line": 114708.37752082155,
+      "slow_ema": 115230.33972200069
+    },
+    "indicators_at_exit": {
+      "cci": -34.35551682935974,
+      "rsi": 36.662734678627174,
+      "macd": -1088.4514266350598,
+      "gold_line": 113793.26651249293,
+      "slow_ema": 114965.80344629694
+    },
+    "market_context": {
+      "volatility": 2.0698686149777914,
+      "trend_strength": 280.8797431984681,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-15 00:00:00",
+    "exit_time": "2025-10-15 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 111911.71615000001,
+    "exit_price": 110859.6405,
+    "pnl": 3.9374312524647204,
+    "pnl_pct": 0.7900942869912494,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -30.914102973072644,
+      "rsi": 40.50729023893663,
+      "macd": -1110.2140985320002,
+      "gold_line": 112586.47326801145,
+      "slow_ema": 114126.98470912408
+    },
+    "indicators_at_exit": {
+      "cci": -111.96213008092863,
+      "rsi": 37.16884385641371,
+      "macd": -1157.767517541608,
+      "gold_line": 111983.83022589047,
+      "slow_ema": 113618.03765076786
+    },
+    "market_context": {
+      "volatility": 2.102430743670315,
+      "trend_strength": 30.92601805799586,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-17 04:00:00",
+    "exit_time": "2025-10-17 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 105508.81920000001,
+    "exit_price": 103954.58699999998,
+    "pnl": 6.596181512389058,
+    "pnl_pct": 1.3230827354383163,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -207.96997813911716,
+      "rsi": 29.032933450269994,
+      "macd": -1778.7837154602748,
+      "gold_line": 108205.90499443801,
+      "slow_ema": 111198.01352144171
+    },
+    "indicators_at_exit": {
+      "cci": -214.02184748619692,
+      "rsi": 29.376781015453247,
+      "macd": -1949.4323136526218,
+      "gold_line": 106925.80299666281,
+      "slow_ema": 110785.44214948306
+    },
+    "market_context": {
+      "volatility": 1.7824484536814469,
+      "trend_strength": 494.6899411053341,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-21 12:00:00",
+    "exit_time": "2025-10-21 16:00:00",
+    "direction": "LONG",
+    "entry_price": 113456.7,
+    "exit_price": 111680.5318,
+    "pnl": -8.558237241857752,
+    "pnl_pct": -1.7155031390830162,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 129.0358730998797,
+      "rsi": 65.62409669017583,
+      "macd": 368.47938724530104,
+      "gold_line": 109614.8479839855,
+      "slow_ema": 109493.88132363532
+    },
+    "indicators_at_exit": {
+      "cci": 140.86091306967074,
+      "rsi": 57.89320551321364,
+      "macd": 490.68062948735314,
+      "gold_line": 110819.0687903913,
+      "slow_ema": 109659.99381818085
+    },
+    "market_context": {
+      "volatility": 1.4332035039611082,
+      "trend_strength": 261.4531308645512,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-10-24 20:00:00",
+    "exit_time": "2025-10-25 04:00:00",
+    "direction": "LONG",
+    "entry_price": 111020.18234999999,
+    "exit_price": 111237.41799999999,
+    "pnl": 0.22765238413513228,
+    "pnl_pct": 0.04567221508891928,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 78.86264343764348,
+      "rsi": 57.24741221619814,
+      "macd": 428.5570247318392,
+      "gold_line": 110632.48698804219,
+      "slow_ema": 109723.37377123293
+    },
+    "indicators_at_exit": {
+      "cci": 110.28694063713499,
+      "rsi": 59.74858857170432,
+      "macd": 522.6778694554232,
+      "gold_line": 111001.9833156952,
+      "slow_ema": 109938.04417972645
+    },
+    "market_context": {
+      "volatility": 1.404308181094208,
+      "trend_strength": 183.08372535262447,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-10-26 08:00:00",
+    "exit_time": "2025-10-26 12:00:00",
+    "direction": "LONG",
+    "entry_price": 113312.12775,
+    "exit_price": 113479.75,
+    "pnl": -0.010319789804745426,
+    "pnl_pct": -0.0020703358692332518,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 186.80906876522212,
+      "rsi": 67.83378237082508,
+      "macd": 729.6076471316483,
+      "gold_line": 111898.04538766625,
+      "slow_ema": 110717.16596449136
+    },
+    "indicators_at_exit": {
+      "cci": 232.8874101551075,
+      "rsi": 69.52019951939303,
+      "macd": 851.669584593561,
+      "gold_line": 112593.88723259975,
+      "slow_ema": 110934.73885601052
+    },
+    "market_context": {
+      "volatility": 1.117695399386209,
+      "trend_strength": 219.43778790645274,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-10-29 04:00:00",
+    "exit_time": "2025-10-29 12:00:00",
+    "direction": "LONG",
+    "entry_price": 113571.65744999998,
+    "exit_price": 111398.07310000001,
+    "pnl": -10.287419796185771,
+    "pnl_pct": -2.06384399840858,
+    "duration_candles": 2,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -48.71008415266615,
+      "rsi": 53.42601982681006,
+      "macd": 520.7577836947894,
+      "gold_line": 113191.63470519477,
+      "slow_ema": 113095.37506662848
+    },
+    "indicators_at_exit": {
+      "cci": -153.06131141549443,
+      "rsi": 40.4597764742039,
+      "macd": 241.37640750913124,
+      "gold_line": 112873.22849387012,
+      "slow_ema": 112973.19563325487
+    },
+    "market_context": {
+      "volatility": 0.9730967749267698,
+      "trend_strength": 489.9211074135302,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-10-30 12:00:00",
+    "exit_time": "2025-10-30 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 107607.26945,
+    "exit_price": 106756.12499999999,
+    "pnl": 3.191691769530964,
+    "pnl_pct": 0.6409730024285285,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -175.69718678121757,
+      "rsi": 29.765674070153594,
+      "macd": -807.2301491834223,
+      "gold_line": 109687.00208461001,
+      "slow_ema": 111829.30353056395
+    },
+    "indicators_at_exit": {
+      "cci": -184.42474508509324,
+      "rsi": 26.71445193673331,
+      "macd": -1109.646305308459,
+      "gold_line": 108691.681250766,
+      "slow_ema": 111433.16993570737
+    },
+    "market_context": {
+      "volatility": 1.370231761698823,
+      "trend_strength": 813.1781467607054,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-01 20:00:00",
+    "exit_time": "2025-11-02 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 109990.977,
+    "exit_price": 111201.77309999999,
+    "pnl": -6.230359564206313,
+    "pnl_pct": -1.2508140240448926,
+    "duration_candles": 3,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 40.32010138844452,
+      "rsi": 46.77563554330925,
+      "macd": -434.6131201231474,
+      "gold_line": 110102.23550747351,
+      "slow_ema": 110471.60220874162
+    },
+    "indicators_at_exit": {
+      "cci": 113.7365307986535,
+      "rsi": 54.54711159256111,
+      "macd": -208.35608851196594,
+      "gold_line": 110435.67486961427,
+      "slow_ema": 110517.37687911333
+    },
+    "market_context": {
+      "volatility": 1.3142539585998734,
+      "trend_strength": 273.823174764538,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-02 12:00:00",
+    "exit_time": "2025-11-02 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 109991.07695000002,
+    "exit_price": 109980.165,
+    "pnl": -0.6973044753339659,
+    "pnl_pct": -0.1400792406960578,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 69.34726127399979,
+      "rsi": 46.836944305715335,
+      "macd": -213.8960424593388,
+      "gold_line": 110503.04492176857,
+      "slow_ema": 110482.46748066049
+    },
+    "indicators_at_exit": {
+      "cci": 47.793942463522285,
+      "rsi": 50.122923309514576,
+      "macd": -174.5827781631524,
+      "gold_line": 110194.06017183668,
+      "slow_ema": 110458.43096764445
+    },
+    "market_context": {
+      "volatility": 1.247807940436918,
+      "trend_strength": 153.8750461503223,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-03 00:00:00",
+    "exit_time": "2025-11-03 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 107822.66170000001,
+    "exit_price": 107484.0465,
+    "pnl": 0.8165633816489957,
+    "pnl_pct": 0.1640482665343205,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -141.15324281927832,
+      "rsi": 35.9562822070702,
+      "macd": -353.6819151239324,
+      "gold_line": 109827.836103102,
+      "slow_ema": 110267.18422930042
+    },
+    "indicators_at_exit": {
+      "cci": -315.51440481933395,
+      "rsi": 34.11699895571685,
+      "macd": -526.9455476131552,
+      "gold_line": 108894.4216618612,
+      "slow_ema": 110055.77058268557
+    },
+    "market_context": {
+      "volatility": 1.344820448654152,
+      "trend_strength": 211.65597524424084,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-06 12:00:00",
+    "exit_time": "2025-11-06 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 101913.31785,
+    "exit_price": 100735.67249999999,
+    "pnl": 5.005547828605671,
+    "pnl_pct": 1.0055362683151234,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -58.731043664354566,
+      "rsi": 34.42014658899136,
+      "macd": -1498.5751876650465,
+      "gold_line": 102958.14041142435,
+      "slow_ema": 104834.79569082968
+    },
+    "indicators_at_exit": {
+      "cci": -96.1354117838365,
+      "rsi": 32.26122679828987,
+      "macd": -1547.9211113383208,
+      "gold_line": 102292.3842468546,
+      "slow_ema": 104574.89230632377
+    },
+    "market_context": {
+      "volatility": 1.6405019700419403,
+      "trend_strength": 187.65616639936184,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-07 08:00:00",
+    "exit_time": "2025-11-07 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 100289.33025,
+    "exit_price": 99697.809,
+    "pnl": 2.1904933962621165,
+    "pnl_pct": 0.43981473754532846,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -103.8133381920762,
+      "rsi": 30.887615224017622,
+      "macd": -1531.2095402583946,
+      "gold_line": 101440.84419839235,
+      "slow_ema": 103717.28981986282
+    },
+    "indicators_at_exit": {
+      "cci": -114.71678915321316,
+      "rsi": 33.9079812749076,
+      "macd": -1531.88304391141,
+      "gold_line": 100949.60651903541,
+      "slow_ema": 103497.9202035767
+    },
+    "market_context": {
+      "volatility": 1.7775684708307944,
+      "trend_strength": 8.539198184251745,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-08 00:00:00",
+    "exit_time": "2025-11-08 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 102469.1398,
+    "exit_price": 102341.96399999999,
+    "pnl": -0.128966705141868,
+    "pnl_pct": -0.025888681950258955,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 40.45879747076115,
+      "rsi": 45.12603034149119,
+      "macd": -1024.2993745259737,
+      "gold_line": 102484.41260811164,
+      "slow_ema": 103403.65652496499
+    },
+    "indicators_at_exit": {
+      "cci": 1.402600369887305,
+      "rsi": 44.11473296474753,
+      "macd": -955.3780539408472,
+      "gold_line": 102416.60756486698,
+      "slow_ema": 103321.32641200462
+    },
+    "market_context": {
+      "volatility": 1.7506515648309449,
+      "trend_strength": 381.72728782805393,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-09 00:00:00",
+    "exit_time": "2025-11-09 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 101557.49585,
+    "exit_price": 103766.55734999999,
+    "pnl": -11.582950569378127,
+    "pnl_pct": -2.3251831132807337,
+    "duration_candles": 3,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": -42.4926327243043,
+      "rsi": 41.83731540707759,
+      "macd": -774.1976025626063,
+      "gold_line": 101940.30785224405,
+      "slow_ema": 102854.75539550383
+    },
+    "indicators_at_exit": {
+      "cci": 147.39401190257166,
+      "rsi": 55.030388991782814,
+      "macd": -484.0476407010865,
+      "gold_line": 102368.22809608471,
+      "slow_ema": 102814.47496086711
+    },
+    "market_context": {
+      "volatility": 1.4665552070567947,
+      "trend_strength": 304.3585242680549,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-11 00:00:00",
+    "exit_time": "2025-11-11 04:00:00",
+    "direction": "LONG",
+    "entry_price": 106465.0059,
+    "exit_price": 104677.73495000001,
+    "pnl": -9.099318681157056,
+    "pnl_pct": -1.8287402911325918,
+    "duration_candles": 1,
+    "exit_reason": "STOP_LOSS",
+    "indicators_at_entry": {
+      "cci": 109.80592505808681,
+      "rsi": 63.062136673251274,
+      "macd": 767.6712436155794,
+      "gold_line": 105942.1049515598,
+      "slow_ema": 104284.17214582558
+    },
+    "indicators_at_exit": {
+      "cci": 56.98127322309801,
+      "rsi": 52.30826813428093,
+      "macd": 685.1405677228177,
+      "gold_line": 105802.46297093589,
+      "slow_ema": 104317.2038387274
+    },
+    "market_context": {
+      "volatility": 1.3244075326322924,
+      "trend_strength": 202.73535571494722,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-12 00:00:00",
+    "exit_time": "2025-11-12 08:00:00",
+    "direction": "LONG",
+    "entry_price": 103324.33635,
+    "exit_price": 104663.254,
+    "pnl": 5.696175683357719,
+    "pnl_pct": 1.1458395836819746,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -54.523584453827446,
+      "rsi": 45.37097710997606,
+      "macd": 67.85019820605521,
+      "gold_line": 103440.24985661998,
+      "slow_ema": 104070.21391343411
+    },
+    "indicators_at_exit": {
+      "cci": -0.6287193888968449,
+      "rsi": 54.92997172009237,
+      "macd": 61.27938423542946,
+      "gold_line": 103681.52994838319,
+      "slow_ema": 104070.65527557794
+    },
+    "market_context": {
+      "volatility": 1.2359065446966693,
+      "trend_strength": 289.6326578171186,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-12 12:00:00",
+    "exit_time": "2025-11-12 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 102059.1449,
+    "exit_price": 101245.50899999999,
+    "pnl": 3.219290872798982,
+    "pnl_pct": 0.6472199853302989,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -81.12831787446197,
+      "rsi": 42.018420628499975,
+      "macd": -104.53780797224317,
+      "gold_line": 103648.29796902991,
+      "slow_ema": 103925.43636627587
+    },
+    "indicators_at_exit": {
+      "cci": -173.95261294124134,
+      "rsi": 39.04188213946263,
+      "macd": -302.653980693678,
+      "gold_line": 102784.01878141795,
+      "slow_ema": 103726.53737618137
+    },
+    "market_context": {
+      "volatility": 1.2821508167531428,
+      "trend_strength": 446.89895607907965,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-13 12:00:00",
+    "exit_time": "2025-11-13 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 101263.34300000001,
+    "exit_price": 98543.56649999999,
+    "pnl": 12.617448295245579,
+    "pnl_pct": 2.5358450643882273,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -90.39514154878536,
+      "rsi": 41.43251105997153,
+      "macd": -497.942634098712,
+      "gold_line": 102509.52053244306,
+      "slow_ema": 103258.55737320418
+    },
+    "indicators_at_exit": {
+      "cci": -193.07251400400403,
+      "rsi": 33.55933864557974,
+      "macd": -791.3793982251809,
+      "gold_line": 101413.17231946583,
+      "slow_ema": 102914.9457159298
+    },
+    "market_context": {
+      "volatility": 1.5412422251921,
+      "trend_strength": 420.37226158426427,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-15 08:00:00",
+    "exit_time": "2025-11-15 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 95613.06955,
+    "exit_price": 95513.2905,
+    "pnl": -0.22739039637935737,
+    "pnl_pct": -0.045642875529878474,
+    "duration_candles": 3,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -87.20743237290985,
+      "rsi": 34.77146738333984,
+      "macd": -2089.7659239809145,
+      "gold_line": 95976.84986877872,
+      "slow_ema": 99470.944915309
+    },
+    "indicators_at_exit": {
+      "cci": -73.57723466016877,
+      "rsi": 35.51659526193757,
+      "macd": -1945.8641622368596,
+      "gold_line": 95800.3979716562,
+      "slow_ema": 98734.02794806194
+    },
+    "market_context": {
+      "volatility": 1.8074887687305543,
+      "trend_strength": 52.17511231914,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-11-16 08:00:00",
+    "exit_time": "2025-11-16 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 95534.70875,
+    "exit_price": 94793.60999999999,
+    "pnl": 3.1173210327172676,
+    "pnl_pct": 0.625737697530814,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -50.54605508160305,
+      "rsi": 36.6496010004039,
+      "macd": -1732.9382748415373,
+      "gold_line": 95846.46436187775,
+      "slow_ema": 98129.29567080566
+    },
+    "indicators_at_exit": {
+      "cci": -80.79487890301017,
+      "rsi": 33.15833281839157,
+      "macd": -1753.0009869244968,
+      "gold_line": 95544.27861712665,
+      "slow_ema": 97863.10339889413
+    },
+    "market_context": {
+      "volatility": 1.7391912966917957,
+      "trend_strength": 166.8495921285778,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-17 12:00:00",
+    "exit_time": "2025-11-17 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 93865.4438,
+    "exit_price": 92014.68449999999,
+    "pnl": 9.078321681470053,
+    "pnl_pct": 1.8217152820834,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -118.84419500251428,
+      "rsi": 34.87004484994844,
+      "macd": -1442.1070199268288,
+      "gold_line": 95032.64592076065,
+      "slow_ema": 96732.47602931819
+    },
+    "indicators_at_exit": {
+      "cci": -258.6747484552648,
+      "rsi": 28.253649912122313,
+      "macd": -1625.6840847270068,
+      "gold_line": 94209.8275524564,
+      "slow_ema": 96355.99632344277
+    },
+    "market_context": {
+      "volatility": 1.8803782505910158,
+      "trend_strength": 11.641665496505993,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-19 00:00:00",
+    "exit_time": "2025-11-19 04:00:00",
+    "direction": "SHORT",
+    "entry_price": 91792.38085,
+    "exit_price": 90422.06099999999,
+    "pnl": 6.698028881618597,
+    "pnl_pct": 1.3428470503878585,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -64.61733353736182,
+      "rsi": 37.503854201467206,
+      "macd": -1557.768396203639,
+      "gold_line": 92397.39816824746,
+      "slow_ema": 94373.46934478385
+    },
+    "indicators_at_exit": {
+      "cci": -90.8631450150679,
+      "rsi": 37.41169814342759,
+      "macd": -1522.4295023544983,
+      "gold_line": 91827.91890094847,
+      "slow_ema": 94183.74568961468
+    },
+    "market_context": {
+      "volatility": 1.6982782970745354,
+      "trend_strength": 230.19879096167597,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-20 12:00:00",
+    "exit_time": "2025-11-20 16:00:00",
+    "direction": "SHORT",
+    "entry_price": 89764.39535,
+    "exit_price": 86480.45099999999,
+    "pnl": 17.511428612306073,
+    "pnl_pct": 3.508404133616235,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -73.2084262698293,
+      "rsi": 37.51149006411918,
+      "macd": -1246.9077962149458,
+      "gold_line": 91471.63038466335,
+      "slow_ema": 92741.13790931286
+    },
+    "indicators_at_exit": {
+      "cci": -233.5964435861849,
+      "rsi": 30.214763984093494,
+      "macd": -1522.8144642068364,
+      "gold_line": 90068.61823079802,
+      "slow_ema": 92306.80917528969
+    },
+    "market_context": {
+      "volatility": 1.9523153429092464,
+      "trend_strength": 63.21020753053335,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-25 00:00:00",
+    "exit_time": "2025-11-25 08:00:00",
+    "direction": "SHORT",
+    "entry_price": 87715.82015,
+    "exit_price": 87068.07449999999,
+    "pnl": 2.9423178280634747,
+    "pnl_pct": 0.5884593211262492,
+    "duration_candles": 2,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 100.81913785843587,
+      "rsi": 52.77005782081689,
+      "macd": -137.78429488169786,
+      "gold_line": 87703.94029082799,
+      "slow_ema": 87202.65122632454
+    },
+    "indicators_at_exit": {
+      "cci": 50.61463800654148,
+      "rsi": 50.2295106096165,
+      "macd": -80.66943145662663,
+      "gold_line": 87509.92650469807,
+      "slow_ema": 87221.13747112872
+    },
+    "market_context": {
+      "volatility": 2.109094976947196,
+      "trend_strength": 309.8677228677973,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-26 16:00:00",
+    "exit_time": "2025-11-26 20:00:00",
+    "direction": "LONG",
+    "entry_price": 89971.66334999999,
+    "exit_price": 90196.65049999999,
+    "pnl": 0.5004730966440665,
+    "pnl_pct": 0.10006445543279027,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 245.29129769568155,
+      "rsi": 63.2952248413325,
+      "macd": 185.22252271676552,
+      "gold_line": 87770.82078565714,
+      "slow_ema": 87397.75971778951
+    },
+    "indicators_at_exit": {
+      "cci": 282.1442667601269,
+      "rsi": 65.14338924776608,
+      "macd": 398.3755474323989,
+      "gold_line": 88686.09247139428,
+      "slow_ema": 87622.14788684214
+    },
+    "market_context": {
+      "volatility": 1.5165492607296496,
+      "trend_strength": 379.2282667541424,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-27 16:00:00",
+    "exit_time": "2025-11-28 12:00:00",
+    "direction": "LONG",
+    "entry_price": 91530.14219999999,
+    "exit_price": 92615.595,
+    "pnl": 5.181303304477659,
+    "pnl_pct": 1.0358965515733831,
+    "duration_candles": 5,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 121.8515017737733,
+      "rsi": 67.20012311110573,
+      "macd": 1068.4838407164934,
+      "gold_line": 91007.64632657562,
+      "slow_ema": 88775.21872036962
+    },
+    "indicators_at_exit": {
+      "cci": 97.23948169937488,
+      "rsi": 68.75942913566989,
+      "macd": 1146.0340745622088,
+      "gold_line": 91630.09217835452,
+      "slow_ema": 89624.37423306944
+    },
+    "market_context": {
+      "volatility": 1.4498978324741445,
+      "trend_strength": 113.371222615242,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-11-29 12:00:00",
+    "exit_time": "2025-11-30 08:00:00",
+    "direction": "LONG",
+    "entry_price": 91079.1168,
+    "exit_price": 91132.05,
+    "pnl": -0.4598103983572094,
+    "pnl_pct": -0.09188217688118877,
+    "duration_candles": 5,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 23.090410136881506,
+      "rsi": 58.03548765067345,
+      "macd": 724.980673618571,
+      "gold_line": 90747.8850174733,
+      "slow_ema": 90054.24699975243
+    },
+    "indicators_at_exit": {
+      "cci": 24.093946142943157,
+      "rsi": 57.301305292507784,
+      "macd": 520.103472585135,
+      "gold_line": 90941.53624295873,
+      "slow_ema": 90308.38217735729
+    },
+    "market_context": {
+      "volatility": 1.2225644587101994,
+      "trend_strength": 161.48325973687236,
+      "price_vs_gold_line": "above"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-12-06 16:00:00",
+    "exit_time": "2025-12-06 20:00:00",
+    "direction": "SHORT",
+    "entry_price": 89319.01815,
+    "exit_price": 89304.29999999999,
+    "pnl": -0.6681589624746319,
+    "pnl_pct": -0.13352181841576238,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -89.17693774227486,
+      "rsi": 39.708800287316336,
+      "macd": -338.5116178824246,
+      "gold_line": 89638.47159375703,
+      "slow_ema": 90573.97668622958
+    },
+    "indicators_at_exit": {
+      "cci": -90.75049924300184,
+      "rsi": 38.53941950964716,
+      "macd": -397.2025576225424,
+      "gold_line": 89469.64295625422,
+      "slow_ema": 90471.11915391628
+    },
+    "market_context": {
+      "volatility": 1.4837854626429885,
+      "trend_strength": 327.98369474484934,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-12-07 08:00:00",
+    "exit_time": "2025-12-07 12:00:00",
+    "direction": "SHORT",
+    "entry_price": 89055.35005,
+    "exit_price": 88118.4,
+    "pnl": 4.513906424582693,
+    "pnl_pct": 0.9020985538476356,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": -71.4879079979948,
+      "rsi": 39.36349725882651,
+      "macd": -457.1327933618886,
+      "gold_line": 89372.87807855092,
+      "slow_ema": 90241.11166894995
+    },
+    "indicators_at_exit": {
+      "cci": -78.6221070213875,
+      "rsi": 43.63663693136839,
+      "macd": -445.11101526803395,
+      "gold_line": 89094.72684713054,
+      "slow_ema": 90186.97006384254
+    },
+    "market_context": {
+      "volatility": 1.3457646912493393,
+      "trend_strength": 98.26090499864625,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-12-09 12:00:00",
+    "exit_time": "2025-12-09 16:00:00",
+    "direction": "LONG",
+    "entry_price": 92716.7352,
+    "exit_price": 94077.25,
+    "pnl": 6.594901435854818,
+    "pnl_pct": 1.317388597177443,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 160.70785961443084,
+      "rsi": 62.182055577414616,
+      "macd": 168.61227787045937,
+      "gold_line": 90714.25577378187,
+      "slow_ema": 90617.03615508189
+    },
+    "indicators_at_exit": {
+      "cci": 260.4820676357643,
+      "rsi": 66.50681845513067,
+      "macd": 393.52830252202693,
+      "gold_line": 91868.91346426912,
+      "slow_ema": 90849.97421766842
+    },
+    "market_context": {
+      "volatility": 1.3277738493791527,
+      "trend_strength": 315.88693918984467,
+      "price_vs_gold_line": "above"
+    },
+    "result": "WIN"
+  },
+  {
+    "entry_time": "2025-12-10 04:00:00",
+    "exit_time": "2025-12-10 08:00:00",
+    "direction": "LONG",
+    "entry_price": 92793.87375,
+    "exit_price": 92825.6395,
+    "pnl": -0.5799181277939305,
+    "pnl_pct": -0.11576740606218529,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 110.24795142896102,
+      "rsi": 59.096966182102314,
+      "macd": 566.2785644577234,
+      "gold_line": 92415.30930828213,
+      "slow_ema": 91207.73648077372
+    },
+    "indicators_at_exit": {
+      "cci": 82.482188002759,
+      "rsi": 54.85889491401045,
+      "macd": 549.0601486674714,
+      "gold_line": 92449.66558496928,
+      "slow_ema": 91272.64488960529
+    },
+    "market_context": {
+      "volatility": 1.3752407222391156,
+      "trend_strength": 254.01148567798697,
+      "price_vs_gold_line": "below"
+    },
+    "result": "LOSS"
+  },
+  {
+    "entry_time": "2025-12-10 16:00:00",
+    "exit_time": "2025-12-10 20:00:00",
+    "direction": "LONG",
+    "entry_price": 92967.66059999999,
+    "exit_price": 93985.511,
+    "pnl": 4.732767042446711,
+    "pnl_pct": 0.944843511637218,
+    "duration_candles": 1,
+    "exit_reason": "TRAILING_STOP",
+    "indicators_at_entry": {
+      "cci": 82.01481737892998,
+      "rsi": 59.046014297800205,
+      "macd": 570.6711248808133,
+      "gold_line": 92294.76361058894,
+      "slow_ema": 91446.03958299494
+    },
+    "indicators_at_exit": {
+      "cci": 84.85462828789984,
+      "rsi": 52.984157119957466,
+      "macd": 524.8085919251898,
+      "gold_line": 92630.81816635336,
+      "slow_ema": 91484.97739166199
+    },
+    "market_context": {
+      "volatility": 1.3789821579174188,
+      "trend_strength": 48.68401341076242,
+      "price_vs_gold_line": "below"
+    },
+    "result": "WIN"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "symbol": "BNBUSDT",
+  "timeframe": "240",
+  "start_date": "2021-06-29 04:00:00",
+  "end_date": "2025-12-13 00:00:00",
+  "initial_capital": 10000,
+  "final_capital": 10180.901570424683,
+  "total_trades": 424,
+  "winning_trades": 294,
+  "losing_trades": 130,
+  "win_rate": 69.33962264150944,
+  "total_pnl": 180.90157042466768,
+  "total_pnl_pct": 1.809015704246831,
+  "max_drawdown": -24.907229535920123,
+  "max_drawdown_pct": 0.24645894713013883,
+  "sharpe_ratio": 1.7318711169694405,
+  "profit_factor": 1.7367214801185509,
+  "avg_trade_duration": 1.8160377358490567,
+  "avg_win": 1.450513749607566,
+  "avg_loss": -1.8888420919996673,
+  "largest_win": 13.06754773783028,
+  "largest_loss": -7.360570920230461
+}

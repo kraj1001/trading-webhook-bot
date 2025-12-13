@@ -1,0 +1,23 @@
+{
+  "symbol": "SOLUSDT",
+  "timeframe": "240",
+  "start_date": "2021-10-15 00:00:00",
+  "end_date": "2025-12-13 00:00:00",
+  "initial_capital": 10000,
+  "final_capital": 10383.209758595603,
+  "total_trades": 334,
+  "winning_trades": 250,
+  "losing_trades": 84,
+  "win_rate": 74.8502994011976,
+  "total_pnl": 383.2097585956097,
+  "total_pnl_pct": 3.832097585956035,
+  "max_drawdown": -19.762584945357958,
+  "max_drawdown_pct": 0.1918663339923143,
+  "sharpe_ratio": 2.83890605175977,
+  "profit_factor": 2.703330817434598,
+  "avg_trade_duration": 1.1796407185628743,
+  "avg_win": 2.4327458632221006,
+  "avg_loss": -2.678294133451376,
+  "largest_win": 21.338653583290807,
+  "largest_loss": -9.041250353420644
+}

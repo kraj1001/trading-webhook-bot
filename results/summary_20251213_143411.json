@@ -1,0 +1,23 @@
+{
+  "symbol": "XRPUSDT",
+  "timeframe": "240",
+  "start_date": "2021-05-13 08:00:00",
+  "end_date": "2025-12-13 00:00:00",
+  "initial_capital": 10000,
+  "final_capital": 10231.33682154585,
+  "total_trades": 349,
+  "winning_trades": 220,
+  "losing_trades": 129,
+  "win_rate": 63.03724928366762,
+  "total_pnl": 231.33682154584778,
+  "total_pnl_pct": 2.313368215458504,
+  "max_drawdown": -23.68891485878703,
+  "max_drawdown_pct": 0.23421926713463317,
+  "sharpe_ratio": 1.62335143893841,
+  "profit_factor": 1.7204484188519622,
+  "avg_trade_duration": 1.4498567335243553,
+  "avg_win": 2.511081725039398,
+  "avg_loss": -2.489156263277674,
+  "largest_win": 14.492901257942412,
+  "largest_loss": -13.041685499930999
+}

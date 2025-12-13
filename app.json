@@ -1,0 +1,18 @@
+{
+  "name": "tradingview-webhook-bot",
+  "description": "TradingView Webhook Trading Bot",
+  "keywords": ["python", "trading", "webhook"],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "PAPER_MODE": {
+      "value": "true"
+    },
+    "WEBHOOK_SECRET": {
+      "generator": "secret"
+    }
+  }
+}

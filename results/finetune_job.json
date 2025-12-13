@@ -1,0 +1,16 @@
+{
+  "job_id": "ftjob-kBQFextM3tAMLonk9vY0Hd4s",
+  "file_id": "file-J3bEv9JvpRRYRe2fpJ9MQf",
+  "model": "gpt-4o-mini-2024-07-18",
+  "suffix": "gold-line-trader",
+  "status": "validating_files",
+  "created_at": "1765596944",
+  "training_file": "results/training_data_all_assets.jsonl",
+  "stats": {
+    "total_examples": 2634,
+    "valid": 2634,
+    "invalid": 0,
+    "estimated_tokens": 318500,
+    "estimated_cost": 0.9555
+  }
+}

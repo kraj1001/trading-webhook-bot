@@ -1,0 +1,85 @@
+# Gold Line Strategy Parameters
+# Adjust these values to tweak the strategy - no code changes needed
+
+strategy:
+  name: "Gold Line Price Action"
+  version: "2.0.0"  # LLM-optimized parameters
+
+# CCI Settings (OPTIMIZED: CCI 10/50 - +0.37% improvement)
+cci:
+  length: 10      # Optimized from 20
+  upper_level: 50  # Keep at 50
+  lower_level: -50
+  source: "close"
+
+# MACD Settings (LLM optimized: standard parameters for longer trends)
+macd:
+  fast_length: 12
+  slow_length: 26  # Was 17 - captures longer trends
+  signal_length: 9  # Was 8 - standard setting
+
+# RSI Settings (LLM optimized: less sensitive, focus on recovery zones)
+rsi:
+  length: 14     # Was 7 - reduces sensitivity/noise
+  upper_limit: 60 # Was 70 - more conservative entries
+  lower_limit: 40 # Was 30 - focus on 30-50 recovery zone
+
+# Price Action Channel (Gold Line)
+channel:
+  low_length: 5
+  high_length: 5
+  median_length: 4
+
+# Filters
+filters:
+  use_macd_filter: true
+  use_rsi_filter: true
+  use_trend_filter: true
+  use_macd_direction_filter: true  # NEW: Only long when MACD > 0, short when MACD < threshold
+  macd_direction_threshold: -20    # Only short when MACD below this
+  direction_candles: 4
+
+# Support/Resistance
+support_resistance:
+  sma_length: 8
+  lookback: 13
+  sr_length: 21
+
+# Trading Settings (Optimized via backtesting)
+trading:
+  symbols:
+    - "BTCUSDT"
+    - "ETHUSDT"
+  timeframe: "720"  # 12-hour is optimal (+1.14% PnL, 66.7% win rate)
+  position_size_pct: 5.0   # Increased from 1.5% for better returns
+  # Stop-Loss Settings (Optimized: 60.1% win rate, +0.52% PnL)
+  stop_loss_pct: 1.0       # Initial stop-loss
+  take_profit_pct: 10.0    # High - let trailing stop handle exits
+  # Trailing Stop (NEW - Best performer)
+  use_trailing_stop: true
+  trailing_stop_pct: 0.5   # Trail by 0.5% from peak
+  trailing_activation_pct: 0.5  # Activate after 0.5% profit
+
+# Backtesting
+backtest:
+  initial_capital: 10000
+  commission_pct: 0.075  # Bybit taker fee
+  slippage_pct: 0.05
+
+# LLM Settings
+# Providers: openai, anthropic, ollama (free local), together (free credits)
+llm:
+  provider: "openai"  # Using OpenAI with your API key
+  model: "gpt-4o-mini"  # Cost-effective, good quality
+                       # For Ollama: llama3:8b, mistral, codellama
+                       # For OpenAI: gpt-4, gpt-4o-mini, gpt-3.5-turbo
+                       # For Anthropic: claude-3-5-sonnet-20241022
+                       # For Together: meta-llama/Llama-3-8b-chat-hf
+  temperature: 0.3
+  max_tokens: 2000
+  ollama_host: "http://localhost:11434"  # Only needed for Ollama
+
+# Data Settings
+data:
+  cache_dir: "data/cache"
+  history_days: 180
