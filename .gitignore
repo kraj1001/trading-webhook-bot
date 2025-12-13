@@ -1,0 +1,15 @@
+# Ignore sensitive files
+.env
+*.pyc
+__pycache__/
+venv/
+*.log
+paper_trading_state.json
+webhook_state.json
+
+# IDE
+.vscode/
+.idea/
+
+# Cache (large data files)
+data/cache/*.csv
