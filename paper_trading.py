@@ -2,7 +2,7 @@
 """
 Paper Trading Bot
 Connects to Bybit Testnet for simulated trading with real market data.
-Uses the winning MACD 8/17/9 strategy on 12-hour timeframe.
+Uses the winning OBV 10 strategy on 12-hour timeframe (ETH +15.08%, BTC +5.63%).
 """
 
 import os
@@ -56,45 +56,56 @@ class Trade:
     pnl_pct: float
 
 
-class MACDStrategy:
-    """MACD 8/17/9 Crossover Strategy - Our Best Performer"""
+class OBVStrategy:
+    """
+    OBV (On-Balance Volume) Strategy - Our BEST Performer
+    +15.08% on ETH 12h, +7.62% on ETH 4h
     
-    def __init__(self, fast=8, slow=17, signal=9):
-        self.fast = fast
-        self.slow = slow
-        self.signal_len = signal
+    Uses OBV with signal line crossover for entries.
+    """
+    
+    def __init__(self, signal_period=10):
+        self.signal_period = signal_period
+        self.name = f"OBV {signal_period}"
     
     def calculate(self, df: pd.DataFrame) -> dict:
-        """Calculate MACD indicators"""
-        close = df['close']
+        """Calculate OBV indicators"""
+        # On-Balance Volume
+        obv = pd.Series(index=df.index, dtype=float)
+        obv.iloc[0] = df['volume'].iloc[0]
         
-        exp1 = close.ewm(span=self.fast, adjust=False).mean()
-        exp2 = close.ewm(span=self.slow, adjust=False).mean()
-        macd = exp1 - exp2
-        signal = macd.ewm(span=self.signal_len, adjust=False).mean()
-        histogram = macd - signal
+        for i in range(1, len(df)):
+            if df['close'].iloc[i] > df['close'].iloc[i-1]:
+                obv.iloc[i] = obv.iloc[i-1] + df['volume'].iloc[i]
+            elif df['close'].iloc[i] < df['close'].iloc[i-1]:
+                obv.iloc[i] = obv.iloc[i-1] - df['volume'].iloc[i]
+            else:
+                obv.iloc[i] = obv.iloc[i-1]
+        
+        # OBV Signal line (SMA of OBV)
+        obv_signal = obv.rolling(window=self.signal_period).mean()
         
         return {
-            'macd': macd.iloc[-1],
-            'signal': signal.iloc[-1],
-            'histogram': histogram.iloc[-1],
-            'prev_macd': macd.iloc[-2],
-            'prev_signal': signal.iloc[-2]
+            'obv': obv.iloc[-1],
+            'obv_signal': obv_signal.iloc[-1],
+            'prev_obv': obv.iloc[-2],
+            'prev_obv_signal': obv_signal.iloc[-2],
+            'close': df['close'].iloc[-1]
         }
     
     def get_signal(self, indicators: dict) -> Optional[str]:
-        """Get trading signal based on MACD crossover"""
-        macd = indicators['macd']
-        signal = indicators['signal']
-        prev_macd = indicators['prev_macd']
-        prev_signal = indicators['prev_signal']
+        """Get trading signal based on OBV crossover"""
+        obv = indicators['obv']
+        obv_signal = indicators['obv_signal']
+        prev_obv = indicators['prev_obv']
+        prev_obv_signal = indicators['prev_obv_signal']
         
-        # Bullish crossover
-        if prev_macd < prev_signal and macd >= signal:
+        # Bullish crossover: OBV crosses above signal
+        if prev_obv <= prev_obv_signal and obv > obv_signal:
             return 'BUY'
         
-        # Bearish crossover
-        if prev_macd > prev_signal and macd <= signal:
+        # Bearish crossover: OBV crosses below signal
+        if prev_obv >= prev_obv_signal and obv < obv_signal:
             return 'SELL'
         
         return None
@@ -122,8 +133,8 @@ class PaperTradingBot:
         self.trades: list[Trade] = []
         self.is_running = False
         
-        # Strategy
-        self.strategy = MACDStrategy(8, 17, 9)
+        # Strategy - OBV 10 (Best performer: +15.08% ETH 12h)
+        self.strategy = OBVStrategy(10)
         
         # Data connector
         from data.bybit_connector import BybitConnector
@@ -274,13 +285,13 @@ class PaperTradingBot:
         """Process trading signal"""
         if signal == 'BUY':
             if self.position.direction == 'SHORT':
-                self.close_position(current_price, "MACD Bullish Crossover")
+                self.close_position(current_price, "OBV Bullish Crossover")
             if self.position.direction != 'LONG':
                 self.open_position('LONG', current_price)
         
         elif signal == 'SELL':
             if self.position.direction == 'LONG':
-                self.close_position(current_price, "MACD Bearish Crossover")
+                self.close_position(current_price, "OBV Bearish Crossover")
             if self.position.direction != 'SHORT':
                 self.open_position('SHORT', current_price)
     
@@ -309,7 +320,7 @@ class PaperTradingBot:
             
             # Log status
             pos_str = f"{self.position.direction} @ ${self.position.entry_price:,.2f}" if self.position.direction else "FLAT"
-            logger.info(f"💹 {self.symbol}: ${current_price:,.2f} | MACD: {indicators['macd']:.2f} | Signal: {indicators['signal']:.2f} | Position: {pos_str}")
+            logger.info(f"💹 {self.symbol}: ${current_price:,.2f} | OBV: {indicators['obv']:.0f} | Signal: {indicators['obv_signal']:.0f} | Position: {pos_str}")
             
             # Process signal
             if signal:
@@ -377,7 +388,7 @@ class PaperTradingBot:
         
         logger.info("=" * 60)
         logger.info("🚀 Starting Paper Trading Bot")
-        logger.info(f"Strategy: MACD 8/17/9")
+        logger.info(f"Strategy: OBV 10 (Best: +15.08% ETH)")
         logger.info(f"Timeframe: {self.timeframe} minutes")
         logger.info(f"Check interval: {interval_seconds} seconds")
         logger.info("=" * 60)
