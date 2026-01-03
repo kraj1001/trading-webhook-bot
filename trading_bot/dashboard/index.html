@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Bot Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-blue: #58a6ff;
+            --accent-yellow: #d29922;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+        }
+
+        .positive {
+            color: var(--accent-green);
+        }
+
+        .negative {
+            color: var(--accent-red);
+        }
+
+        .glow-green {
+            box-shadow: 0 0 20px rgba(63, 185, 80, 0.2);
+        }
+
+        .glow-red {
+            box-shadow: 0 0 20px rgba(248, 81, 73, 0.2);
+        }
+
+        /* Mobile Responsive Fixes */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem !important;
+            }
+
+            h1 {
+                font-size: 1.5rem !important;
+            }
+
+            .text-3xl {
+                font-size: 1.5rem !important;
+            }
+
+            /* Stack header on mobile */
+            .flex.items-center.justify-between {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            /* Make stat cards more compact */
+            .stat-card {
+                padding: 1rem !important;
+            }
+
+            .stat-card .text-3xl {
+                font-size: 1.25rem !important;
+            }
+
+            /* Fix chart containers */
+            #equityChart {
+                height: 150px !important;
+            }
+
+            /* TradingView chart sizing */
+            #tradingview-chart {
+                height: 250px !important;
+                min-height: 250px !important;
+            }
+
+            /* RSI and MACD indicators */
+            #rsi-chart,
+            #macd-chart {
+                height: 80px !important;
+                min-height: 80px !important;
+            }
+
+            /* Strategy table mobile */
+            .overflow-x-auto {
+                margin: 0 -1rem;
+                padding: 0 1rem;
+            }
+
+            table {
+                font-size: 0.75rem !important;
+            }
+
+            th,
+            td {
+                padding: 0.5rem !important;
+                white-space: nowrap;
+            }
+
+            /* Dropdowns row */
+            .flex.gap-2.flex-wrap {
+                flex-wrap: wrap;
+                gap: 0.5rem !important;
+            }
+
+            select {
+                font-size: 0.75rem !important;
+                padding: 0.375rem 0.5rem !important;
+            }
+
+            /* Card grid mobile */
+            .grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4 {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* Hide less important elements on mobile */
+            .hidden-mobile {
+                display: none !important;
+            }
+        }
+
+        /* Extra small mobile */
+        @media (max-width: 375px) {
+            body {
+                padding: 0.5rem !important;
+            }
+
+            .stat-card {
+                padding: 0.75rem !important;
+            }
+
+            #tradingview-chart {
+                height: 200px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1
+                    class="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                    Trading Bot Dashboard
+                </h1>
+                <p class="text-gray-500 mt-1">Real-time strategy monitoring</p>
+            </div>
+            <div class="flex items-center gap-4 flex-wrap">
+                <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Bot Running
+                </span>
+                <span id="balanceDisplay" class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
+                    💰 Balance: Loading...
+                </span>
+                <a href="/api/weekly-report/html" target="_blank"
+                    class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm hover:bg-purple-500/30 transition-colors cursor-pointer">
+                    📊 Weekly Report
+                </a>
+                <span id="lastUpdate" class="text-gray-500 text-sm">Updated: --</span>
+            </div>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="card stat-card p-6">
+                <p class="text-gray-400 text-sm">Total P&L</p>
+                <p id="totalPnl" class="text-3xl font-bold positive">$0.00</p>
+            </div>
+            <div class="card stat-card p-6">
+                <p class="text-gray-400 text-sm">Win Rate</p>
+                <p id="winRate" class="text-3xl font-bold text-blue-400">0%</p>
+            </div>
+            <div class="card stat-card p-6">
+                <p class="text-gray-400 text-sm">Total Trades</p>
+                <p id="totalTrades" class="text-3xl font-bold text-white">0</p>
+            </div>
+            <div class="card stat-card p-6">
+                <p class="text-gray-400 text-sm">Current Equity</p>
+                <p id="currentEquity" class="text-3xl font-bold text-purple-400">$60,000</p>
+            </div>
+        </div>
+
+        <!-- Strategy Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="card p-6" id="strategy-doge">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center">🐕</div>
+                    <div>
+                        <h3 class="font-bold">DOGE 4H</h3>
+                        <p class="text-sm text-gray-400">ScalpingHybrid</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between"><span class="text-gray-400">P&L</span><span
+                            class="positive">$0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Trades</span><span>0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Win Rate</span><span>-</span></div>
+                </div>
+            </div>
+            <div class="card p-6" id="strategy-xrp-v4">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">💎</div>
+                    <div>
+                        <h3 class="font-bold">XRP 4H</h3>
+                        <p class="text-sm text-gray-400">LLM v4 Low DD</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between"><span class="text-gray-400">P&L</span><span
+                            class="positive">$0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Trades</span><span>0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Win Rate</span><span>-</span></div>
+                </div>
+            </div>
+            <div class="card p-6" id="strategy-xrp-v3">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">🚀</div>
+                    <div>
+                        <h3 class="font-bold">XRP 4H</h3>
+                        <p class="text-sm text-gray-400">LLM v3 Tight</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between"><span class="text-gray-400">P&L</span><span
+                            class="positive">$0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Trades</span><span>0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Win Rate</span><span>-</span></div>
+                </div>
+            </div>
+            <div class="card p-6" id="strategy-avax">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">🔺</div>
+                    <div>
+                        <h3 class="font-bold">AVAX 1D</h3>
+                        <p class="text-sm text-gray-400">ScalpingHybrid</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between"><span class="text-gray-400">P&L</span><span
+                            class="positive">$0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Trades</span><span>0</span></div>
+                    <div class="flex justify-between"><span class="text-gray-400">Win Rate</span><span>-</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Estimator -->
+        <div class="card p-6 mb-8 bg-gradient-to-r from-[#21262d] to-[#1a1f26]">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <span>🏛️</span> Tax Estimator (Est. 30%)
+                </h2>
+                <div class="text-sm text-gray-400">Current Year Realized P&L</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Realized Gains</p>
+                    <p id="taxRealized" class="text-2xl font-bold text-white">$0.00</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Estimated Tax</p>
+                    <p id="taxLiability" class="text-2xl font-bold text-orange-400">$0.00</p>
+                </div>
+                <div>
+                    <p class="text-gray-400 text-sm mb-1">Net After Tax</p>
+                    <p id="taxNet" class="text-2xl font-bold text-green-400">$0.00</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Equity Chart -->
+        <div class="card p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">Equity Curve</h2>
+            <canvas id="equityChart" height="100"></canvas>
+        </div>
+
+        <!-- TradingView-Style Chart -->
+        <div class="card p-6 mb-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    📊 TradingView Chart
+                </h2>
+                <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                    <select id="chartSymbol" class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm">
+                        <option value="DOGEUSDT">🐕 DOGE</option>
+                        <option value="XRPUSDT">💎 XRP</option>
+                        <option value="AVAXUSDT">🔺 AVAX</option>
+                        <option value="BTCUSDT">₿ BTC</option>
+                        <option value="ETHUSDT">Ξ ETH</option>
+                        <option value="SOLUSDT">◎ SOL</option>
+                    </select>
+                    <select id="chartTimeframe" class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm">
+                        <option value="1h">1 Hour</option>
+                        <option value="4h" selected>4 Hours</option>
+                        <option value="1d">1 Day</option>
+                        <option value="1w">1 Week</option>
+                    </select>
+                    <select id="chartStrategy" class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm">
+                        <option value="">All Trades</option>
+                        <option value="ScalpingHybrid_DOGE">ScalpingHybrid DOGE</option>
+                        <option value="ScalpingHybrid_AVAX">ScalpingHybrid AVAX</option>
+                        <option value="LLM_v4_LowDD">LLM v4 LowDD</option>
+                        <option value="LLM_v3_Tight">LLM v3 Tight</option>
+                    </select>
+                    <button id="refreshChart"
+                        class="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded px-3 py-1.5 text-sm transition">
+                        🔄 Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex flex-wrap gap-3 mb-3 text-xs text-gray-400">
+                <span><span class="inline-block w-3 h-0.5 bg-yellow-400 mr-1"></span>EMA 9</span>
+                <span><span class="inline-block w-3 h-0.5 bg-blue-400 mr-1"></span>EMA 15</span>
+                <span><span class="inline-block w-3 h-0.5 bg-red-400 mr-1"></span>EMA 30</span>
+                <span class="ml-2">🟢 Long Entry</span>
+                <span>🔴 Long Exit</span>
+                <span>🔵 Short Entry</span>
+                <span>🟣 Short Exit</span>
+            </div>
+
+            <!-- Date Range Controls - TradingView Style -->
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+                <!-- Quick Range Buttons -->
+                <div class="flex gap-1 bg-gray-800 rounded p-1">
+                    <button data-range="1D"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">1D</button>
+                    <button data-range="1W"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">1W</button>
+                    <button data-range="1M"
+                        class="range-btn px-2 py-1 text-xs rounded bg-blue-500/30 text-blue-400">1M</button>
+                    <button data-range="3M"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">3M</button>
+                    <button data-range="6M"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">6M</button>
+                    <button data-range="1Y"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">1Y</button>
+                    <button data-range="ALL"
+                        class="range-btn px-2 py-1 text-xs rounded hover:bg-gray-700 text-gray-400">ALL</button>
+                </div>
+
+                <!-- Custom Date Range -->
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="text-gray-500">|</span>
+                    <label class="text-gray-400">From:</label>
+                    <input type="date" id="dateFrom"
+                        class="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-xs text-gray-300">
+                    <label class="text-gray-400">To:</label>
+                    <input type="date" id="dateTo"
+                        class="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-xs text-gray-300">
+                    <button id="applyDateRange"
+                        class="bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded px-2 py-1 text-xs">Apply</button>
+                </div>
+            </div>
+
+            <!-- Unified Chart Container - TradingView Style -->
+            <div id="unified-chart-container" class="rounded-lg overflow-hidden" style="background: #0d1117;">
+                <!-- Main Price Chart -->
+                <div id="tradingview-chart" style="height: 300px;"></div>
+
+                <!-- RSI Panel (seamlessly stacked) -->
+                <div class="border-t border-gray-800">
+                    <div class="flex items-center justify-between px-2 py-1 bg-gray-900/50">
+                        <span class="text-xs text-gray-500">RSI (14)</span>
+                        <span id="rsi-value" class="text-xs text-purple-400">--</span>
+                    </div>
+                    <div id="rsi-chart" style="height: 80px;"></div>
+                </div>
+
+                <!-- MACD Panel (seamlessly stacked) -->
+                <div class="border-t border-gray-800">
+                    <div class="flex items-center justify-between px-2 py-1 bg-gray-900/50">
+                        <span class="text-xs text-gray-500">MACD (12, 26, 9)</span>
+                        <span id="macd-value" class="text-xs text-blue-400">--</span>
+                    </div>
+                    <div id="macd-chart" style="height: 80px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trade Info Tooltip -->
+        <div id="chart-tooltip"
+            class="hidden absolute bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm z-50 shadow-xl">
+            <div id="tooltip-content"></div>
+        </div>
+    </div>
+
+    <!-- Live Monitoring Logs -->
+    <div class="card p-6 mb-8">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h2 class="text-xl font-bold flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    Live Strategy Monitoring
+                </h2>
+                <p class="text-gray-400 text-sm">Real-time signal checks from the bot</p>
+            </div>
+        </div>
+        <div class="overflow-x-auto max-h-60 overflow-y-auto">
+            <table class="w-full text-sm">
+                <thead class="sticky top-0 bg-[#21262d]">
+                    <tr class="text-left text-gray-400 border-b border-gray-700">
+                        <th class="pb-2">Time</th>
+                        <th class="pb-2">Strategy</th>
+                        <th class="pb-2">Symbol</th>
+                        <th class="pb-2">Price</th>
+                        <th class="pb-2">RSI</th>
+                        <th class="pb-2">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="logTable">
+                    <tr class="text-gray-500">
+                        <td colspan="6" class="py-4 text-center">Waiting for logs...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Trade Log -->
+    <div class="card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">Trade Log</h2>
+            <select id="strategyFilter" class="bg-gray-800 border border-gray-700 rounded px-3 py-1">
+                <option value="">All Strategies</option>
+                <option value="ScalpingHybrid_DOGE">DOGE 4H</option>
+                <option value="LLM_v4_LowDD">XRP v4</option>
+                <option value="LLM_v3_Tight">XRP v3</option>
+                <option value="ScalpingHybrid_AVAX">AVAX 1D</option>
+            </select>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-left text-gray-400 border-b border-gray-700">
+                        <th class="pb-3">#</th>
+                        <th class="pb-3">Strategy</th>
+                        <th class="pb-3">Symbol</th>
+                        <th class="pb-3">Side</th>
+                        <th class="pb-3">Entry</th>
+                        <th class="pb-3">Exit</th>
+                        <th class="pb-3">P&L</th>
+                        <th class="pb-3">Reason</th>
+                    </tr>
+                </thead>
+                <tbody id="tradeTable">
+                    <tr class="text-gray-500">
+                        <td colspan="8" class="py-8 text-center">No trades yet. Bot is monitoring for signals...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Use relative path for production (works in Azure Container Apps)
+        const API_URL = '';
+
+        // Initialize equity chart
+        const ctx = document.getElementById('equityChart').getContext('2d');
+        const equityChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Start'],
+                datasets: [{
+                    label: 'Portfolio Equity',
+                    data: [60000],
+                    borderColor: '#58a6ff',
+                    backgroundColor: 'rgba(88, 166, 255, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#30363d' } },
+                    y: { grid: { color: '#30363d' }, ticks: { callback: v => '$' + v.toLocaleString() } }
+                }
+            }
+        });
+
+        async function fetchData() {
+            try {
+                // Fetch summary
+                const summary = await fetch(`${API_URL}/api/summary`).then(r => r.json());
+                document.getElementById('totalPnl').textContent = '$' + summary.total_pnl_usd.toLocaleString();
+                document.getElementById('totalPnl').className = 'text-3xl font-bold ' + (summary.total_pnl_usd >= 0 ? 'positive' : 'negative');
+                document.getElementById('winRate').textContent = summary.win_rate + '%';
+                document.getElementById('totalTrades').textContent = summary.total_trades;
+                document.getElementById('currentEquity').textContent = '$' + summary.current_equity.toLocaleString();
+
+                // Fetch trades
+                const trades = await fetch(`${API_URL}/api/trades?limit=20`).then(r => r.json());
+                if (trades.length > 0) {
+                    document.getElementById('tradeTable').innerHTML = trades.map(t => `
+                        <tr class="border-b border-gray-800">
+                            <td class="py-3">${t.id}</td>
+                            <td>${t.strategy}</td>
+                            <td>${t.symbol}</td>
+                            <td class="${t.side === 'long' ? 'text-green-400' : 'text-red-400'}">${t.side.toUpperCase()}</td>
+                            <td>$${t.entry_price?.toFixed(4) || '-'}</td>
+                            <td>$${t.exit_price?.toFixed(4) || '-'}</td>
+                            <td class="${(t.pnl_pct || 0) >= 0 ? 'positive' : 'negative'}">${t.pnl_pct ? t.pnl_pct.toFixed(2) + '%' : '-'}</td>
+                            <td class="text-gray-400">${t.exit_reason || 'Open'}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                // Fetch logs
+                const logs = await fetch(`${API_URL}/api/logs?limit=20`).then(r => r.json());
+                if (logs.length > 0) {
+                    document.getElementById('logTable').innerHTML = logs.map(l => `
+                        <tr class="border-b border-gray-800 hover:bg-white/5 transition-colors">
+                            <td class="py-2 text-gray-400">${new Date(l.timestamp + 'Z').toLocaleTimeString()}</td>
+                            <td class="font-mono text-blue-400">${l.strategy}</td>
+                            <td>${l.symbol}</td>
+                            <td>$${l.price?.toFixed(4) || '-'}</td>
+                            <td class="${(l.rsi || 0) > 70 ? 'text-orange-400' : (l.rsi || 0) < 30 ? 'text-green-400' : 'text-gray-400'}">
+                                ${l.rsi?.toFixed(1) || '-'}
+                            </td>
+                            <td>
+                                <span class="px-2 py-0.5 rounded text-xs ${l.status === 'SIGNAL' ? 'bg-green-500/20 text-green-400' : 'bg-gray-700 text-gray-400'}">
+                                    ${l.status}
+                                </span>
+                            </td>
+                        </tr>
+                    `).join('');
+                }
+
+                document.getElementById('lastUpdate').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+
+                // Fetch and display real balance
+                try {
+                    const balance = await fetch(`${API_URL}/api/balance`).then(r => r.json());
+                    if (balance.spot_total_usdt !== undefined) {
+                        document.getElementById('balanceDisplay').textContent =
+                            `💰 Balance: $${balance.spot_total_usdt.toFixed(2)} USDT`;
+                    }
+                } catch (e) { }
+
+                // Fetch Tax Estimate
+                const tax = await fetch(`${API_URL}/api/tax`).then(r => r.json());
+                document.getElementById('taxRealized').textContent = '$' + tax.realized_pnl.toLocaleString();
+                document.getElementById('taxLiability').textContent = '$' + tax.estimated_tax.toLocaleString();
+                document.getElementById('taxNet').textContent = '$' + tax.net_profit_after_tax.toLocaleString();
+
+            } catch (e) {
+                console.log('API not available yet');
+            }
+        }
+
+        // Fetch data every 30 seconds
+        fetchData();
+        setInterval(fetchData, 30000);
+
+        // ─────────────────────────────────────────────────────────────────────
+        // TradingView-Style Chart (Lightweight Charts)
+        // ─────────────────────────────────────────────────────────────────────
+
+        // Three separate charts with sync for split view layout
+        let mainChart = null;
+        let rsiChart = null;
+        let macdChart = null;
+        let candlestickSeries = null;
+        let ema9Series = null;
+        let ema15Series = null;
+        let ema30Series = null;
+        let rsiSeries = null;
+        let macdLineSeries = null;
+        let macdSignalSeries = null;
+        let macdHistSeries = null;
+        let markerData = [];
+        window.chartDataLoaded = false;  // Flag to prevent sync before data loads
+        window.isSyncing = false;  // Flag to prevent sync loops
+
+        function initTradingViewChart() {
+            const chartContainer = document.getElementById('tradingview-chart');
+            const rsiContainer = document.getElementById('rsi-chart');
+            const macdContainer = document.getElementById('macd-chart');
+
+            // Clear existing charts
+            chartContainer.innerHTML = '';
+            rsiContainer.innerHTML = '';
+            macdContainer.innerHTML = '';
+
+            // Chart options (TradingView dark theme)
+            const chartOptions = {
+                layout: {
+                    background: { type: 'solid', color: '#0d1117' },
+                    textColor: '#8b949e',
+                },
+                grid: {
+                    vertLines: { color: '#21262d' },
+                    horzLines: { color: '#21262d' },
+                },
+                crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                rightPriceScale: { borderColor: '#30363d' },
+                timeScale: {
+                    borderColor: '#30363d',
+                    timeVisible: true,
+                    secondsVisible: false,
+                },
+            };
+
+            // Main candlestick chart (hide time axis - only bottom chart shows it)
+            mainChart = LightweightCharts.createChart(chartContainer, {
+                ...chartOptions,
+                height: 300,
+                timeScale: { ...chartOptions.timeScale, visible: false },
+            });
+
+            candlestickSeries = mainChart.addCandlestickSeries({
+                upColor: '#3fb950',
+                downColor: '#f85149',
+                borderUpColor: '#3fb950',
+                borderDownColor: '#f85149',
+                wickUpColor: '#3fb950',
+                wickDownColor: '#f85149',
+            });
+
+            // EMA Lines
+            ema9Series = mainChart.addLineSeries({ color: '#facc15', lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+            ema15Series = mainChart.addLineSeries({ color: '#60a5fa', lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+            ema30Series = mainChart.addLineSeries({ color: '#f87171', lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+
+            // RSI Chart (hide time axis)
+            rsiChart = LightweightCharts.createChart(rsiContainer, {
+                ...chartOptions,
+                height: 80,
+                timeScale: { ...chartOptions.timeScale, visible: false },
+            });
+            rsiSeries = rsiChart.addLineSeries({ color: '#a855f7', lineWidth: 1, priceLineVisible: false });
+
+            // MACD Chart (shows time axis)
+            macdChart = LightweightCharts.createChart(macdContainer, {
+                ...chartOptions,
+                height: 80,
+                timeScale: { ...chartOptions.timeScale, visible: true },
+            });
+            macdHistSeries = macdChart.addHistogramSeries({ color: '#3fb950', priceFormat: { type: 'price', precision: 6, minMove: 0.000001 } });
+            macdLineSeries = macdChart.addLineSeries({ color: '#60a5fa', lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+            macdSignalSeries = macdChart.addLineSeries({ color: '#f97316', lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+
+            // Bi-directional time scale sync
+            function syncTimeScale(sourceChart, ...targetCharts) {
+                sourceChart.timeScale().subscribeVisibleTimeRangeChange(() => {
+                    if (window.isSyncing || !window.chartDataLoaded) return;
+                    window.isSyncing = true;
+                    try {
+                        const range = sourceChart.timeScale().getVisibleRange();
+                        if (range && range.from && range.to) {
+                            targetCharts.forEach(c => { try { c.timeScale().setVisibleRange(range); } catch (e) { } });
+                        }
+                    } catch (e) { }
+                    setTimeout(() => { window.isSyncing = false; }, 10);
+                });
+            }
+            syncTimeScale(mainChart, rsiChart, macdChart);
+            syncTimeScale(rsiChart, mainChart, macdChart);
+            syncTimeScale(macdChart, mainChart, rsiChart);
+
+            // Crosshair sync
+            function syncCrosshair(sourceChart, targetCharts) {
+                sourceChart.subscribeCrosshairMove((param) => {
+                    targetCharts.forEach(tc => { if (param.time) tc.setCrosshairPosition(0, param.time, null); else tc.clearCrosshairPosition(); });
+                    if (param.time && param.seriesData) {
+                        const rsiData = param.seriesData.get(rsiSeries);
+                        if (rsiData?.value) {
+                            const rsiClass = rsiData.value > 70 ? 'text-red-400' : rsiData.value < 30 ? 'text-green-400' : 'text-purple-400';
+                            document.getElementById('rsi-value').innerHTML = `<span class="${rsiClass}">${rsiData.value.toFixed(1)}</span>`;
+                        }
+                        const macdData = param.seriesData.get(macdLineSeries);
+                        const signalData = param.seriesData.get(macdSignalSeries);
+                        if (macdData?.value && signalData?.value) {
+                            document.getElementById('macd-value').textContent = `M: ${macdData.value.toFixed(6)} | S: ${signalData.value.toFixed(6)}`;
+                        }
+                    }
+                });
+            }
+            syncCrosshair(mainChart, [rsiChart, macdChart]);
+            syncCrosshair(rsiChart, [mainChart, macdChart]);
+            syncCrosshair(macdChart, [mainChart, rsiChart]);
+        }
+
+        async function loadChartData() {
+            const symbol = document.getElementById('chartSymbol').value;
+            const timeframe = document.getElementById('chartTimeframe').value;
+            const strategy = document.getElementById('chartStrategy').value;
+
+            // Calculate limit based on date range
+            let limit = 300;  // Default
+            const rangeMultipliers = {
+                '1D': { '1h': 24, '4h': 6, '1d': 1, '1w': 1 },
+                '1W': { '1h': 168, '4h': 42, '1d': 7, '1w': 1 },
+                '1M': { '1h': 720, '4h': 180, '1d': 30, '1w': 4 },
+                '3M': { '1h': 1000, '4h': 540, '1d': 90, '1w': 13 },
+                '6M': { '1h': 1000, '4h': 1000, '1d': 180, '1w': 26 },
+                '1Y': { '1h': 1000, '4h': 1000, '1d': 365, '1w': 52 },
+                'ALL': { '1h': 1000, '4h': 1000, '1d': 1000, '1w': 200 },
+            };
+
+            if (currentRange !== 'CUSTOM' && rangeMultipliers[currentRange]) {
+                limit = rangeMultipliers[currentRange][timeframe] || 300;
+            } else if (currentRange === 'CUSTOM' && customDateFrom && customDateTo) {
+                // For custom range, calculate based on date span
+                const spanDays = (customDateTo - customDateFrom) / 86400;
+                const tfHours = { '1h': 1, '4h': 4, '1d': 24, '1w': 168 };
+                limit = Math.min(1000, Math.ceil(spanDays * 24 / tfHours[timeframe]));
+            }
+
+            try {
+                // Fetch OHLCV data
+                const ohlcvResp = await fetch(`${API_URL}/api/ohlcv?symbol=${symbol}&timeframe=${timeframe}&limit=${limit}`);
+                const ohlcvData = await ohlcvResp.json();
+
+                // Set candlestick data
+                const candles = ohlcvData.data.map(d => ({
+                    time: d.time,
+                    open: d.open,
+                    high: d.high,
+                    low: d.low,
+                    close: d.close,
+                }));
+                candlestickSeries.setData(candles);
+
+                // Set EMA data
+                ema9Series.setData(ohlcvData.data.filter(d => d.ema_9).map(d => ({ time: d.time, value: d.ema_9 })));
+                ema15Series.setData(ohlcvData.data.filter(d => d.ema_15).map(d => ({ time: d.time, value: d.ema_15 })));
+                ema30Series.setData(ohlcvData.data.filter(d => d.ema_30).map(d => ({ time: d.time, value: d.ema_30 })));
+
+                // Set RSI data
+                rsiSeries.setData(ohlcvData.data.filter(d => d.rsi).map(d => ({ time: d.time, value: d.rsi })));
+
+                // Set MACD data
+                macdHistSeries.setData(ohlcvData.data.filter(d => d.macd_hist).map(d => ({
+                    time: d.time,
+                    value: d.macd_hist,
+                    color: d.macd_hist >= 0 ? '#3fb950' : '#f85149',
+                })));
+                macdLineSeries.setData(ohlcvData.data.filter(d => d.macd).map(d => ({ time: d.time, value: d.macd })));
+                macdSignalSeries.setData(ohlcvData.data.filter(d => d.macd_signal).map(d => ({ time: d.time, value: d.macd_signal })));
+
+                // Fetch trade markers
+                const tradesResp = await fetch(`${API_URL}/api/chart/trades?symbol=${symbol}&strategy=${strategy}`);
+                const tradesData = await tradesResp.json();
+
+                // Get timeframe in seconds for rounding marker timestamps to match candles
+                const tfSeconds = { '1h': 3600, '4h': 14400, '1d': 86400, '1w': 604800 };
+                const intervalSecs = tfSeconds[timeframe] || 14400;  // Default to 4h
+
+                // Get the set of valid candle timestamps for marker matching
+                const candleTimes = new Set(candles.map(c => c.time));
+
+                // Convert markers for Lightweight Charts, rounding to nearest candle
+                const markers = tradesData.markers.map(m => {
+                    // Round trade timestamp down to the start of its candle period
+                    const roundedTime = Math.floor(m.time / intervalSecs) * intervalSecs;
+                    // Find the closest candle time
+                    let matchedTime = roundedTime;
+                    if (!candleTimes.has(roundedTime)) {
+                        // Try finding the closest candle
+                        const sortedCandles = [...candles].sort((a, b) =>
+                            Math.abs(a.time - m.time) - Math.abs(b.time - m.time)
+                        );
+                        if (sortedCandles.length > 0) {
+                            matchedTime = sortedCandles[0].time;
+                        }
+                    }
+                    return {
+                        time: matchedTime,
+                        position: m.type === 'entry' ? 'belowBar' : 'aboveBar',
+                        color: m.color,
+                        shape: m.type === 'entry' ? 'arrowUp' : 'arrowDown',
+                        text: m.type === 'entry' ? (m.side === 'long' ? '🟢' : '🔵') : (m.side === 'long' ? '🔴' : '🟣'),
+                    };
+                });
+
+                // Filter markers to only those within our data range
+                const minTime = Math.min(...candles.map(c => c.time));
+                const maxTime = Math.max(...candles.map(c => c.time));
+                const filteredMarkers = markers.filter(m => m.time >= minTime && m.time <= maxTime);
+
+
+                // Set markers on main price chart
+                candlestickSeries.setMarkers(filteredMarkers);
+
+                // Create simplified markers for RSI chart (vertical lines at signal times)
+                const rsiMarkers = filteredMarkers.map(m => ({
+                    time: m.time,
+                    position: 'inBar',
+                    color: m.color,
+                    shape: 'circle',
+                    size: 0.5,
+                }));
+                rsiSeries.setMarkers(rsiMarkers);
+
+                // Create simplified markers for MACD chart
+                const macdMarkers = filteredMarkers.map(m => ({
+                    time: m.time,
+                    position: 'inBar',
+                    color: m.color,
+                    shape: 'circle',
+                    size: 0.5,
+                }));
+                macdLineSeries.setMarkers(macdMarkers);
+
+                markerData = tradesData.markers;
+
+                // Mark data as loaded (enables sync)
+                window.chartDataLoaded = true;
+
+                // Fit content and scroll to most recent time to show live trades
+                mainChart.timeScale().fitContent();
+                rsiChart.timeScale().fitContent();
+                macdChart.timeScale().fitContent();
+                mainChart.timeScale().scrollToRealTime();
+                rsiChart.timeScale().scrollToRealTime();
+                macdChart.timeScale().scrollToRealTime();
+
+            } catch (e) {
+                console.error('Failed to load chart data:', e);
+            }
+        }
+
+        // Event listeners for selectors
+        document.getElementById('chartSymbol').addEventListener('change', loadChartData);
+        document.getElementById('chartTimeframe').addEventListener('change', loadChartData);
+        document.getElementById('chartStrategy').addEventListener('change', loadChartData);
+        document.getElementById('refreshChart').addEventListener('click', loadChartData);
+
+        // Date range state
+        let currentRange = '1M';
+        let customDateFrom = null;
+        let customDateTo = null;
+
+        // Range button handlers
+        document.querySelectorAll('.range-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.range-btn').forEach(b => {
+                    b.classList.remove('bg-blue-500/30', 'text-blue-400');
+                    b.classList.add('text-gray-400');
+                });
+                btn.classList.add('bg-blue-500/30', 'text-blue-400');
+                btn.classList.remove('text-gray-400');
+
+                currentRange = btn.dataset.range;
+                customDateFrom = null;
+                customDateTo = null;
+
+                // Clear custom date inputs
+                document.getElementById('dateFrom').value = '';
+                document.getElementById('dateTo').value = '';
+
+                loadChartData();
+            });
+        });
+
+        // Custom date range handler
+        document.getElementById('applyDateRange').addEventListener('click', () => {
+            const fromDate = document.getElementById('dateFrom').value;
+            const toDate = document.getElementById('dateTo').value;
+
+            if (fromDate && toDate) {
+                customDateFrom = new Date(fromDate).getTime() / 1000;
+                customDateTo = new Date(toDate).getTime() / 1000 + 86400; // Include full day
+                currentRange = 'CUSTOM';
+
+                // Clear active state on range buttons
+                document.querySelectorAll('.range-btn').forEach(b => {
+                    b.classList.remove('bg-blue-500/30', 'text-blue-400');
+                    b.classList.add('text-gray-400');
+                });
+
+                loadChartData();
+            }
+        });
+
+        // Set default date values (30 days ago to today)
+        const today = new Date();
+        const thirtyDaysAgo = new Date(today - 30 * 24 * 60 * 60 * 1000);
+        document.getElementById('dateTo').value = today.toISOString().split('T')[0];
+        document.getElementById('dateFrom').value = thirtyDaysAgo.toISOString().split('T')[0];
+
+        // Initialize chart on page load
+        initTradingViewChart();
+        // Delay data load slightly to ensure charts are fully initialized
+        setTimeout(() => loadChartData(), 100);
+    </script>
+</body>
+
+</html>

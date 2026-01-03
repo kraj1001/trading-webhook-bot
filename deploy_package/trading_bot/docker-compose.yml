@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build: .
+    container_name: trading-bot
+    ports:
+      - "8000:8000"
+    environment:
+      - TRADING_MODE=testnet
+      - BINANCE_FUTURES_API_KEY=${BINANCE_FUTURES_API_KEY}
+      - BINANCE_FUTURES_SECRET=${BINANCE_FUTURES_SECRET}
+      - BINANCE_SPOT_API_KEY=${BINANCE_SPOT_API_KEY}
+      - BINANCE_SPOT_SECRET=${BINANCE_SPOT_SECRET}
+      - DATABASE_URL=sqlite:///trades.db
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
