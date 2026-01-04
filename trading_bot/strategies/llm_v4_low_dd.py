@@ -48,7 +48,7 @@ class LLMv4LowDDStrategy(BaseStrategy):
         
         # Common conditions
         adx_ok = row["adx"] > self.adx_min
-        volume_ok = row["volume"] > row["vol_ma"] * 0.8  # 20% more lenient
+        volume_ok = row["volume"] > row["vol_ma"] * 0.8  # Volume must be above 80% of average
         
         # LONG conditions
         long_trend = row["ema_15"] > row["ema_30"]

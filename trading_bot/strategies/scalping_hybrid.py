@@ -43,7 +43,7 @@ class ScalpingHybridStrategy(BaseStrategy):
         price_above_ema = row["close"] > row["ema_9"]
         rsi_strong = row["rsi"] > 70
         macd_bullish = row["macd"] > row["macd_signal"]
-        volume_ok = row["volume"] > row["vol_ma"] * 0.8  # 20% more lenient for testnet
+        volume_ok = row["volume"] > row["vol_ma"] * 0.8  # Volume must be above 80% of average
         
         # Debug: Log condition states
         import logging

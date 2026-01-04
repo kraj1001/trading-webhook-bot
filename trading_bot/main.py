@@ -62,6 +62,9 @@ class TradingBot:
                     "capital": INITIAL_CAPITAL * (config.allocation_pct / 100)
                 }
                 logger.info(f"Initialized {config.name} on {config.symbol} {config.timeframe}")
+        
+        # Restore open trades from database (prevents duplicates after restart)
+        self._restore_open_trades()
     
     def fetch_candles(self, symbol: str, timeframe: str) -> pd.DataFrame:
         """Fetch and prepare candle data"""
@@ -76,6 +79,25 @@ class TradingBot:
         except Exception as e:
             logger.error(f"Error fetching candles for {symbol}: {e}")
             return pd.DataFrame()
+
+    def _restore_open_trades(self):
+        """Restore open trades dict from database on startup (prevents duplicates after restart)"""
+        try:
+            open_trades = self.db.get_open_trades()
+            for trade in open_trades:
+                # Only track trades with valid entry price (ignore failed orders)
+                if trade.entry_price and trade.entry_price > 0:
+                    self.open_trades[trade.strategy] = trade.id
+                    logger.info(f"♻️ Restored open trade: {trade.strategy} (ID={trade.id})")
+                else:
+                    logger.warning(f"⚠️ Skipped invalid open trade: {trade.strategy} (ID={trade.id}, entry=$0)")
+            
+            if self.open_trades:
+                logger.info(f"✅ Restored {len(self.open_trades)} open trades from database")
+            else:
+                logger.info("📭 No open trades to restore")
+        except Exception as e:
+            logger.error(f"Failed to restore open trades: {e}")
 
     def run_strategy(self, name: str, data: dict):
         """Execute a single strategy"""
@@ -100,6 +122,26 @@ class TradingBot:
         # Read indicators from the calculated DataFrame (convert to float for PostgreSQL)
         rsi = float(df['rsi'].iloc[-1]) if 'rsi' in df.columns else 0.0
         adx = float(df['adx'].iloc[-1]) if 'adx' in df.columns else 0.0
+        macd = float(df['macd'].iloc[-1]) if 'macd' in df.columns else None
+        macd_signal_val = float(df['macd_signal'].iloc[-1]) if 'macd_signal' in df.columns else None
+        ema_15 = float(df['ema_15'].iloc[-1]) if 'ema_15' in df.columns else None
+        ema_30 = float(df['ema_30'].iloc[-1]) if 'ema_30' in df.columns else None
+        ema_200 = float(df['ema_200'].iloc[-1]) if 'ema_200' in df.columns else None
+        volume = float(df['volume'].iloc[-1]) if 'volume' in df.columns else None
+        vol_ma = float(df['vol_ma'].iloc[-1]) if 'vol_ma' in df.columns else None
+        volume_pct = (volume / vol_ma * 100) if volume and vol_ma and vol_ma > 0 else None
+        
+        # Build conditions met string
+        conditions = []
+        if ema_15 and ema_30:
+            conditions.append("EMA✓" if ema_15 > ema_30 else "EMA✗")
+        conditions.append("RSI✓" if rsi > 70 else "RSI✗")
+        conditions.append("ADX✓" if adx > 25 else "ADX✗")
+        if macd is not None:
+            conditions.append("MACD✓" if macd > 0 else "MACD✗")
+        if volume_pct is not None:
+            conditions.append("Vol✓" if volume_pct > 80 else "Vol✗")
+        conditions_met = " ".join(conditions)
         
         # Determine status and message
         if signal:
@@ -116,6 +158,15 @@ class TradingBot:
             status=status,
             rsi=rsi,
             adx=adx,
+            macd=macd,
+            macd_signal=macd_signal_val,
+            ema_15=ema_15,
+            ema_30=ema_30,
+            ema_200=ema_200,
+            volume=volume,
+            volume_ma=vol_ma,
+            volume_pct=volume_pct,
+            conditions_met=conditions_met,
             message=message
         )
         
@@ -239,17 +290,25 @@ class TradingBot:
                 logger.error(f"LLM Training data generation failed: {e}")
         
         # 4. Execute Trades
+        if signal:
+            logger.info(f"📊 Signal received: {signal.action} for {name}")
+            
         if signal and signal.action == "buy":
-            self._open_trade(name, data['strategy'], config.symbol, "long", current_price, data['capital'])
+            logger.info(f"🔵 Attempting to open LONG trade for {name} ({config.market_type})...")
+            self._open_trade(name, data['strategy'], config.symbol, "long", current_price, data['capital'], config.market_type, signal)
         elif signal and signal.action == "sell":
-            self._open_trade(name, data['strategy'], config.symbol, "short", current_price, data['capital'])
+            logger.info(f"🔴 Attempting to open SHORT trade for {name} ({config.market_type})...")
+            self._open_trade(name, data['strategy'], config.symbol, "short", current_price, data['capital'], config.market_type, signal)
         elif signal and signal.action == "exit":
             if name in self.open_trades:
                 self._close_trade(name, current_price, "Signal Exit")
                 
-    def _open_trade(self, strategy_name: str, strategy_obj, symbol: str, side: str, price: float, capital: float):
-        """Open a new trade"""
+    def _open_trade(self, strategy_name: str, strategy_obj, symbol: str, side: str, price: float, capital: float, market_type: str = "spot", signal=None):
+        """Open a new trade (spot or futures) with optional exchange-side stop-loss/take-profit"""
+        logger.info(f"📝 _open_trade called: {strategy_name}, {symbol}, {side}, {market_type.upper()}, capital=${capital:.2f}")
+        
         if strategy_name in self.open_trades:
+            logger.warning(f"⚠️ Skipping: {strategy_name} already has open trade ID={self.open_trades[strategy_name]}")
             return  # Already has open trade
             
         qty = (capital * 0.98) / price  # 98% of allocation to account for fees
@@ -258,7 +317,24 @@ class TradingBot:
         order_side = "buy" if side == "long" else "sell"
         
         try:
-            order = self.exchange.create_order(symbol, order_side, qty)
+            # For futures with SL/TP: use create_order_with_sl_tp
+            if market_type == "futures" and signal and signal.stop_loss and signal.take_profit:
+                logger.info(f"🎯 Placing FUTURES order with SL={signal.stop_loss:.4f}, TP={signal.take_profit:.4f}")
+                order = self.exchange.create_order_with_sl_tp(
+                    symbol, order_side, qty, 
+                    signal.stop_loss, signal.take_profit, 
+                    market_type
+                )
+            # For spot with SL/TP: use OCO order for exchange-side protection
+            elif market_type == "spot" and signal and signal.stop_loss and signal.take_profit:
+                logger.info(f"🎯 Placing SPOT order with OCO SL={signal.stop_loss:.4f}, TP={signal.take_profit:.4f}")
+                order = self.exchange.create_spot_order_with_oco(
+                    symbol, order_side, qty,
+                    signal.stop_loss, signal.take_profit
+                )
+            else:
+                # Regular order (without SL/TP)
+                order = self.exchange.create_order(symbol, order_side, qty, market_type=market_type)
             
             # Create database record
             record = TradeRecord(
@@ -281,11 +357,39 @@ class TradingBot:
             
             logger.info(f"✅ OPENED {side.upper()} | {strategy_name} | {symbol} @ {order.price}")
             
-            # Send Telegram notification
+            # Send Telegram notification with full details
             if TELEGRAM_ALERTS:
-                self.telegram.notify_trade_opened(strategy_name, symbol, side, order.price)
+                sl = signal.stop_loss if signal else None
+                tp = signal.take_profit if signal else None
+                self.telegram.notify_trade_opened(
+                    trade_id=trade_id,
+                    strategy=strategy_name,
+                    symbol=symbol,
+                    side=side,
+                    price=order.price,
+                    quantity=order.quantity,
+                    market_type=market_type,
+                    stop_loss=sl,
+                    take_profit=tp,
+                    success=True
+                )
+            
         except Exception as e:
             logger.error(f"Failed to open trade: {e}")
+            # Notify of failed trade
+            if TELEGRAM_ALERTS:
+                self.telegram.notify_trade_opened(
+                    trade_id=0,
+                    strategy=strategy_name,
+                    symbol=symbol,
+                    side=side,
+                    price=price,
+                    quantity=qty,
+                    market_type=market_type,
+                    stop_loss=signal.stop_loss if signal else None,
+                    take_profit=signal.take_profit if signal else None,
+                    success=False
+                )
 
     def _close_trade(self, strategy_name: str, exit_price: float, exit_reason: str):
         """Close an open trade"""
@@ -309,9 +413,19 @@ class TradingBot:
             emoji = "✅" if pnl_pct > 0 else "❌"
             logger.info(f"{emoji} CLOSED | {strategy_name} | {exit_reason} | PnL: {pnl_pct:+.2f}% (${pnl_usd:+.2f})")
             
-            # Send Telegram notification
+            # Send Telegram notification with full details
             if TELEGRAM_ALERTS:
-                self.telegram.notify_trade_closed(strategy_name, trade.symbol, pnl_pct, pnl_usd, exit_reason)
+                self.telegram.notify_trade_closed(
+                    trade_id=trade_id,
+                    strategy=strategy_name,
+                    symbol=trade.symbol,
+                    side=trade.side,
+                    entry_price=trade.entry_price,
+                    exit_price=exit_price,
+                    pnl_pct=pnl_pct,
+                    pnl_usd=pnl_usd,
+                    reason=exit_reason
+                )
             
             # Trigger LLM Analysis
             if self.llm.enabled:
@@ -407,7 +521,7 @@ def main():
     
     parser = argparse.ArgumentParser(description="Trading Bot")
     parser.add_argument("--mode", choices=["paper", "live", "testnet"], default="paper")
-    parser.add_argument("--interval", type=int, default=3600, help="Check interval in seconds")
+    parser.add_argument("--interval", type=int, default=600, help="Check interval in seconds (10 min)")
     parser.add_argument("--once", action="store_true", help="Run once and exit")
     args = parser.parse_args()
     

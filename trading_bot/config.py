@@ -27,8 +27,8 @@ AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT", "")
 AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY", "")
 AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT", "gpt-4")
 
-# Database Configuration
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:////app/trades.db")
+# Database Configuration (PostgreSQL required - no SQLite fallback)
+DATABASE_URL = os.getenv("DATABASE_URL")  # Must be set in environment
 
 # Notifications
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")

@@ -35,6 +35,11 @@ class TradeRecord(Base):
     is_open = Column(Boolean, default=True)
     is_paper = Column(Boolean, default=True)
     
+    # Trade execution details
+    market_type = Column(String(10), nullable=True)  # spot or futures
+    stop_loss_price = Column(Float, nullable=True)
+    take_profit_price = Column(Float, nullable=True)
+    
     # Additional analytics fields
     max_drawdown = Column(Float, nullable=True)
     max_runup = Column(Float, nullable=True)
@@ -63,6 +68,17 @@ class StrategyLog(Base):
     price = Column(Float, nullable=True)
     rsi = Column(Float, nullable=True)
     adx = Column(Float, nullable=True)
+    
+    # New indicator columns for comprehensive logging
+    macd = Column(Float, nullable=True)
+    macd_signal = Column(Float, nullable=True)
+    ema_15 = Column(Float, nullable=True)
+    ema_30 = Column(Float, nullable=True)
+    ema_200 = Column(Float, nullable=True)
+    volume = Column(Float, nullable=True)
+    volume_ma = Column(Float, nullable=True)
+    volume_pct = Column(Float, nullable=True)  # Volume as % of MA
+    conditions_met = Column(String(100), nullable=True)  # e.g. "EMA✓ RSI✗ ADX✓"
 
 
 class TrainingDataLog(Base):
@@ -204,8 +220,26 @@ class TradeDatabase:
         finally:
             session.close()
 
-    def log_strategy_check(self, strategy: str, symbol: str, status: str, message: str, price: float = None, rsi: float = None, adx: float = None):
-        """Log a strategy check event"""
+    def log_strategy_check(
+        self, 
+        strategy: str, 
+        symbol: str, 
+        status: str, 
+        message: str, 
+        price: float = None, 
+        rsi: float = None, 
+        adx: float = None,
+        macd: float = None,
+        macd_signal: float = None,
+        ema_15: float = None,
+        ema_30: float = None,
+        ema_200: float = None,
+        volume: float = None,
+        volume_ma: float = None,
+        volume_pct: float = None,
+        conditions_met: str = None
+    ):
+        """Log a strategy check event with all indicator values"""
         session = self.Session()
         try:
             log = StrategyLog(
@@ -216,6 +250,15 @@ class TradeDatabase:
                 price=price,
                 rsi=rsi,
                 adx=adx,
+                macd=macd,
+                macd_signal=macd_signal,
+                ema_15=ema_15,
+                ema_30=ema_30,
+                ema_200=ema_200,
+                volume=volume,
+                volume_ma=volume_ma,
+                volume_pct=volume_pct,
+                conditions_met=conditions_met,
                 timestamp=datetime.now()
             )
             session.add(log)

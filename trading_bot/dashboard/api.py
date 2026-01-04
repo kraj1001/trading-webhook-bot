@@ -64,17 +64,26 @@ def get_trades(
     limit: int = 100,
     days: Optional[int] = None
 ):
-    """Get trade history"""
+    """Get trade history with display names"""
     start_date = None
     if days:
         start_date = datetime.now() - timedelta(days=days)
     
     trades = db.get_trades(strategy=strategy, start_date=start_date, limit=limit)
     
+    # Display name mapping
+    display_names = {
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
     return [
         {
             "id": t.id,
             "strategy": t.strategy,
+            "display_name": display_names.get(t.strategy, t.strategy),
             "symbol": t.symbol,
             "side": t.side,
             "entry_time": t.entry_time.isoformat() if t.entry_time else None,
@@ -86,6 +95,9 @@ def get_trades(
             "pnl_pct": t.pnl_pct,
             "exit_reason": t.exit_reason,
             "is_open": t.is_open,
+            "market_type": getattr(t, 'market_type', None),
+            "stop_loss_price": getattr(t, 'stop_loss_price', None),
+            "take_profit_price": getattr(t, 'take_profit_price', None),
         }
         for t in trades
     ]
@@ -102,19 +114,38 @@ def get_strategy_stats(strategy: str):
 
 @app.get("/api/logs")
 def get_logs(limit: int = 50):
-    """Get latest strategy check logs"""
+    """Get latest strategy check logs with all indicator values"""
     logs = db.get_latest_logs(limit=limit)
+    
+    # Display name mapping
+    display_names = {
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
     return [
         {
             "id": l.id,
             "timestamp": l.timestamp.isoformat(),
             "strategy": l.strategy,
+            "display_name": display_names.get(l.strategy, l.strategy),
             "symbol": l.symbol,
             "status": l.status,
             "message": l.message,
             "price": l.price,
             "rsi": l.rsi,
             "adx": l.adx,
+            "macd": getattr(l, 'macd', None),
+            "macd_signal": getattr(l, 'macd_signal', None),
+            "ema_15": getattr(l, 'ema_15', None),
+            "ema_30": getattr(l, 'ema_30', None),
+            "ema_200": getattr(l, 'ema_200', None),
+            "volume": getattr(l, 'volume', None),
+            "volume_ma": getattr(l, 'volume_ma', None),
+            "volume_pct": getattr(l, 'volume_pct', None),
+            "conditions_met": getattr(l, 'conditions_met', None),
         }
         for l in logs
     ]
@@ -466,7 +497,7 @@ def get_weekly_report_html(days: int = 7):
             {"".join(f'''
             <li class="trade-item">
                 <span>{t.strategy} | {t.symbol} {t.side}</span>
-                <span class="{'green' if t.pnl_pct and t.pnl_pct > 0 else 'red'}">{t.pnl_pct:+.2f}% (${t.pnl_usd:+.2f})</span>
+                <span class="{'green' if t.pnl_pct and t.pnl_pct > 0 else 'red'}">{(t.pnl_pct or 0):+.2f}% (${(t.pnl_usd or 0):+.2f})</span>
             </li>
             ''' for t in closed_trades[:10]) if closed_trades else '<li style="color: #8b949e; padding: 10px 0;">No closed trades this period.</li>'}
             </ul>
@@ -695,25 +726,39 @@ def get_summary():
 
 @app.get("/api/balance")
 def get_exchange_balance():
-    """Get current testnet balance from exchange"""
+    """Get current balance from exchange (Spot and Futures)"""
     try:
         from trading_bot.exchange import get_exchange
         exchange = get_exchange()
         
-        # Get spot balance
-        spot_balance = exchange.fetch_balance()
-        
-        # Format response with significant balances
         result = {
-            "spot": {},
-            "spot_total_usdt": 0
+            "spot_balances": {},
+            "spot_total_usdt": 0.0,
+            "futures_balances": {},
+            "futures_total_usdt": 0.0
         }
         
-        for coin, amount in spot_balance.items():
-            if amount > 0:
-                result["spot"][coin] = round(amount, 6)
-                if coin == "USDT":
-                    result["spot_total_usdt"] = round(amount, 2)
+        # Get spot balance
+        try:
+            spot_balance = exchange.fetch_balance(market_type="spot")
+            for coin, amount in spot_balance.items():
+                if amount > 0:
+                    result["spot_balances"][coin] = round(amount, 6)
+                    if coin in ["USDT", "USDC"]:
+                        result["spot_total_usdt"] += round(amount, 2)
+        except Exception as e:
+            result["spot_error"] = str(e)
+        
+        # Get futures balance
+        try:
+            futures_balance = exchange.fetch_balance(market_type="futures")
+            for coin, amount in futures_balance.items():
+                if amount > 0:
+                    result["futures_balances"][coin] = round(amount, 6)
+                    if coin in ["USDT", "USDC"]:
+                        result["futures_total_usdt"] += round(amount, 2)
+        except Exception as e:
+            result["futures_error"] = str(e)
         
         return result
     except Exception as e:
