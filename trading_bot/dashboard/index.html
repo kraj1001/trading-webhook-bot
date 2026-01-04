@@ -212,6 +212,50 @@
             </div>
         </div>
 
+        <!-- Risk Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Max Drawdown</p>
+                <p id="maxDrawdown" class="text-2xl font-bold text-red-400">0%</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Sharpe Ratio</p>
+                <p id="sharpeRatio" class="text-2xl font-bold text-blue-400">0</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Sortino Ratio</p>
+                <p id="sortinoRatio" class="text-2xl font-bold text-purple-400">0</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Profit Factor</p>
+                <p id="profitFactor" class="text-2xl font-bold text-green-400">0</p>
+            </div>
+        </div>
+
+        <!-- Per-Strategy Risk Breakdown -->
+        <div class="card p-4 mb-8">
+            <h3 class="text-sm font-semibold text-gray-400 mb-3">📊 Per-Strategy Risk Metrics</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-gray-400 text-xs">
+                            <th class="text-left py-1">Strategy</th>
+                            <th class="text-center py-1">Trades</th>
+                            <th class="text-center py-1">Win Rate</th>
+                            <th class="text-center py-1">Sharpe</th>
+                            <th class="text-center py-1">Max DD</th>
+                            <th class="text-center py-1">Profit Factor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strategyRiskTable">
+                        <tr>
+                            <td colspan="6" class="text-center text-gray-500 py-2">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Strategy Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div class="card p-6" id="strategy-doge">
@@ -632,6 +676,46 @@
                 document.getElementById('taxRealized').textContent = '$' + tax.realized_pnl.toLocaleString();
                 document.getElementById('taxLiability').textContent = '$' + tax.estimated_tax.toLocaleString();
                 document.getElementById('taxNet').textContent = '$' + tax.net_profit_after_tax.toLocaleString();
+
+                // Fetch Risk Metrics
+                try {
+                    const risk = await fetch(`${API_URL}/api/risk`).then(r => r.json());
+                    document.getElementById('maxDrawdown').textContent = risk.max_drawdown_pct.toFixed(1) + '%';
+                    document.getElementById('sharpeRatio').textContent = risk.sharpe_ratio.toFixed(2);
+                    document.getElementById('sortinoRatio').textContent = risk.sortino_ratio.toFixed(2);
+                    document.getElementById('profitFactor').textContent = risk.profit_factor.toFixed(2);
+
+                    // Color code based on values
+                    const ddEl = document.getElementById('maxDrawdown');
+                    ddEl.className = 'text-2xl font-bold ' + (risk.max_drawdown_pct > 20 ? 'text-red-400' : risk.max_drawdown_pct > 10 ? 'text-yellow-400' : 'text-green-400');
+
+                    const sharpeEl = document.getElementById('sharpeRatio');
+                    sharpeEl.className = 'text-2xl font-bold ' + (risk.sharpe_ratio >= 1 ? 'text-green-400' : risk.sharpe_ratio >= 0 ? 'text-yellow-400' : 'text-red-400');
+
+                    const pfEl = document.getElementById('profitFactor');
+                    pfEl.className = 'text-2xl font-bold ' + (risk.profit_factor >= 1.5 ? 'text-green-400' : risk.profit_factor >= 1 ? 'text-yellow-400' : 'text-red-400');
+
+                    // Populate per-strategy risk table
+                    if (risk.per_strategy && risk.per_strategy.length > 0) {
+                        document.getElementById('strategyRiskTable').innerHTML = risk.per_strategy.map(s => {
+                            const sharpeClass = s.sharpe >= 1 ? 'text-green-400' : s.sharpe >= 0 ? 'text-yellow-400' : 'text-red-400';
+                            const pfClass = s.profit_factor >= 1.5 ? 'text-green-400' : s.profit_factor >= 1 ? 'text-yellow-400' : 'text-red-400';
+                            const ddClass = s.max_dd > 20 ? 'text-red-400' : s.max_dd > 10 ? 'text-yellow-400' : 'text-green-400';
+                            return `
+                                <tr class="border-b border-gray-800">
+                                    <td class="py-2 text-white">${s.display_name}</td>
+                                    <td class="text-center text-gray-300">${s.trades}</td>
+                                    <td class="text-center text-gray-300">${s.win_rate}%</td>
+                                    <td class="text-center ${sharpeClass}">${s.sharpe.toFixed(2)}</td>
+                                    <td class="text-center ${ddClass}">${s.max_dd.toFixed(1)}%</td>
+                                    <td class="text-center ${pfClass}">${s.profit_factor.toFixed(2)}</td>
+                                </tr>
+                            `;
+                        }).join('');
+                    }
+                } catch (e) {
+                    console.error('Risk metrics fetch failed:', e);
+                }
 
                 // Fetch and populate strategy cards
                 try {

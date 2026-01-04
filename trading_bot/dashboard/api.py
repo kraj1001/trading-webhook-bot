@@ -112,6 +112,145 @@ def get_strategy_stats(strategy: str):
     return stats
 
 
+@app.get("/api/risk")
+def get_risk_metrics():
+    """Get risk management metrics: max drawdown, Sharpe, Sortino, profit factor"""
+    import numpy as np
+    
+    trades = db.get_trades(limit=1000)
+    closed_trades = [t for t in trades if not t.is_open and t.pnl_pct is not None]
+    
+    if not closed_trades:
+        return {
+            "max_drawdown_pct": 0,
+            "sharpe_ratio": 0,
+            "sortino_ratio": 0,
+            "profit_factor": 0,
+            "win_rate": 0,
+            "avg_trade_pct": 0,
+            "total_trades": 0,
+            "avg_duration_hours": 0
+        }
+    
+    # Calculate returns
+    returns = [t.pnl_pct for t in closed_trades]
+    
+    # Win rate
+    wins = [r for r in returns if r > 0]
+    losses = [r for r in returns if r <= 0]
+    win_rate = (len(wins) / len(returns) * 100) if returns else 0
+    
+    # Profit Factor = Gross Profits / Gross Losses
+    gross_profits = sum(wins) if wins else 0
+    gross_losses = abs(sum(losses)) if losses else 1
+    profit_factor = gross_profits / gross_losses if gross_losses > 0 else gross_profits
+    
+    # Average return
+    avg_return = np.mean(returns) if returns else 0
+    
+    # Sharpe Ratio (assuming risk-free rate = 0 for crypto)
+    std_return = np.std(returns) if len(returns) > 1 else 1
+    sharpe_ratio = (avg_return / std_return) if std_return > 0 else 0
+    
+    # Sortino Ratio (downside deviation only)
+    downside_returns = [r for r in returns if r < 0]
+    downside_std = np.std(downside_returns) if len(downside_returns) > 1 else 1
+    sortino_ratio = (avg_return / downside_std) if downside_std > 0 else 0
+    
+    # Max Drawdown - calculate from equity curve
+    equity = 10000  # Starting equity
+    peak = equity
+    max_dd = 0
+    
+    for trade in sorted(closed_trades, key=lambda x: x.exit_time or x.entry_time):
+        pnl_usd = trade.pnl_usd or 0
+        equity += pnl_usd
+        if equity > peak:
+            peak = equity
+        drawdown = (peak - equity) / peak * 100 if peak > 0 else 0
+        if drawdown > max_dd:
+            max_dd = drawdown
+    
+    # Average trade duration
+    durations = []
+    for t in closed_trades:
+        if t.entry_time and t.exit_time:
+            duration = (t.exit_time - t.entry_time).total_seconds() / 3600  # hours
+            durations.append(duration)
+    avg_duration = np.mean(durations) if durations else 0
+    
+    # Per-strategy breakdown
+    strategy_names = ["ScalpingHybrid_DOGE", "LLM_v4_LowDD", "LLM_v3_Tight", "ScalpingHybrid_AVAX"]
+    display_names = {
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
+    per_strategy = []
+    for strat in strategy_names:
+        strat_trades = [t for t in closed_trades if t.strategy == strat]
+        if not strat_trades:
+            per_strategy.append({
+                "name": strat,
+                "display_name": display_names.get(strat, strat),
+                "trades": 0,
+                "sharpe": 0,
+                "max_dd": 0,
+                "profit_factor": 0,
+                "win_rate": 0
+            })
+            continue
+        
+        strat_returns = [t.pnl_pct for t in strat_trades if t.pnl_pct is not None]
+        strat_wins = [r for r in strat_returns if r > 0]
+        strat_losses = [r for r in strat_returns if r <= 0]
+        
+        strat_win_rate = (len(strat_wins) / len(strat_returns) * 100) if strat_returns else 0
+        strat_avg = np.mean(strat_returns) if strat_returns else 0
+        strat_std = np.std(strat_returns) if len(strat_returns) > 1 else 1
+        strat_sharpe = strat_avg / strat_std if strat_std > 0 else 0
+        
+        strat_gross_profit = sum(strat_wins) if strat_wins else 0
+        strat_gross_loss = abs(sum(strat_losses)) if strat_losses else 1
+        strat_pf = strat_gross_profit / strat_gross_loss if strat_gross_loss > 0 else strat_gross_profit
+        
+        # Max drawdown for strategy
+        strat_equity = 5000  # Per-strategy allocation
+        strat_peak = strat_equity
+        strat_max_dd = 0
+        for t in sorted(strat_trades, key=lambda x: x.exit_time or x.entry_time):
+            strat_equity += t.pnl_usd or 0
+            if strat_equity > strat_peak:
+                strat_peak = strat_equity
+            dd = (strat_peak - strat_equity) / strat_peak * 100 if strat_peak > 0 else 0
+            if dd > strat_max_dd:
+                strat_max_dd = dd
+        
+        per_strategy.append({
+            "name": strat,
+            "display_name": display_names.get(strat, strat),
+            "trades": len(strat_trades),
+            "sharpe": round(strat_sharpe, 2),
+            "max_dd": round(strat_max_dd, 2),
+            "profit_factor": round(strat_pf, 2),
+            "win_rate": round(strat_win_rate, 1)
+        })
+    
+    return {
+        "max_drawdown_pct": round(max_dd, 2),
+        "sharpe_ratio": round(sharpe_ratio, 2),
+        "sortino_ratio": round(sortino_ratio, 2),
+        "profit_factor": round(profit_factor, 2),
+        "win_rate": round(win_rate, 1),
+        "avg_trade_pct": round(avg_return, 2),
+        "total_trades": len(closed_trades),
+        "avg_duration_hours": round(avg_duration, 1),
+        "per_strategy": per_strategy
+    }
+
+
 @app.get("/api/logs")
 def get_logs(limit: int = 50):
     """Get latest strategy check logs with all indicator values"""

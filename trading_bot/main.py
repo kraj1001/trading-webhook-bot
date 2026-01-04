@@ -14,6 +14,7 @@ from .database import TradeDatabase, TradeRecord
 from .strategies import ScalpingHybridStrategy, LLMv4LowDDStrategy, LLMv3TightStrategy
 from .llm_analysis import LLMAnalyzer
 from .telegram_bot import get_telegram_bot
+from .correlation import is_correlated
 
 logging.basicConfig(
     level=logging.INFO,
@@ -310,6 +311,14 @@ class TradingBot:
         if strategy_name in self.open_trades:
             logger.warning(f"⚠️ Skipping: {strategy_name} already has open trade ID={self.open_trades[strategy_name]}")
             return  # Already has open trade
+        
+        # TODO: Enable correlation check for LIVE TRADING (disabled for paper trading phase)
+        # Prevents opening trades on highly correlated assets (>70% correlation)
+        # if self.open_trades:
+        #     correlated, reason = is_correlated(symbol, list(self.open_trades.keys()))
+        #     if correlated:
+        #         logger.warning(f"⚠️ Skipping {strategy_name} - {reason}")
+        #         return
             
         qty = (capital * 0.98) / price  # 98% of allocation to account for fees
         
