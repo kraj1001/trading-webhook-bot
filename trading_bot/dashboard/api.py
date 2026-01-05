@@ -793,15 +793,26 @@ def generate_weekly_report(days: int = 7):
         # If no trades, generate market condition report
         report = generate_no_trades_report(strategy_summary, days)
     
-    return {
+    result = {
         "period": f"Last {days} days",
         "generated_at": datetime.now().isoformat(),
         "total_trades": len(trades_data),
         "trades": trades_data,
         "strategy_activity": strategy_summary,
-        "llm_report": report
+        "llm_analysis": report
     }
-
+    
+    # Also send formatted report to Telegram
+    try:
+        from trading_bot.telegram_bot import get_telegram_bot
+        telegram = get_telegram_bot(db)
+        telegram.send_weekly_report(result)
+        result["telegram_sent"] = True
+    except Exception as e:
+        result["telegram_sent"] = False
+        result["telegram_error"] = str(e)
+    
+    return result
 
 def generate_no_trades_report(strategy_summary: dict, days: int) -> str:
     """Generate a report when no trades occurred"""

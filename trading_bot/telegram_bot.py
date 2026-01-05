@@ -242,6 +242,94 @@ _Updated: {datetime.now().strftime('%Y-%m-%d %H:%M')}_
 """
         self.send_message(message)
     
+    def send_weekly_report(self, report_data: dict):
+        """Send formatted weekly performance report to Telegram"""
+        if not self.enabled:
+            return False
+        
+        # Strategy display name mapping
+        display_names = {
+            "ScalpingHybrid_DOGE": "DOGE Scalper 4H",
+            "LLM_v4_LowDD": "Momentum Pro 4H",
+            "LLM_v3_Tight": "Trend Hunter 4H", 
+            "ScalpingHybrid_AVAX": "AVAX Swing 1D"
+        }
+        
+        # Get Sydney time
+        try:
+            from datetime import timezone, timedelta
+            sydney_tz = timezone(timedelta(hours=11))
+            sydney_time = datetime.now(sydney_tz).strftime('%Y-%m-%d %H:%M')
+        except Exception:
+            sydney_time = datetime.now().strftime('%Y-%m-%d %H:%M')
+        
+        # Extract key metrics
+        period = report_data.get("period", "Last 7 days")
+        total_trades = report_data.get("total_trades", 0)
+        trades = report_data.get("trades", [])
+        llm_analysis = report_data.get("llm_analysis", "No analysis available")
+        
+        # Calculate performance by strategy
+        strategy_stats = {}
+        for trade in trades:
+            strat = trade.get("strategy", "Unknown")
+            if strat not in strategy_stats:
+                strategy_stats[strat] = {"count": 0, "pnl_usd": 0, "wins": 0}
+            strategy_stats[strat]["count"] += 1
+            pnl = trade.get("pnl_usd", 0) or 0
+            strategy_stats[strat]["pnl_usd"] += pnl
+            if pnl > 0:
+                strategy_stats[strat]["wins"] += 1
+        
+        # Calculate totals
+        total_pnl = sum(t.get("pnl_usd", 0) or 0 for t in trades)
+        total_wins = sum(s["wins"] for s in strategy_stats.values())
+        win_rate = (total_wins / total_trades * 100) if total_trades > 0 else 0
+        
+        # Format strategy breakdown
+        strategy_lines = []
+        for strat, stats in strategy_stats.items():
+            display_name = display_names.get(strat, strat)
+            pnl_emoji = "📈" if stats["pnl_usd"] >= 0 else "📉"
+            strategy_lines.append(
+                f"*{display_name}*\n"
+                f"  {pnl_emoji} PnL: ${stats['pnl_usd']:+.2f} | Trades: {stats['count']} | Wins: {stats['wins']}"
+            )
+        
+        strategy_section = "\n".join(strategy_lines) if strategy_lines else "No trades this period"
+        
+        # Truncate LLM analysis if too long (Telegram limit)
+        if len(llm_analysis) > 1500:
+            llm_analysis = llm_analysis[:1500] + "..."
+        
+        # Build formatted message
+        total_emoji = "✅" if total_pnl >= 0 else "❌"
+        
+        message = f"""
+📊 *WEEKLY PERFORMANCE REPORT*
+━━━━━━━━━━━━━━━━━━━━━━
+
+📅 Period: {period}
+📈 Total Trades: {total_trades}
+🎯 Win Rate: {win_rate:.1f}%
+{total_emoji} *Total P&L: ${total_pnl:+.2f}*
+
+━━━━━━━━━━━━━━━━━━━━━━
+📋 *STRATEGY BREAKDOWN*
+━━━━━━━━━━━━━━━━━━━━━━
+
+{strategy_section}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🤖 *AI ANALYSIS*
+━━━━━━━━━━━━━━━━━━━━━━
+
+{llm_analysis}
+
+⏰ Generated: {sydney_time} (Sydney)
+"""
+        return self.send_message(message)
+    
     def process_command(self, chat_id: str, text: str) -> Optional[str]:
         """Process incoming commands (only from authorized chat)"""
         
