@@ -220,6 +220,23 @@ class TradeDatabase:
         finally:
             session.close()
 
+    def get_strategy_cumulative_pnl(self, strategy: str) -> float:
+        """
+        Get cumulative PnL in USD for a strategy (closed trades only).
+        Used for auto-compounding profits into next trade.
+        """
+        session = self.Session()
+        try:
+            from sqlalchemy import func
+            result = session.query(func.sum(TradeRecord.pnl_usd)).filter(
+                TradeRecord.strategy == strategy,
+                TradeRecord.is_open == False,
+                TradeRecord.pnl_usd.isnot(None)
+            ).scalar()
+            return float(result) if result else 0.0
+        finally:
+            session.close()
+
     def log_strategy_check(
         self, 
         strategy: str, 

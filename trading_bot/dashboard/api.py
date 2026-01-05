@@ -112,6 +112,407 @@ def get_strategy_stats(strategy: str):
     return stats
 
 
+@app.post("/api/reset-all")
+def reset_all_data(confirm: str = ""):
+    """
+    DANGER: Reset all trading data for a clean fresh start.
+    Requires confirm="yes-delete-all" to execute.
+    
+    Clears:
+    - Closes all exchange positions (Futures)
+    - Cancels all open orders
+    - Deletes all trades from database
+    - Deletes all strategy logs
+    - Resets ID sequences
+    """
+    from sqlalchemy import text
+    import traceback
+    
+    if confirm != "yes-delete-all":
+        return {
+            "success": False,
+            "error": "Safety check failed. Pass confirm='yes-delete-all' to proceed.",
+            "warning": "This will DELETE ALL TRADES, close all positions, and LOGS permanently!"
+        }
+    
+    result = {
+        "success": True,
+        "steps": [],
+        "errors": []
+    }
+    
+    # Step 1: Close exchange positions and cancel orders
+    try:
+        from trading_bot.exchange import BinanceTestnetAPI
+        exchange = BinanceTestnetAPI()
+        
+        # Cancel all open Futures orders
+        try:
+            for symbol in ["XRPUSDT", "DOGEUSDT", "AVAXUSDT"]:
+                url = f"{exchange.futures_url}/fapi/v1/allOpenOrders"
+                params = {"symbol": symbol}
+                exchange._request("DELETE", url, params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append("✅ Cancelled all Futures open orders")
+        except Exception as e:
+            result["errors"].append(f"Futures order cancel: {str(e)}")
+        
+        # Close all Futures positions by getting position info and closing
+        try:
+            url = f"{exchange.futures_url}/fapi/v2/positionRisk"
+            positions = exchange._request("GET", url, {}, exchange.futures_key, exchange.futures_secret)
+            for pos in positions:
+                amt = float(pos.get("positionAmt", 0))
+                if amt != 0:
+                    symbol = pos["symbol"]
+                    side = "SELL" if amt > 0 else "BUY"
+                    close_url = f"{exchange.futures_url}/fapi/v1/order"
+                    close_params = {
+                        "symbol": symbol,
+                        "side": side,
+                        "type": "MARKET",
+                        "quantity": abs(amt),
+                        "reduceOnly": "true"
+                    }
+                    exchange._request("POST", close_url, close_params, exchange.futures_key, exchange.futures_secret)
+                    result["steps"].append(f"✅ Closed Futures position: {symbol} {amt}")
+        except Exception as e:
+            result["errors"].append(f"Futures position close: {str(e)}")
+        
+        # Cancel all open Spot orders
+        try:
+            for symbol in ["DOGEUSDT", "AVAXUSDT"]:
+                url = f"{exchange.spot_url}/api/v3/openOrders"
+                params = {"symbol": symbol}
+                exchange._request("DELETE", url, params, exchange.spot_key, exchange.spot_secret)
+            result["steps"].append("✅ Cancelled all Spot open orders")
+        except Exception as e:
+            result["errors"].append(f"Spot order cancel: {str(e)}")
+            
+    except Exception as e:
+        result["errors"].append(f"Exchange init: {str(e)}")
+    
+    # Step 2: Clear database
+    session = db.Session()
+    try:
+        # Delete all trades
+        result_trades = session.execute(text("DELETE FROM trades"))
+        trades_deleted = result_trades.rowcount
+        result["steps"].append(f"✅ Deleted {trades_deleted} trades from database")
+        
+        # Delete all strategy logs
+        result_logs = session.execute(text("DELETE FROM strategy_logs"))
+        logs_deleted = result_logs.rowcount
+        result["steps"].append(f"✅ Deleted {logs_deleted} strategy logs from database")
+        
+        # Reset sequences (PostgreSQL)
+        try:
+            session.execute(text("ALTER SEQUENCE trades_id_seq RESTART WITH 1"))
+            session.execute(text("ALTER SEQUENCE strategy_logs_id_seq RESTART WITH 1"))
+            result["steps"].append("✅ Reset ID sequences to 1")
+        except Exception:
+            pass  # Ignore if sequences don't exist
+        
+        session.commit()
+        
+        result["deleted"] = {
+            "trades": trades_deleted,
+            "strategy_logs": logs_deleted
+        }
+        result["message"] = "All data cleared! Fresh start ready."
+        result["note"] = "Restart the container to reset in-memory strategy states."
+        
+    except Exception as e:
+        session.rollback()
+        result["success"] = False
+        result["errors"].append(f"Database error: {str(e)}")
+    finally:
+        session.close()
+    
+    return result
+
+
+@app.post("/api/trades/{trade_id}/update-sl-tp")
+def update_trade_sl_tp(trade_id: int, stop_loss: float, take_profit: float):
+    """Update a trade's stop loss and take profit levels"""
+    from sqlalchemy import text
+    session = db.Session()
+    try:
+        sql = text("UPDATE trades SET stop_loss_price = :sl, take_profit_price = :tp WHERE id = :id")
+        result = session.execute(sql, {"sl": stop_loss, "tp": take_profit, "id": trade_id})
+        session.commit()
+        if result.rowcount > 0:
+            return {"success": True, "trade_id": trade_id, "stop_loss": stop_loss, "take_profit": take_profit}
+        else:
+            raise HTTPException(status_code=404, detail=f"Trade {trade_id} not found")
+    finally:
+        session.close()
+
+
+@app.post("/api/test-short")
+def test_short_trade():
+    """
+    Force test a SHORT trade on Binance Testnet.
+    This creates a real short position to verify shorts work correctly.
+    """
+    import logging
+    import traceback
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        from trading_bot.exchange import BinanceTestnetAPI
+        from trading_bot.telegram_bot import get_telegram_bot
+    except Exception as e:
+        return {"success": False, "error": f"Import failed: {str(e)}", "traceback": traceback.format_exc()}
+    
+    try:
+        # Initialize exchange
+        exchange = BinanceTestnetAPI()
+    except Exception as e:
+        return {"success": False, "error": f"Exchange init failed: {str(e)}", "traceback": traceback.format_exc()}
+    
+    try:
+        telegram = get_telegram_bot(db)
+        
+        # Test parameters
+        symbol = "XRPUSDT"
+        side = "sell"  # SHORT entry
+        quantity = 10.0  # Small test quantity
+        
+        # Get current price
+        ticker = exchange.fetch_ticker(symbol)
+        current_price = ticker["last"]
+        
+        # Calculate SL/TP for SHORT
+        sl_price = round(current_price * 1.02, 4)  # 2% above entry (loss)
+        tp_price = round(current_price * 0.98, 4)  # 2% below entry (profit)
+        
+        result = {
+            "test": "SHORT trade",
+            "symbol": symbol,
+            "side": "short",
+            "quantity": quantity,
+            "entry_price": current_price,
+            "stop_loss": sl_price,
+            "take_profit": tp_price,
+            "steps": []
+        }
+        
+        # Step 1: Open SHORT position
+        try:
+            entry_order = exchange.create_order(symbol, side, quantity, market_type="futures")
+            result["steps"].append(f"✅ SHORT entry placed: {entry_order.quantity} @ ${entry_order.price}")
+            result["entry_order_id"] = str(entry_order)
+        except Exception as e:
+            result["steps"].append(f"❌ SHORT entry failed: {str(e)}")
+            result["success"] = False
+            return result
+        
+        # Step 2: Place SL order (BUY to close short when price goes UP)
+        try:
+            sl_params = {
+                "symbol": symbol.replace("/", ""),
+                "side": "BUY",  # Exit SHORT by buying
+                "type": "STOP_MARKET",
+                "quantity": quantity,
+                "stopPrice": sl_price,
+                "reduceOnly": "true"
+            }
+            # Use internal exchange method
+            url = f"{exchange.futures_url}/fapi/v1/order"
+            sl_data = exchange._request("POST", url, sl_params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append(f"✅ SHORT SL placed: BUY @ ${sl_price} (if price goes UP)")
+        except Exception as e:
+            result["steps"].append(f"⚠️ SHORT SL failed: {str(e)}")
+        
+        # Step 3: Place TP order (BUY to close short when price goes DOWN)
+        try:
+            tp_params = {
+                "symbol": symbol.replace("/", ""),
+                "side": "BUY",  # Exit SHORT by buying
+                "type": "TAKE_PROFIT_MARKET",
+                "quantity": quantity,
+                "stopPrice": tp_price,
+                "reduceOnly": "true"
+            }
+            url = f"{exchange.futures_url}/fapi/v1/order"
+            tp_data = exchange._request("POST", url, tp_params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append(f"✅ SHORT TP placed: BUY @ ${tp_price} (if price goes DOWN)")
+        except Exception as e:
+            result["steps"].append(f"⚠️ SHORT TP failed: {str(e)}")
+        
+        # Step 4: Save to database
+        try:
+            record = TradeRecord(
+                strategy="TEST_SHORT",
+                symbol=symbol,
+                side="short",
+                entry_time=datetime.now(),
+                entry_price=float(current_price),
+                quantity=float(quantity),
+                is_paper=True,
+                is_open=True,
+                market_type="futures",
+                stop_loss_price=float(sl_price),
+                take_profit_price=float(tp_price)
+            )
+            trade_id = db.save_trade(record)
+            result["steps"].append(f"✅ Trade saved to DB: #{trade_id}")
+            result["trade_id"] = trade_id
+        except Exception as e:
+            result["steps"].append(f"⚠️ DB save failed: {str(e)}")
+        
+        # Step 5: Send Telegram notification
+        try:
+            telegram.notify_trade_opened(
+                trade_id=trade_id,
+                strategy="TEST_SHORT",
+                symbol=symbol,
+                side="short",
+                price=float(current_price),
+                quantity=float(quantity),
+                market_type="futures",
+                stop_loss=float(sl_price),
+                take_profit=float(tp_price),
+                success=True
+            )
+            result["steps"].append("✅ Telegram notification sent")
+        except Exception as e:
+            result["steps"].append(f"⚠️ Telegram failed: {str(e)}")
+        
+        result["success"] = True
+        result["message"] = "SHORT test complete! Check Binance Futures positions."
+        
+        return result
+        
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/test-spot-oco")
+def test_spot_oco():
+    """
+    Force test a SPOT OCO order on Binance Demo.
+    This tests if OCO (One-Cancels-Other) orders work for SL/TP protection.
+    """
+    import logging
+    from trading_bot.exchange import BinanceTestnetAPI
+    from trading_bot.telegram_bot import get_telegram_bot
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        # Initialize exchange
+        exchange = BinanceTestnetAPI()
+        telegram = get_telegram_bot(db)
+        
+        # Test parameters - use DOGE for spot (same as ScalpingHybrid_DOGE)
+        symbol = "DOGEUSDT"
+        side = "buy"  # LONG entry on spot
+        quantity = 100  # Small test quantity (whole number for DOGE)
+        
+        # Get current price
+        ticker = exchange.fetch_ticker(symbol)
+        current_price = ticker["last"]
+        
+        # Calculate SL/TP for LONG
+        sl_price = round(current_price * 0.98, 5)  # 2% below entry (loss)
+        tp_price = round(current_price * 1.03, 5)  # 3% above entry (profit)
+        
+        result = {
+            "test": "SPOT OCO order",
+            "symbol": symbol,
+            "side": "long",
+            "quantity": quantity,
+            "entry_price": current_price,
+            "stop_loss": sl_price,
+            "take_profit": tp_price,
+            "steps": []
+        }
+        
+        # Step 1: Buy DOGE (entry)
+        try:
+            entry_order = exchange.create_order(symbol, side, quantity, market_type="spot")
+            result["steps"].append(f"✅ SPOT BUY placed: {entry_order.quantity} @ ${entry_order.price}")
+        except Exception as e:
+            result["steps"].append(f"❌ SPOT BUY failed: {str(e)}")
+            result["success"] = False
+            return result
+        
+        # Step 2: Try OCO order for SL/TP protection
+        try:
+            # OCO order: sell at TP (limit) or SL (stop-limit)
+            clean_symbol = symbol.replace("/", "")
+            url = f"{exchange.spot_url}/api/v3/order/oco"
+            
+            # Prices need specific formatting for OCO
+            oco_params = {
+                "symbol": clean_symbol,
+                "side": "SELL",  # Sell to exit long
+                "quantity": int(quantity),  # DOGE needs whole numbers
+                "price": round(tp_price, 5),  # Take profit limit price
+                "stopPrice": round(sl_price, 5),  # Stop trigger price
+                "stopLimitPrice": round(sl_price * 0.995, 5),  # Stop limit price (slightly below stop)
+                "stopLimitTimeInForce": "GTC"
+            }
+            
+            oco_data = exchange._request("POST", url, oco_params, exchange.spot_key, exchange.spot_secret)
+            result["steps"].append(f"✅ OCO placed: TP=${tp_price}, SL=${sl_price}")
+            result["oco_order"] = oco_data
+        except Exception as e:
+            result["steps"].append(f"❌ OCO failed: {str(e)}")
+            result["oco_error"] = str(e)
+            # OCO failure is expected on demo - note this
+            result["note"] = "OCO may not be supported on Binance Demo API"
+        
+        # Step 3: Save to database
+        try:
+            record = TradeRecord(
+                strategy="TEST_SPOT_OCO",
+                symbol=symbol,
+                side="long",
+                entry_time=datetime.now(),
+                entry_price=float(current_price),
+                quantity=float(quantity),
+                is_paper=True,
+                is_open=True,
+                market_type="spot",
+                stop_loss_price=float(sl_price),
+                take_profit_price=float(tp_price)
+            )
+            trade_id = db.save_trade(record)
+            result["steps"].append(f"✅ Trade saved to DB: #{trade_id}")
+            result["trade_id"] = trade_id
+        except Exception as e:
+            result["steps"].append(f"⚠️ DB save failed: {str(e)}")
+        
+        # Step 4: Send Telegram notification
+        try:
+            telegram.notify_trade_opened(
+                trade_id=trade_id,
+                strategy="TEST_SPOT_OCO",
+                symbol=symbol,
+                side="long",
+                price=float(current_price),
+                quantity=float(quantity),
+                market_type="spot",
+                stop_loss=float(sl_price),
+                take_profit=float(tp_price),
+                success=True
+            )
+            result["steps"].append("✅ Telegram notification sent")
+        except Exception as e:
+            result["steps"].append(f"⚠️ Telegram failed: {str(e)}")
+        
+        result["success"] = True
+        result["message"] = "SPOT OCO test complete! Check if OCO is supported."
+        
+        return result
+        
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 @app.get("/api/risk")
 def get_risk_metrics():
     """Get risk management metrics: max drawdown, Sharpe, Sortino, profit factor"""

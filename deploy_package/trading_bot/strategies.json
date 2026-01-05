@@ -1,29 +1,29 @@
 {
-    "initial_capital": 100,
-    "check_interval_seconds": 3600,
+    "initial_capital": 15000,
+    "check_interval_seconds": 600,
     "strategies": [
         {
             "name": "ScalpingHybrid_DOGE",
             "symbol": "DOGEUSDT",
             "timeframe": "4h",
             "market_type": "spot",
-            "allocation_pct": 20.0,
+            "allocation_pct": 15.0,
             "enabled": true
         },
         {
             "name": "LLM_v4_LowDD",
             "symbol": "XRPUSDT",
             "timeframe": "4h",
-            "market_type": "spot",
-            "allocation_pct": 25.0,
+            "market_type": "futures",
+            "allocation_pct": 20.0,
             "enabled": true
         },
         {
             "name": "LLM_v3_Tight",
             "symbol": "XRPUSDT",
             "timeframe": "4h",
-            "market_type": "spot",
-            "allocation_pct": 20.0,
+            "market_type": "futures",
+            "allocation_pct": 15.0,
             "enabled": true
         },
         {
@@ -31,7 +31,7 @@
             "symbol": "AVAXUSDT",
             "timeframe": "1d",
             "market_type": "spot",
-            "allocation_pct": 15.0,
+            "allocation_pct": 10.0,
             "enabled": true
         }
     ],

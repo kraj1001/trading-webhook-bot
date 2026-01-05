@@ -91,7 +91,7 @@
 
             /* Fix chart containers */
             #equityChart {
-                height: 150px !important;
+                height: 80px !important;
             }
 
             /* TradingView chart sizing */
@@ -178,11 +178,14 @@
                     <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                     Bot Running
                 </span>
-                <span id="balanceDisplay" class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
-                    💰 Balance: Loading...
+                <span id="spotBalanceDisplay" class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
+                    📊 Spot: Loading...
+                </span>
+                <span id="futuresBalanceDisplay" class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm">
+                    📈 Futures: Loading...
                 </span>
                 <a href="/api/weekly-report/html" target="_blank"
-                    class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm hover:bg-purple-500/30 transition-colors cursor-pointer">
+                    class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-sm font-semibold transition-all shadow-lg hover:shadow-purple-500/25 cursor-pointer border border-purple-400">
                     📊 Weekly Report
                 </a>
                 <span id="lastUpdate" class="text-gray-500 text-sm">Updated: --</span>
@@ -209,6 +212,50 @@
             </div>
         </div>
 
+        <!-- Risk Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Max Drawdown</p>
+                <p id="maxDrawdown" class="text-2xl font-bold text-red-400">0%</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Sharpe Ratio</p>
+                <p id="sharpeRatio" class="text-2xl font-bold text-blue-400">0</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Sortino Ratio</p>
+                <p id="sortinoRatio" class="text-2xl font-bold text-purple-400">0</p>
+            </div>
+            <div class="card stat-card p-4">
+                <p class="text-gray-400 text-xs">Profit Factor</p>
+                <p id="profitFactor" class="text-2xl font-bold text-green-400">0</p>
+            </div>
+        </div>
+
+        <!-- Per-Strategy Risk Breakdown -->
+        <div class="card p-4 mb-8">
+            <h3 class="text-sm font-semibold text-gray-400 mb-3">📊 Per-Strategy Risk Metrics</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-gray-400 text-xs">
+                            <th class="text-left py-1">Strategy</th>
+                            <th class="text-center py-1">Trades</th>
+                            <th class="text-center py-1">Win Rate</th>
+                            <th class="text-center py-1">Sharpe</th>
+                            <th class="text-center py-1">Max DD</th>
+                            <th class="text-center py-1">Profit Factor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strategyRiskTable">
+                        <tr>
+                            <td colspan="6" class="text-center text-gray-500 py-2">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Strategy Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <div class="card p-6" id="strategy-doge">
@@ -216,7 +263,7 @@
                     <div class="w-10 h-10 bg-yellow-500/20 rounded-full flex items-center justify-center">🐕</div>
                     <div>
                         <h3 class="font-bold">DOGE 4H</h3>
-                        <p class="text-sm text-gray-400">ScalpingHybrid</p>
+                        <p class="text-sm text-gray-400 truncate">DOGE Scalper 4H (S)</p>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -231,7 +278,7 @@
                     <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center">💎</div>
                     <div>
                         <h3 class="font-bold">XRP 4H</h3>
-                        <p class="text-sm text-gray-400">LLM v4 Low DD</p>
+                        <p class="text-sm text-gray-400 truncate">Momentum Pro 4H (F)</p>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -246,7 +293,7 @@
                     <div class="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">🚀</div>
                     <div>
                         <h3 class="font-bold">XRP 4H</h3>
-                        <p class="text-sm text-gray-400">LLM v3 Tight</p>
+                        <p class="text-sm text-gray-400 truncate">Trend Hunter 4H (F)</p>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -261,7 +308,7 @@
                     <div class="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">🔺</div>
                     <div>
                         <h3 class="font-bold">AVAX 1D</h3>
-                        <p class="text-sm text-gray-400">ScalpingHybrid</p>
+                        <p class="text-sm text-gray-400 truncate">AVAX Swing 1D (S)</p>
                     </div>
                 </div>
                 <div class="space-y-2">
@@ -300,14 +347,14 @@
         <!-- Equity Chart -->
         <div class="card p-6 mb-8">
             <h2 class="text-xl font-bold mb-4">Equity Curve</h2>
-            <canvas id="equityChart" height="100"></canvas>
+            <canvas id="equityChart" height="60"></canvas>
         </div>
 
         <!-- TradingView-Style Chart -->
         <div class="card p-6 mb-8">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
                 <h2 class="text-xl font-bold flex items-center gap-2">
-                    📊 TradingView Chart
+                    📈 Price Chart
                 </h2>
                 <div class="flex flex-wrap gap-2 w-full sm:w-auto">
                     <select id="chartSymbol" class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm">
@@ -326,10 +373,10 @@
                     </select>
                     <select id="chartStrategy" class="bg-gray-800 border border-gray-700 rounded px-3 py-1.5 text-sm">
                         <option value="">All Trades</option>
-                        <option value="ScalpingHybrid_DOGE">ScalpingHybrid DOGE</option>
-                        <option value="ScalpingHybrid_AVAX">ScalpingHybrid AVAX</option>
-                        <option value="LLM_v4_LowDD">LLM v4 LowDD</option>
-                        <option value="LLM_v3_Tight">LLM v3 Tight</option>
+                        <option value="ScalpingHybrid_DOGE">DOGE Scalper 4H (S)</option>
+                        <option value="ScalpingHybrid_AVAX">AVAX Swing 1D (S)</option>
+                        <option value="LLM_v4_LowDD">Momentum Pro 4H (F)</option>
+                        <option value="LLM_v3_Tight">Trend Hunter 4H (F)</option>
                     </select>
                     <button id="refreshChart"
                         class="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded px-3 py-1.5 text-sm transition">
@@ -416,7 +463,7 @@
     </div>
 
     <!-- Live Monitoring Logs -->
-    <div class="card p-6 mb-8">
+    <div class="card p-6 mb-8 max-w-7xl mx-auto">
         <div class="flex items-center justify-between mb-4">
             <div>
                 <h2 class="text-xl font-bold flex items-center gap-2">
@@ -426,57 +473,80 @@
                 <p class="text-gray-400 text-sm">Real-time signal checks from the bot</p>
             </div>
         </div>
-        <div class="overflow-x-auto max-h-60 overflow-y-auto">
-            <table class="w-full text-sm">
+        <div class="overflow-x-auto max-h-48 overflow-y-auto">
+            <table class="w-full text-xs">
                 <thead class="sticky top-0 bg-[#21262d]">
                     <tr class="text-left text-gray-400 border-b border-gray-700">
-                        <th class="pb-2">Time</th>
-                        <th class="pb-2">Strategy</th>
-                        <th class="pb-2">Symbol</th>
-                        <th class="pb-2">Price</th>
-                        <th class="pb-2">RSI</th>
-                        <th class="pb-2">Status</th>
+                        <th class="pb-2 w-20 whitespace-nowrap">Time</th>
+                        <th class="pb-2 w-28">Strategy</th>
+                        <th class="pb-2 w-20">Symbol</th>
+                        <th class="pb-2 w-16">Price</th>
+                        <th class="pb-2 w-14">EMA15</th>
+                        <th class="pb-2 w-14">EMA30</th>
+                        <th class="pb-2 w-12">RSI</th>
+                        <th class="pb-2 w-12">ADX</th>
+                        <th class="pb-2 w-14">MACD</th>
+                        <th class="pb-2 w-12">Vol%</th>
+                        <th class="pb-2 w-24">Conditions</th>
+                        <th class="pb-2 w-16">Status</th>
                     </tr>
                 </thead>
                 <tbody id="logTable">
                     <tr class="text-gray-500">
-                        <td colspan="6" class="py-4 text-center">Waiting for logs...</td>
+                        <td colspan="12" class="py-4 text-center">Waiting for logs...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <!-- Strategy Condition Index -->
+        <div class="mt-2 text-xs text-gray-500 border-t border-gray-700 pt-2">
+            <div class="font-semibold text-gray-400 mb-1">📊 Entry & Exit Conditions:</div>
+            <div>• <span class="text-blue-400">Momentum Pro 4H</span>: EMA15>30>200, RSI>70, ADX>25, MACD+, Vol>80% |
+                <span class="text-yellow-400">SL: 1x ATR, TP: 2x ATR</span>
+            </div>
+            <div>• <span class="text-cyan-400">Trend Hunter 4H</span>: EMA15>30>200, RSI>70, ADX>25, MACD+, Vol>80% |
+                <span class="text-yellow-400">SL: 0.8x ATR, TP: 1.5x ATR</span>
+            </div>
+            <div>• <span class="text-green-400">DOGE Scalper 4H</span>: EMA15>30, Price>EMA9, RSI>70, MACD+, Vol>80% |
+                <span class="text-yellow-400">SL: 1.5x ATR, TP: 2.5x ATR</span>
+            </div>
+            <div>• <span class="text-purple-400">AVAX Swing 1D</span>: EMA15>30, Price>EMA9, RSI>70, MACD+, Vol>80% |
+                <span class="text-yellow-400">SL: 1.5x ATR, TP: 2.5x ATR</span>
+            </div>
+        </div>
     </div>
 
     <!-- Trade Log -->
-    <div class="card p-6">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold">Trade Log</h2>
-            <select id="strategyFilter" class="bg-gray-800 border border-gray-700 rounded px-3 py-1">
+    <div class="card p-4 max-w-7xl mx-auto">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-bold">Trade Log</h2>
+            <select id="strategyFilter" class="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-sm">
                 <option value="">All Strategies</option>
-                <option value="ScalpingHybrid_DOGE">DOGE 4H</option>
-                <option value="LLM_v4_LowDD">XRP v4</option>
-                <option value="LLM_v3_Tight">XRP v3</option>
-                <option value="ScalpingHybrid_AVAX">AVAX 1D</option>
+                <option value="ScalpingHybrid_DOGE">DOGE Scalper 4H</option>
+                <option value="LLM_v4_LowDD">Momentum Pro 4H</option>
+                <option value="LLM_v3_Tight">Trend Hunter 4H</option>
+                <option value="ScalpingHybrid_AVAX">AVAX Swing 1D</option>
             </select>
         </div>
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="text-left text-gray-400 border-b border-gray-700">
-                        <th class="pb-3">#</th>
-                        <th class="pb-3">Strategy</th>
-                        <th class="pb-3">Symbol</th>
-                        <th class="pb-3">Side</th>
-                        <th class="pb-3">Entry</th>
-                        <th class="pb-3">Exit</th>
-                        <th class="pb-3">P&L</th>
-                        <th class="pb-3">Reason</th>
+        <div class="overflow-x-auto max-h-48 overflow-y-auto">
+            <table class="w-full text-sm table-fixed">
+                <thead class="sticky top-0 bg-[#21262d]">
+                    <tr class="text-left text-gray-400 border-b border-gray-700 text-xs">
+                        <th class="pb-2 w-8">#</th>
+                        <th class="pb-2 w-32">Strategy</th>
+                        <th class="pb-2 w-20">Symbol</th>
+                        <th class="pb-2 w-12">Side</th>
+                        <th class="pb-2 w-16">Entry $</th>
+                        <th class="pb-2 w-16">Exit $</th>
+                        <th class="pb-2 w-28">Entry Time</th>
+                        <th class="pb-2 w-28">Exit Time</th>
+                        <th class="pb-2 w-14">P&L</th>
+                        <th class="pb-2 w-20">Reason</th>
                     </tr>
                 </thead>
                 <tbody id="tradeTable">
                     <tr class="text-gray-500">
-                        <td colspan="8" class="py-8 text-center">No trades yet. Bot is monitoring for signals...
-                        </td>
+                        <td colspan="10" class="py-4 text-center">No trades yet. Bot is monitoring for signals...</td>
                     </tr>
                 </tbody>
             </table>
@@ -526,49 +596,78 @@
                 // Fetch trades
                 const trades = await fetch(`${API_URL}/api/trades?limit=20`).then(r => r.json());
                 if (trades.length > 0) {
-                    document.getElementById('tradeTable').innerHTML = trades.map(t => `
+                    document.getElementById('tradeTable').innerHTML = trades.map(t => {
+                        const entryTime = t.entry_time ? new Date(t.entry_time + 'Z').toLocaleString() : '-';
+                        const exitTime = t.exit_time ? new Date(t.exit_time + 'Z').toLocaleString() : '-';
+                        // Show "Failed Order" if entry is $0 or missing
+                        const reason = (t.entry_price === 0 || t.entry_price === null)
+                            ? 'Failed Order'
+                            : (t.exit_reason || (t.is_open ? 'Open' : '-'));
+                        const reasonClass = reason === 'Failed Order' ? 'text-red-400' : 'text-gray-400';
+                        return `
                         <tr class="border-b border-gray-800">
-                            <td class="py-3">${t.id}</td>
-                            <td>${t.strategy}</td>
-                            <td>${t.symbol}</td>
-                            <td class="${t.side === 'long' ? 'text-green-400' : 'text-red-400'}">${t.side.toUpperCase()}</td>
-                            <td>$${t.entry_price?.toFixed(4) || '-'}</td>
-                            <td>$${t.exit_price?.toFixed(4) || '-'}</td>
-                            <td class="${(t.pnl_pct || 0) >= 0 ? 'positive' : 'negative'}">${t.pnl_pct ? t.pnl_pct.toFixed(2) + '%' : '-'}</td>
-                            <td class="text-gray-400">${t.exit_reason || 'Open'}</td>
+                            <td class="py-1 text-xs">${t.id}</td>
+                            <td class="text-xs truncate">${t.display_name || t.strategy}</td>
+                            <td class="text-xs">${t.symbol}</td>
+                            <td class="text-xs ${t.side === 'long' ? 'text-green-400' : 'text-red-400'}">${t.side.toUpperCase()}</td>
+                            <td class="text-xs">$${t.entry_price?.toFixed(4) || '0'}</td>
+                            <td class="text-xs">$${t.exit_price?.toFixed(4) || '-'}</td>
+                            <td class="text-gray-400 text-xs">${entryTime}</td>
+                            <td class="text-gray-400 text-xs">${exitTime}</td>
+                            <td class="text-xs ${(t.pnl_pct || 0) >= 0 ? 'positive' : 'negative'}">${t.pnl_pct ? t.pnl_pct.toFixed(2) + '%' : '-'}</td>
+                            <td class="${reasonClass} text-xs">${reason}</td>
                         </tr>
-                    `).join('');
+                    `}).join('');
                 }
 
                 // Fetch logs
                 const logs = await fetch(`${API_URL}/api/logs?limit=20`).then(r => r.json());
+
+                // Strategy conditions for tooltips
+                const strategyConditions = {
+                    'LLM_v4_LowDD': 'LONG: EMA15>30>200, RSI>70, ADX>25, MACD+\\nSHORT: EMA15<30<200, RSI<30, ADX>25, MACD-\\nSL: 2x ATR | TP: 3x ATR',
+                    'LLM_v3_Tight': 'LONG: EMA15>30>200, RSI>70, ADX>25, MACD+\\nSHORT: EMA15<30<200, RSI<30, ADX>25, MACD-\\nSL: 2x ATR | TP: 3x ATR',
+                    'ScalpingHybrid_DOGE': 'LONG: EMA15>30, Price>EMA9, RSI>70, MACD+\\nSL: 1.5x ATR | TP: 2.5x ATR',
+                    'ScalpingHybrid_AVAX': 'LONG: EMA15>30, Price>EMA9, RSI>70, MACD+\\nSL: 1.5x ATR | TP: 2.5x ATR'
+                };
+
                 if (logs.length > 0) {
-                    document.getElementById('logTable').innerHTML = logs.map(l => `
+                    document.getElementById('logTable').innerHTML = logs.map(l => {
+                        const volPct = l.volume_pct ? Math.round(l.volume_pct) + '%' : '-';
+                        const volClass = (l.volume_pct || 0) > 80 ? 'text-green-400' : 'text-red-400';
+                        const macdVal = l.macd ? (l.macd > 0 ? '+' : '') + l.macd.toFixed(4) : '-';
+                        const macdClass = (l.macd || 0) > 0 ? 'text-green-400' : 'text-red-400';
+                        const conditions = l.conditions_met || '-';
+                        return `
                         <tr class="border-b border-gray-800 hover:bg-white/5 transition-colors">
-                            <td class="py-2 text-gray-400">${new Date(l.timestamp + 'Z').toLocaleTimeString()}</td>
-                            <td class="font-mono text-blue-400">${l.strategy}</td>
+                            <td class="py-1 text-gray-400">${new Date(l.timestamp + 'Z').toLocaleTimeString()}</td>
+                            <td class="font-mono text-blue-400 truncate">${l.display_name || l.strategy}</td>
                             <td>${l.symbol}</td>
                             <td>$${l.price?.toFixed(4) || '-'}</td>
-                            <td class="${(l.rsi || 0) > 70 ? 'text-orange-400' : (l.rsi || 0) < 30 ? 'text-green-400' : 'text-gray-400'}">
-                                ${l.rsi?.toFixed(1) || '-'}
-                            </td>
-                            <td>
-                                <span class="px-2 py-0.5 rounded text-xs ${l.status === 'SIGNAL' ? 'bg-green-500/20 text-green-400' : 'bg-gray-700 text-gray-400'}">
-                                    ${l.status}
-                                </span>
-                            </td>
+                            <td class="text-gray-400">${l.ema_15?.toFixed(2) || '-'}</td>
+                            <td class="text-gray-400">${l.ema_30?.toFixed(2) || '-'}</td>
+                            <td class="${(l.rsi || 0) > 70 ? 'text-orange-400' : (l.rsi || 0) < 30 ? 'text-green-400' : 'text-gray-400'}">${l.rsi?.toFixed(0) || '-'}</td>
+                            <td class="${(l.adx || 0) > 25 ? 'text-green-400' : 'text-gray-400'}">${l.adx?.toFixed(0) || '-'}</td>
+                            <td class="${macdClass}">${macdVal}</td>
+                            <td class="${volClass}">${volPct}</td>
+                            <td class="text-gray-400 truncate">${conditions}</td>
+                            <td><span class="px-1 py-0.5 rounded ${l.status === 'SIGNAL' ? 'bg-green-500/20 text-green-400' : 'bg-gray-700 text-gray-400'}">${l.status}</span></td>
                         </tr>
-                    `).join('');
+                    `}).join('');
                 }
 
                 document.getElementById('lastUpdate').textContent = 'Updated: ' + new Date().toLocaleTimeString();
 
-                // Fetch and display real balance
+                // Fetch and display real balance (Spot and Futures)
                 try {
                     const balance = await fetch(`${API_URL}/api/balance`).then(r => r.json());
                     if (balance.spot_total_usdt !== undefined) {
-                        document.getElementById('balanceDisplay').textContent =
-                            `💰 Balance: $${balance.spot_total_usdt.toFixed(2)} USDT`;
+                        document.getElementById('spotBalanceDisplay').textContent =
+                            `📊 Spot: $${balance.spot_total_usdt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    }
+                    if (balance.futures_total_usdt !== undefined) {
+                        document.getElementById('futuresBalanceDisplay').textContent =
+                            `📈 Futures: $${balance.futures_total_usdt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                     }
                 } catch (e) { }
 
@@ -577,6 +676,96 @@
                 document.getElementById('taxRealized').textContent = '$' + tax.realized_pnl.toLocaleString();
                 document.getElementById('taxLiability').textContent = '$' + tax.estimated_tax.toLocaleString();
                 document.getElementById('taxNet').textContent = '$' + tax.net_profit_after_tax.toLocaleString();
+
+                // Fetch Risk Metrics
+                try {
+                    const risk = await fetch(`${API_URL}/api/risk`).then(r => r.json());
+                    document.getElementById('maxDrawdown').textContent = risk.max_drawdown_pct.toFixed(1) + '%';
+                    document.getElementById('sharpeRatio').textContent = risk.sharpe_ratio.toFixed(2);
+                    document.getElementById('sortinoRatio').textContent = risk.sortino_ratio.toFixed(2);
+                    document.getElementById('profitFactor').textContent = risk.profit_factor.toFixed(2);
+
+                    // Color code based on values
+                    const ddEl = document.getElementById('maxDrawdown');
+                    ddEl.className = 'text-2xl font-bold ' + (risk.max_drawdown_pct > 20 ? 'text-red-400' : risk.max_drawdown_pct > 10 ? 'text-yellow-400' : 'text-green-400');
+
+                    const sharpeEl = document.getElementById('sharpeRatio');
+                    sharpeEl.className = 'text-2xl font-bold ' + (risk.sharpe_ratio >= 1 ? 'text-green-400' : risk.sharpe_ratio >= 0 ? 'text-yellow-400' : 'text-red-400');
+
+                    const pfEl = document.getElementById('profitFactor');
+                    pfEl.className = 'text-2xl font-bold ' + (risk.profit_factor >= 1.5 ? 'text-green-400' : risk.profit_factor >= 1 ? 'text-yellow-400' : 'text-red-400');
+
+                    // Populate per-strategy risk table
+                    if (risk.per_strategy && risk.per_strategy.length > 0) {
+                        document.getElementById('strategyRiskTable').innerHTML = risk.per_strategy.map(s => {
+                            const sharpeClass = s.sharpe >= 1 ? 'text-green-400' : s.sharpe >= 0 ? 'text-yellow-400' : 'text-red-400';
+                            const pfClass = s.profit_factor >= 1.5 ? 'text-green-400' : s.profit_factor >= 1 ? 'text-yellow-400' : 'text-red-400';
+                            const ddClass = s.max_dd > 20 ? 'text-red-400' : s.max_dd > 10 ? 'text-yellow-400' : 'text-green-400';
+                            return `
+                                <tr class="border-b border-gray-800">
+                                    <td class="py-2 text-white">${s.display_name}</td>
+                                    <td class="text-center text-gray-300">${s.trades}</td>
+                                    <td class="text-center text-gray-300">${s.win_rate}%</td>
+                                    <td class="text-center ${sharpeClass}">${s.sharpe.toFixed(2)}</td>
+                                    <td class="text-center ${ddClass}">${s.max_dd.toFixed(1)}%</td>
+                                    <td class="text-center ${pfClass}">${s.profit_factor.toFixed(2)}</td>
+                                </tr>
+                            `;
+                        }).join('');
+                    }
+                } catch (e) {
+                    console.error('Risk metrics fetch failed:', e);
+                }
+
+                // Fetch and populate strategy cards
+                try {
+                    const strategies = await fetch(`${API_URL}/api/strategies`).then(r => r.json());
+                    const strategyIds = {
+                        'ScalpingHybrid_DOGE': 'strategy-doge',
+                        'LLM_v4_LowDD': 'strategy-xrp-v4',
+                        'LLM_v3_Tight': 'strategy-xrp-v3',
+                        'ScalpingHybrid_AVAX': 'strategy-avax'
+                    };
+
+                    for (const s of strategies) {
+                        const cardId = strategyIds[s.name];
+                        if (!cardId) continue;
+                        const card = document.getElementById(cardId);
+                        if (!card) continue;
+
+                        const stats = s.stats || {};
+                        const pnl = stats.total_pnl_usd || 0;
+                        const trades = stats.total_trades || 0;
+                        const winRate = stats.win_rate || 0;
+
+                        // Find and update the P&L, Trades, Win Rate spans
+                        const spans = card.querySelectorAll('.space-y-2 div');
+                        if (spans[0]) spans[0].querySelector('span:last-child').textContent = '$' + pnl.toFixed(2);
+                        if (spans[0]) spans[0].querySelector('span:last-child').className = pnl >= 0 ? 'positive' : 'negative';
+                        if (spans[1]) spans[1].querySelector('span:last-child').textContent = trades;
+                        if (spans[2]) spans[2].querySelector('span:last-child').textContent = trades > 0 ? winRate.toFixed(1) + '%' : '-';
+                    }
+                } catch (e) { console.log('Strategy stats error:', e); }
+
+                // Update equity curve with P&L data (last 20 trades, X-axis = dates)
+                if (trades.length > 0) {
+                    const recentTrades = trades.filter(t => t.pnl_usd !== null && t.exit_time).slice(0, 20).reverse();
+                    if (recentTrades.length > 0) {
+                        let runningPnl = summary.current_equity - summary.total_pnl_usd;
+                        const equityData = recentTrades.map(t => {
+                            runningPnl += (t.pnl_usd || 0);
+                            return runningPnl;
+                        });
+                        // X-axis: show exit dates (MM/DD format)
+                        const dateLabels = recentTrades.map(t => {
+                            const d = new Date(t.exit_time + 'Z');
+                            return (d.getMonth() + 1) + '/' + d.getDate();
+                        });
+                        equityChart.data.labels = dateLabels;
+                        equityChart.data.datasets[0].data = equityData;
+                        equityChart.update();
+                    }
+                }
 
             } catch (e) {
                 console.log('API not available yet');

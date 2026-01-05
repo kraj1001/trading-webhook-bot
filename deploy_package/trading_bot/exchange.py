@@ -27,6 +27,14 @@ BINANCE_SPOT_SECRET = os.getenv("BINANCE_SPOT_SECRET", "")
 BINANCE_FUTURES_API_KEY = os.getenv("BINANCE_FUTURES_API_KEY", "")
 BINANCE_FUTURES_SECRET = os.getenv("BINANCE_FUTURES_SECRET", "")
 
+# API Base URLs (configurable via environment)
+# Demo:       https://demo-api.binance.com
+# Testnet:    https://testnet.binance.vision  
+# Production: https://api.binance.com
+BINANCE_SPOT_URL = os.getenv("BINANCE_SPOT_URL", "https://demo-api.binance.com")
+# Futures Demo: https://demo-fapi.binance.com
+BINANCE_FUTURES_URL = os.getenv("BINANCE_FUTURES_URL", "https://demo-fapi.binance.com")
+
 # Fees
 SPOT_COMMISSION = 0.001
 FUTURES_COMMISSION = 0.0004
@@ -47,23 +55,26 @@ class Order:
 
 
 class BinanceTestnetAPI:
-    """Direct API wrapper for Binance Testnet (bypasses ccxt issues)"""
+    """Direct API wrapper for Binance (supports Demo, Testnet, and Production)"""
     
     def __init__(self):
-        # Futures Testnet
-        self.futures_url = "https://testnet.binancefuture.com"
+        # Futures API
+        self.futures_url = BINANCE_FUTURES_URL
         self.futures_key = BINANCE_FUTURES_API_KEY
         self.futures_secret = BINANCE_FUTURES_SECRET
         
-        # Spot Testnet
-        self.spot_url = "https://testnet.binance.vision"
+        # Spot API (Demo, Testnet, or Production based on BINANCE_SPOT_URL)
+        self.spot_url = BINANCE_SPOT_URL
         self.spot_key = BINANCE_SPOT_API_KEY
         self.spot_secret = BINANCE_SPOT_SECRET
         
         # For fetching real price data
         self.price_exchange = ccxt.binance()
         
-        logger.info("✅ Binance Testnet API initialized")
+        # Determine if using testnet/demo
+        is_demo = "demo" in self.spot_url or "testnet" in self.spot_url
+        
+        logger.info(f"✅ Binance API initialized: {self.spot_url} ({'DEMO' if is_demo else 'PRODUCTION'})")
     
     def _sign(self, params: dict, secret: str) -> str:
         """Create signature for authenticated requests"""
@@ -156,8 +167,17 @@ class BinanceTestnetAPI:
             data = self._request("POST", url, params, key, secret)
             
             order_id = data.get("orderId", str(time.time()))
-            exec_price = float(data.get("avgPrice", price))
-            exec_qty = float(data.get("executedQty", quantity))
+            
+            # Futures Demo API returns executedQty=0 for NEW orders
+            # Fall back to origQty and current price when not immediately filled
+            exec_qty = float(data.get("executedQty", 0))
+            exec_price = float(data.get("avgPrice", 0))
+            
+            if exec_qty == 0:
+                # Order not yet filled (common on Futures Demo)
+                exec_qty = float(data.get("origQty", quantity))
+                exec_price = price  # Use the price we fetched earlier
+                logger.warning(f"⚠️ Order NEW (not filled yet), using origQty={exec_qty}, price={exec_price}")
             
             commission = exec_qty * exec_price * (FUTURES_COMMISSION if market_type == "futures" else SPOT_COMMISSION)
             
@@ -177,6 +197,151 @@ class BinanceTestnetAPI:
         except Exception as e:
             logger.error(f"Order failed: {e}")
             raise
+    
+    def create_order_with_sl_tp(
+        self,
+        symbol: str,
+        side: Literal["buy", "sell"],
+        quantity: float,
+        stop_loss_price: float,
+        take_profit_price: float,
+        market_type: str = "futures"
+    ) -> Order:
+        """
+        Create entry order with exchange-side stop-loss and take-profit.
+        For Futures: Uses STOP_MARKET and TAKE_PROFIT_MARKET orders.
+        """
+        # First, place the entry order
+        entry_order = self.create_order(symbol, side, quantity, market_type)
+        
+        if market_type != "futures":
+            logger.warning("SL/TP orders only supported for futures. Entry placed without SL/TP.")
+            return entry_order
+        
+        # Determine exit side (opposite of entry)
+        exit_side = "SELL" if side == "buy" else "BUY"
+        
+        clean_symbol = symbol.replace("/", "")
+        url = f"{self.futures_url}/fapi/v1/order"
+        key, secret = self.futures_key, self.futures_secret
+        
+        # Get proper quantity decimals
+        lot_sizes = {"DOGEUSDT": 0, "XRPUSDT": 1, "AVAXUSDT": 2, "BTCUSDT": 5, "ETHUSDT": 4, "SOLUSDT": 2}
+        decimals = lot_sizes.get(clean_symbol, 2)
+        rounded_qty = round(quantity, decimals)
+        
+        # Round prices to appropriate decimals
+        price_decimals = 4 if "USDT" in symbol else 2
+        sl_price = round(stop_loss_price, price_decimals)
+        tp_price = round(take_profit_price, price_decimals)
+        
+        # Place Stop-Loss order (STOP_MARKET)
+        try:
+            sl_params = {
+                "symbol": clean_symbol,
+                "side": exit_side,
+                "type": "STOP_MARKET",
+                "quantity": rounded_qty,
+                "stopPrice": sl_price,
+                "reduceOnly": "true"
+            }
+            sl_data = self._request("POST", url, sl_params, key, secret)
+            logger.info(f"📉 STOP-LOSS placed: {exit_side} {rounded_qty} {symbol} @ {sl_price}")
+        except Exception as e:
+            logger.error(f"Stop-loss order failed: {e}")
+        
+        # Place Take-Profit order (TAKE_PROFIT_MARKET)
+        try:
+            tp_params = {
+                "symbol": clean_symbol,
+                "side": exit_side,
+                "type": "TAKE_PROFIT_MARKET",
+                "quantity": rounded_qty,
+                "stopPrice": tp_price,
+                "reduceOnly": "true"
+            }
+            tp_data = self._request("POST", url, tp_params, key, secret)
+            logger.info(f"📈 TAKE-PROFIT placed: {exit_side} {rounded_qty} {symbol} @ {tp_price}")
+        except Exception as e:
+            logger.error(f"Take-profit order failed: {e}")
+        
+        return entry_order
+
+    def create_spot_order_with_oco(
+        self,
+        symbol: str,
+        side: Literal["buy", "sell"],
+        quantity: float,
+        stop_loss_price: float,
+        take_profit_price: float
+    ) -> Order:
+        """
+        Create Spot entry order then place OCO order for SL/TP protection.
+        OCO = One-Cancels-the-Other: when SL or TP triggers, the other is canceled.
+        """
+        # First, place the entry order
+        entry_order = self.create_order(symbol, side, quantity, market_type="spot")
+        
+        if entry_order.quantity <= 0:
+            logger.error("Entry order failed, skipping OCO")
+            return entry_order
+        
+        # For a BUY entry, we need to SELL at SL or TP
+        # OCO order places both a limit sell (TP) and stop-limit sell (SL)
+        clean_symbol = symbol.replace("/", "")
+        url = f"{self.spot_url}/api/v3/order/oco"
+        key, secret = self.spot_key, self.spot_secret
+        
+        # Get proper quantity decimals
+        lot_sizes = {"DOGEUSDT": 0, "XRPUSDT": 1, "AVAXUSDT": 2, "BTCUSDT": 5, "ETHUSDT": 4, "SOLUSDT": 2}
+        decimals = lot_sizes.get(clean_symbol, 2)
+        rounded_qty = round(entry_order.quantity, decimals)
+        
+        # Get current market price for validation
+        try:
+            ticker = self.price_exchange.fetch_ticker(clean_symbol)
+            current_price = ticker['last']
+        except:
+            current_price = entry_order.price if entry_order.price > 0 else stop_loss_price * 1.05
+        
+        # Round prices
+        price_decimals = 5 if clean_symbol == "DOGEUSDT" else 4
+        sl_price = round(stop_loss_price, price_decimals)
+        tp_price = round(take_profit_price, price_decimals)
+        
+        # For SELL OCO: price (TP) must be > current_price, stopPrice (SL) must be < current_price
+        # Validate price relationship
+        if not (sl_price < current_price < tp_price):
+            logger.error(f"OCO price validation failed: SL={sl_price} < current={current_price} < TP={tp_price}")
+            logger.warning("⚠️ Entry placed but OCO skipped due to invalid price relationship")
+            return entry_order
+        
+        # OCO needs a stop limit price slightly below stop price for sells
+        sl_limit_price = round(sl_price * 0.995, price_decimals)  # 0.5% below stop
+        
+        try:
+            oco_params = {
+                "symbol": clean_symbol,
+                "side": "SELL",  # Exit side (opposite of entry)
+                "quantity": rounded_qty,
+                "price": tp_price,  # Take-profit price (LIMIT order)
+                "stopPrice": sl_price,  # Stop-loss trigger price
+                "stopLimitPrice": sl_limit_price,  # Stop-loss limit price
+                "stopLimitTimeInForce": "GTC"
+            }
+            logger.info(f"OCO params: qty={rounded_qty}, TP={tp_price}, SL_trigger={sl_price}, SL_limit={sl_limit_price}")
+            oco_data = self._request("POST", url, oco_params, key, secret)
+            
+            logger.info(f"🎯 OCO ORDER placed for {symbol}:")
+            logger.info(f"   📈 Take-Profit: SELL @ {tp_price}")
+            logger.info(f"   📉 Stop-Loss: SELL @ {sl_price} (limit: {sl_limit_price})")
+            
+        except Exception as e:
+            logger.error(f"OCO order failed: {e}")
+            logger.warning("⚠️ Entry placed but no exchange-side SL/TP protection!")
+            logger.info("Note: Binance Demo may not support OCO. Bot will monitor SL/TP internally.")
+        
+        return entry_order
 
 
 class PaperExchange:

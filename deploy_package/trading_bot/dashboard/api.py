@@ -64,17 +64,26 @@ def get_trades(
     limit: int = 100,
     days: Optional[int] = None
 ):
-    """Get trade history"""
+    """Get trade history with display names"""
     start_date = None
     if days:
         start_date = datetime.now() - timedelta(days=days)
     
     trades = db.get_trades(strategy=strategy, start_date=start_date, limit=limit)
     
+    # Display name mapping
+    display_names = {
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
     return [
         {
             "id": t.id,
             "strategy": t.strategy,
+            "display_name": display_names.get(t.strategy, t.strategy),
             "symbol": t.symbol,
             "side": t.side,
             "entry_time": t.entry_time.isoformat() if t.entry_time else None,
@@ -86,6 +95,9 @@ def get_trades(
             "pnl_pct": t.pnl_pct,
             "exit_reason": t.exit_reason,
             "is_open": t.is_open,
+            "market_type": getattr(t, 'market_type', None),
+            "stop_loss_price": getattr(t, 'stop_loss_price', None),
+            "take_profit_price": getattr(t, 'take_profit_price', None),
         }
         for t in trades
     ]
@@ -100,21 +112,580 @@ def get_strategy_stats(strategy: str):
     return stats
 
 
+@app.post("/api/reset-all")
+def reset_all_data(confirm: str = ""):
+    """
+    DANGER: Reset all trading data for a clean fresh start.
+    Requires confirm="yes-delete-all" to execute.
+    
+    Clears:
+    - Closes all exchange positions (Futures)
+    - Cancels all open orders
+    - Deletes all trades from database
+    - Deletes all strategy logs
+    - Resets ID sequences
+    """
+    from sqlalchemy import text
+    import traceback
+    
+    if confirm != "yes-delete-all":
+        return {
+            "success": False,
+            "error": "Safety check failed. Pass confirm='yes-delete-all' to proceed.",
+            "warning": "This will DELETE ALL TRADES, close all positions, and LOGS permanently!"
+        }
+    
+    result = {
+        "success": True,
+        "steps": [],
+        "errors": []
+    }
+    
+    # Step 1: Close exchange positions and cancel orders
+    try:
+        from trading_bot.exchange import BinanceTestnetAPI
+        exchange = BinanceTestnetAPI()
+        
+        # Cancel all open Futures orders
+        try:
+            for symbol in ["XRPUSDT", "DOGEUSDT", "AVAXUSDT"]:
+                url = f"{exchange.futures_url}/fapi/v1/allOpenOrders"
+                params = {"symbol": symbol}
+                exchange._request("DELETE", url, params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append("✅ Cancelled all Futures open orders")
+        except Exception as e:
+            result["errors"].append(f"Futures order cancel: {str(e)}")
+        
+        # Close all Futures positions by getting position info and closing
+        try:
+            url = f"{exchange.futures_url}/fapi/v2/positionRisk"
+            positions = exchange._request("GET", url, {}, exchange.futures_key, exchange.futures_secret)
+            for pos in positions:
+                amt = float(pos.get("positionAmt", 0))
+                if amt != 0:
+                    symbol = pos["symbol"]
+                    side = "SELL" if amt > 0 else "BUY"
+                    close_url = f"{exchange.futures_url}/fapi/v1/order"
+                    close_params = {
+                        "symbol": symbol,
+                        "side": side,
+                        "type": "MARKET",
+                        "quantity": abs(amt),
+                        "reduceOnly": "true"
+                    }
+                    exchange._request("POST", close_url, close_params, exchange.futures_key, exchange.futures_secret)
+                    result["steps"].append(f"✅ Closed Futures position: {symbol} {amt}")
+        except Exception as e:
+            result["errors"].append(f"Futures position close: {str(e)}")
+        
+        # Cancel all open Spot orders
+        try:
+            for symbol in ["DOGEUSDT", "AVAXUSDT"]:
+                url = f"{exchange.spot_url}/api/v3/openOrders"
+                params = {"symbol": symbol}
+                exchange._request("DELETE", url, params, exchange.spot_key, exchange.spot_secret)
+            result["steps"].append("✅ Cancelled all Spot open orders")
+        except Exception as e:
+            result["errors"].append(f"Spot order cancel: {str(e)}")
+            
+    except Exception as e:
+        result["errors"].append(f"Exchange init: {str(e)}")
+    
+    # Step 2: Clear database
+    session = db.Session()
+    try:
+        # Delete all trades
+        result_trades = session.execute(text("DELETE FROM trades"))
+        trades_deleted = result_trades.rowcount
+        result["steps"].append(f"✅ Deleted {trades_deleted} trades from database")
+        
+        # Delete all strategy logs
+        result_logs = session.execute(text("DELETE FROM strategy_logs"))
+        logs_deleted = result_logs.rowcount
+        result["steps"].append(f"✅ Deleted {logs_deleted} strategy logs from database")
+        
+        # Reset sequences (PostgreSQL)
+        try:
+            session.execute(text("ALTER SEQUENCE trades_id_seq RESTART WITH 1"))
+            session.execute(text("ALTER SEQUENCE strategy_logs_id_seq RESTART WITH 1"))
+            result["steps"].append("✅ Reset ID sequences to 1")
+        except Exception:
+            pass  # Ignore if sequences don't exist
+        
+        session.commit()
+        
+        result["deleted"] = {
+            "trades": trades_deleted,
+            "strategy_logs": logs_deleted
+        }
+        result["message"] = "All data cleared! Fresh start ready."
+        result["note"] = "Restart the container to reset in-memory strategy states."
+        
+    except Exception as e:
+        session.rollback()
+        result["success"] = False
+        result["errors"].append(f"Database error: {str(e)}")
+    finally:
+        session.close()
+    
+    return result
+
+
+@app.post("/api/trades/{trade_id}/update-sl-tp")
+def update_trade_sl_tp(trade_id: int, stop_loss: float, take_profit: float):
+    """Update a trade's stop loss and take profit levels"""
+    from sqlalchemy import text
+    session = db.Session()
+    try:
+        sql = text("UPDATE trades SET stop_loss_price = :sl, take_profit_price = :tp WHERE id = :id")
+        result = session.execute(sql, {"sl": stop_loss, "tp": take_profit, "id": trade_id})
+        session.commit()
+        if result.rowcount > 0:
+            return {"success": True, "trade_id": trade_id, "stop_loss": stop_loss, "take_profit": take_profit}
+        else:
+            raise HTTPException(status_code=404, detail=f"Trade {trade_id} not found")
+    finally:
+        session.close()
+
+
+@app.post("/api/test-short")
+def test_short_trade():
+    """
+    Force test a SHORT trade on Binance Testnet.
+    This creates a real short position to verify shorts work correctly.
+    """
+    import logging
+    import traceback
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        from trading_bot.exchange import BinanceTestnetAPI
+        from trading_bot.telegram_bot import get_telegram_bot
+    except Exception as e:
+        return {"success": False, "error": f"Import failed: {str(e)}", "traceback": traceback.format_exc()}
+    
+    try:
+        # Initialize exchange
+        exchange = BinanceTestnetAPI()
+    except Exception as e:
+        return {"success": False, "error": f"Exchange init failed: {str(e)}", "traceback": traceback.format_exc()}
+    
+    try:
+        telegram = get_telegram_bot(db)
+        
+        # Test parameters
+        symbol = "XRPUSDT"
+        side = "sell"  # SHORT entry
+        quantity = 10.0  # Small test quantity
+        
+        # Get current price
+        ticker = exchange.fetch_ticker(symbol)
+        current_price = ticker["last"]
+        
+        # Calculate SL/TP for SHORT
+        sl_price = round(current_price * 1.02, 4)  # 2% above entry (loss)
+        tp_price = round(current_price * 0.98, 4)  # 2% below entry (profit)
+        
+        result = {
+            "test": "SHORT trade",
+            "symbol": symbol,
+            "side": "short",
+            "quantity": quantity,
+            "entry_price": current_price,
+            "stop_loss": sl_price,
+            "take_profit": tp_price,
+            "steps": []
+        }
+        
+        # Step 1: Open SHORT position
+        try:
+            entry_order = exchange.create_order(symbol, side, quantity, market_type="futures")
+            result["steps"].append(f"✅ SHORT entry placed: {entry_order.quantity} @ ${entry_order.price}")
+            result["entry_order_id"] = str(entry_order)
+        except Exception as e:
+            result["steps"].append(f"❌ SHORT entry failed: {str(e)}")
+            result["success"] = False
+            return result
+        
+        # Step 2: Place SL order (BUY to close short when price goes UP)
+        try:
+            sl_params = {
+                "symbol": symbol.replace("/", ""),
+                "side": "BUY",  # Exit SHORT by buying
+                "type": "STOP_MARKET",
+                "quantity": quantity,
+                "stopPrice": sl_price,
+                "reduceOnly": "true"
+            }
+            # Use internal exchange method
+            url = f"{exchange.futures_url}/fapi/v1/order"
+            sl_data = exchange._request("POST", url, sl_params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append(f"✅ SHORT SL placed: BUY @ ${sl_price} (if price goes UP)")
+        except Exception as e:
+            result["steps"].append(f"⚠️ SHORT SL failed: {str(e)}")
+        
+        # Step 3: Place TP order (BUY to close short when price goes DOWN)
+        try:
+            tp_params = {
+                "symbol": symbol.replace("/", ""),
+                "side": "BUY",  # Exit SHORT by buying
+                "type": "TAKE_PROFIT_MARKET",
+                "quantity": quantity,
+                "stopPrice": tp_price,
+                "reduceOnly": "true"
+            }
+            url = f"{exchange.futures_url}/fapi/v1/order"
+            tp_data = exchange._request("POST", url, tp_params, exchange.futures_key, exchange.futures_secret)
+            result["steps"].append(f"✅ SHORT TP placed: BUY @ ${tp_price} (if price goes DOWN)")
+        except Exception as e:
+            result["steps"].append(f"⚠️ SHORT TP failed: {str(e)}")
+        
+        # Step 4: Save to database
+        try:
+            record = TradeRecord(
+                strategy="TEST_SHORT",
+                symbol=symbol,
+                side="short",
+                entry_time=datetime.now(),
+                entry_price=float(current_price),
+                quantity=float(quantity),
+                is_paper=True,
+                is_open=True,
+                market_type="futures",
+                stop_loss_price=float(sl_price),
+                take_profit_price=float(tp_price)
+            )
+            trade_id = db.save_trade(record)
+            result["steps"].append(f"✅ Trade saved to DB: #{trade_id}")
+            result["trade_id"] = trade_id
+        except Exception as e:
+            result["steps"].append(f"⚠️ DB save failed: {str(e)}")
+        
+        # Step 5: Send Telegram notification
+        try:
+            telegram.notify_trade_opened(
+                trade_id=trade_id,
+                strategy="TEST_SHORT",
+                symbol=symbol,
+                side="short",
+                price=float(current_price),
+                quantity=float(quantity),
+                market_type="futures",
+                stop_loss=float(sl_price),
+                take_profit=float(tp_price),
+                success=True
+            )
+            result["steps"].append("✅ Telegram notification sent")
+        except Exception as e:
+            result["steps"].append(f"⚠️ Telegram failed: {str(e)}")
+        
+        result["success"] = True
+        result["message"] = "SHORT test complete! Check Binance Futures positions."
+        
+        return result
+        
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.post("/api/test-spot-oco")
+def test_spot_oco():
+    """
+    Force test a SPOT OCO order on Binance Demo.
+    This tests if OCO (One-Cancels-Other) orders work for SL/TP protection.
+    """
+    import logging
+    from trading_bot.exchange import BinanceTestnetAPI
+    from trading_bot.telegram_bot import get_telegram_bot
+    
+    logger = logging.getLogger(__name__)
+    
+    try:
+        # Initialize exchange
+        exchange = BinanceTestnetAPI()
+        telegram = get_telegram_bot(db)
+        
+        # Test parameters - use DOGE for spot (same as ScalpingHybrid_DOGE)
+        symbol = "DOGEUSDT"
+        side = "buy"  # LONG entry on spot
+        quantity = 100  # Small test quantity (whole number for DOGE)
+        
+        # Get current price
+        ticker = exchange.fetch_ticker(symbol)
+        current_price = ticker["last"]
+        
+        # Calculate SL/TP for LONG
+        sl_price = round(current_price * 0.98, 5)  # 2% below entry (loss)
+        tp_price = round(current_price * 1.03, 5)  # 3% above entry (profit)
+        
+        result = {
+            "test": "SPOT OCO order",
+            "symbol": symbol,
+            "side": "long",
+            "quantity": quantity,
+            "entry_price": current_price,
+            "stop_loss": sl_price,
+            "take_profit": tp_price,
+            "steps": []
+        }
+        
+        # Step 1: Buy DOGE (entry)
+        try:
+            entry_order = exchange.create_order(symbol, side, quantity, market_type="spot")
+            result["steps"].append(f"✅ SPOT BUY placed: {entry_order.quantity} @ ${entry_order.price}")
+        except Exception as e:
+            result["steps"].append(f"❌ SPOT BUY failed: {str(e)}")
+            result["success"] = False
+            return result
+        
+        # Step 2: Try OCO order for SL/TP protection
+        try:
+            # OCO order: sell at TP (limit) or SL (stop-limit)
+            clean_symbol = symbol.replace("/", "")
+            url = f"{exchange.spot_url}/api/v3/order/oco"
+            
+            # Prices need specific formatting for OCO
+            oco_params = {
+                "symbol": clean_symbol,
+                "side": "SELL",  # Sell to exit long
+                "quantity": int(quantity),  # DOGE needs whole numbers
+                "price": round(tp_price, 5),  # Take profit limit price
+                "stopPrice": round(sl_price, 5),  # Stop trigger price
+                "stopLimitPrice": round(sl_price * 0.995, 5),  # Stop limit price (slightly below stop)
+                "stopLimitTimeInForce": "GTC"
+            }
+            
+            oco_data = exchange._request("POST", url, oco_params, exchange.spot_key, exchange.spot_secret)
+            result["steps"].append(f"✅ OCO placed: TP=${tp_price}, SL=${sl_price}")
+            result["oco_order"] = oco_data
+        except Exception as e:
+            result["steps"].append(f"❌ OCO failed: {str(e)}")
+            result["oco_error"] = str(e)
+            # OCO failure is expected on demo - note this
+            result["note"] = "OCO may not be supported on Binance Demo API"
+        
+        # Step 3: Save to database
+        try:
+            record = TradeRecord(
+                strategy="TEST_SPOT_OCO",
+                symbol=symbol,
+                side="long",
+                entry_time=datetime.now(),
+                entry_price=float(current_price),
+                quantity=float(quantity),
+                is_paper=True,
+                is_open=True,
+                market_type="spot",
+                stop_loss_price=float(sl_price),
+                take_profit_price=float(tp_price)
+            )
+            trade_id = db.save_trade(record)
+            result["steps"].append(f"✅ Trade saved to DB: #{trade_id}")
+            result["trade_id"] = trade_id
+        except Exception as e:
+            result["steps"].append(f"⚠️ DB save failed: {str(e)}")
+        
+        # Step 4: Send Telegram notification
+        try:
+            telegram.notify_trade_opened(
+                trade_id=trade_id,
+                strategy="TEST_SPOT_OCO",
+                symbol=symbol,
+                side="long",
+                price=float(current_price),
+                quantity=float(quantity),
+                market_type="spot",
+                stop_loss=float(sl_price),
+                take_profit=float(tp_price),
+                success=True
+            )
+            result["steps"].append("✅ Telegram notification sent")
+        except Exception as e:
+            result["steps"].append(f"⚠️ Telegram failed: {str(e)}")
+        
+        result["success"] = True
+        result["message"] = "SPOT OCO test complete! Check if OCO is supported."
+        
+        return result
+        
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@app.get("/api/risk")
+def get_risk_metrics():
+    """Get risk management metrics: max drawdown, Sharpe, Sortino, profit factor"""
+    import numpy as np
+    
+    trades = db.get_trades(limit=1000)
+    closed_trades = [t for t in trades if not t.is_open and t.pnl_pct is not None]
+    
+    if not closed_trades:
+        return {
+            "max_drawdown_pct": 0,
+            "sharpe_ratio": 0,
+            "sortino_ratio": 0,
+            "profit_factor": 0,
+            "win_rate": 0,
+            "avg_trade_pct": 0,
+            "total_trades": 0,
+            "avg_duration_hours": 0
+        }
+    
+    # Calculate returns
+    returns = [t.pnl_pct for t in closed_trades]
+    
+    # Win rate
+    wins = [r for r in returns if r > 0]
+    losses = [r for r in returns if r <= 0]
+    win_rate = (len(wins) / len(returns) * 100) if returns else 0
+    
+    # Profit Factor = Gross Profits / Gross Losses
+    gross_profits = sum(wins) if wins else 0
+    gross_losses = abs(sum(losses)) if losses else 1
+    profit_factor = gross_profits / gross_losses if gross_losses > 0 else gross_profits
+    
+    # Average return
+    avg_return = np.mean(returns) if returns else 0
+    
+    # Sharpe Ratio (assuming risk-free rate = 0 for crypto)
+    std_return = np.std(returns) if len(returns) > 1 else 1
+    sharpe_ratio = (avg_return / std_return) if std_return > 0 else 0
+    
+    # Sortino Ratio (downside deviation only)
+    downside_returns = [r for r in returns if r < 0]
+    downside_std = np.std(downside_returns) if len(downside_returns) > 1 else 1
+    sortino_ratio = (avg_return / downside_std) if downside_std > 0 else 0
+    
+    # Max Drawdown - calculate from equity curve
+    equity = 10000  # Starting equity
+    peak = equity
+    max_dd = 0
+    
+    for trade in sorted(closed_trades, key=lambda x: x.exit_time or x.entry_time):
+        pnl_usd = trade.pnl_usd or 0
+        equity += pnl_usd
+        if equity > peak:
+            peak = equity
+        drawdown = (peak - equity) / peak * 100 if peak > 0 else 0
+        if drawdown > max_dd:
+            max_dd = drawdown
+    
+    # Average trade duration
+    durations = []
+    for t in closed_trades:
+        if t.entry_time and t.exit_time:
+            duration = (t.exit_time - t.entry_time).total_seconds() / 3600  # hours
+            durations.append(duration)
+    avg_duration = np.mean(durations) if durations else 0
+    
+    # Per-strategy breakdown
+    strategy_names = ["ScalpingHybrid_DOGE", "LLM_v4_LowDD", "LLM_v3_Tight", "ScalpingHybrid_AVAX"]
+    display_names = {
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
+    per_strategy = []
+    for strat in strategy_names:
+        strat_trades = [t for t in closed_trades if t.strategy == strat]
+        if not strat_trades:
+            per_strategy.append({
+                "name": strat,
+                "display_name": display_names.get(strat, strat),
+                "trades": 0,
+                "sharpe": 0,
+                "max_dd": 0,
+                "profit_factor": 0,
+                "win_rate": 0
+            })
+            continue
+        
+        strat_returns = [t.pnl_pct for t in strat_trades if t.pnl_pct is not None]
+        strat_wins = [r for r in strat_returns if r > 0]
+        strat_losses = [r for r in strat_returns if r <= 0]
+        
+        strat_win_rate = (len(strat_wins) / len(strat_returns) * 100) if strat_returns else 0
+        strat_avg = np.mean(strat_returns) if strat_returns else 0
+        strat_std = np.std(strat_returns) if len(strat_returns) > 1 else 1
+        strat_sharpe = strat_avg / strat_std if strat_std > 0 else 0
+        
+        strat_gross_profit = sum(strat_wins) if strat_wins else 0
+        strat_gross_loss = abs(sum(strat_losses)) if strat_losses else 1
+        strat_pf = strat_gross_profit / strat_gross_loss if strat_gross_loss > 0 else strat_gross_profit
+        
+        # Max drawdown for strategy
+        strat_equity = 5000  # Per-strategy allocation
+        strat_peak = strat_equity
+        strat_max_dd = 0
+        for t in sorted(strat_trades, key=lambda x: x.exit_time or x.entry_time):
+            strat_equity += t.pnl_usd or 0
+            if strat_equity > strat_peak:
+                strat_peak = strat_equity
+            dd = (strat_peak - strat_equity) / strat_peak * 100 if strat_peak > 0 else 0
+            if dd > strat_max_dd:
+                strat_max_dd = dd
+        
+        per_strategy.append({
+            "name": strat,
+            "display_name": display_names.get(strat, strat),
+            "trades": len(strat_trades),
+            "sharpe": round(strat_sharpe, 2),
+            "max_dd": round(strat_max_dd, 2),
+            "profit_factor": round(strat_pf, 2),
+            "win_rate": round(strat_win_rate, 1)
+        })
+    
+    return {
+        "max_drawdown_pct": round(max_dd, 2),
+        "sharpe_ratio": round(sharpe_ratio, 2),
+        "sortino_ratio": round(sortino_ratio, 2),
+        "profit_factor": round(profit_factor, 2),
+        "win_rate": round(win_rate, 1),
+        "avg_trade_pct": round(avg_return, 2),
+        "total_trades": len(closed_trades),
+        "avg_duration_hours": round(avg_duration, 1),
+        "per_strategy": per_strategy
+    }
+
+
 @app.get("/api/logs")
 def get_logs(limit: int = 50):
-    """Get latest strategy check logs"""
+    """Get latest strategy check logs with all indicator values"""
     logs = db.get_latest_logs(limit=limit)
+    
+    # Display name mapping
+    display_names = {
+        "LLM_v4_LowDD": "Momentum Pro 4H (F)",
+        "LLM_v3_Tight": "Trend Hunter 4H (F)",
+        "ScalpingHybrid_DOGE": "DOGE Scalper 4H (S)",
+        "ScalpingHybrid_AVAX": "AVAX Swing 1D (S)"
+    }
+    
     return [
         {
             "id": l.id,
             "timestamp": l.timestamp.isoformat(),
             "strategy": l.strategy,
+            "display_name": display_names.get(l.strategy, l.strategy),
             "symbol": l.symbol,
             "status": l.status,
             "message": l.message,
             "price": l.price,
             "rsi": l.rsi,
             "adx": l.adx,
+            "macd": getattr(l, 'macd', None),
+            "macd_signal": getattr(l, 'macd_signal', None),
+            "ema_15": getattr(l, 'ema_15', None),
+            "ema_30": getattr(l, 'ema_30', None),
+            "ema_200": getattr(l, 'ema_200', None),
+            "volume": getattr(l, 'volume', None),
+            "volume_ma": getattr(l, 'volume_ma', None),
+            "volume_pct": getattr(l, 'volume_pct', None),
+            "conditions_met": getattr(l, 'conditions_met', None),
         }
         for l in logs
     ]
@@ -466,7 +1037,7 @@ def get_weekly_report_html(days: int = 7):
             {"".join(f'''
             <li class="trade-item">
                 <span>{t.strategy} | {t.symbol} {t.side}</span>
-                <span class="{'green' if t.pnl_pct and t.pnl_pct > 0 else 'red'}">{t.pnl_pct:+.2f}% (${t.pnl_usd:+.2f})</span>
+                <span class="{'green' if t.pnl_pct and t.pnl_pct > 0 else 'red'}">{(t.pnl_pct or 0):+.2f}% (${(t.pnl_usd or 0):+.2f})</span>
             </li>
             ''' for t in closed_trades[:10]) if closed_trades else '<li style="color: #8b949e; padding: 10px 0;">No closed trades this period.</li>'}
             </ul>
@@ -695,25 +1266,39 @@ def get_summary():
 
 @app.get("/api/balance")
 def get_exchange_balance():
-    """Get current testnet balance from exchange"""
+    """Get current balance from exchange (Spot and Futures)"""
     try:
         from trading_bot.exchange import get_exchange
         exchange = get_exchange()
         
-        # Get spot balance
-        spot_balance = exchange.fetch_balance()
-        
-        # Format response with significant balances
         result = {
-            "spot": {},
-            "spot_total_usdt": 0
+            "spot_balances": {},
+            "spot_total_usdt": 0.0,
+            "futures_balances": {},
+            "futures_total_usdt": 0.0
         }
         
-        for coin, amount in spot_balance.items():
-            if amount > 0:
-                result["spot"][coin] = round(amount, 6)
-                if coin == "USDT":
-                    result["spot_total_usdt"] = round(amount, 2)
+        # Get spot balance
+        try:
+            spot_balance = exchange.fetch_balance(market_type="spot")
+            for coin, amount in spot_balance.items():
+                if amount > 0:
+                    result["spot_balances"][coin] = round(amount, 6)
+                    if coin in ["USDT", "USDC"]:
+                        result["spot_total_usdt"] += round(amount, 2)
+        except Exception as e:
+            result["spot_error"] = str(e)
+        
+        # Get futures balance
+        try:
+            futures_balance = exchange.fetch_balance(market_type="futures")
+            for coin, amount in futures_balance.items():
+                if amount > 0:
+                    result["futures_balances"][coin] = round(amount, 6)
+                    if coin in ["USDT", "USDC"]:
+                        result["futures_total_usdt"] += round(amount, 2)
+        except Exception as e:
+            result["futures_error"] = str(e)
         
         return result
     except Exception as e:

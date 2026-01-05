@@ -98,6 +98,25 @@ Tap the button below to open the full dashboard with charts, trades, and analyti
                                 stop_loss: float = None, take_profit: float = None,
                                 success: bool = True):
         """Notify when a trade is opened with full details"""
+        logger.info(f"📱 Telegram: notify_trade_opened called for #{trade_id} {strategy} success={success}")
+        
+        # Strategy display name mapping
+        display_names = {
+            "ScalpingHybrid_DOGE": "DOGE Scalper 4H",
+            "LLM_v4_LowDD": "Momentum Pro 4H",
+            "LLM_v3_Tight": "Trend Hunter 4H", 
+            "ScalpingHybrid_AVAX": "AVAX Swing 1D",
+            "TEST_SHORT": "TEST SHORT",
+            "TEST_SPOT_OCO": "TEST SPOT OCO"
+        }
+        display_strategy = display_names.get(strategy, strategy)
+        
+        # Convert any NumPy floats to Python floats for string formatting
+        price = float(price) if price else 0.0
+        quantity = float(quantity) if quantity else 0.0
+        stop_loss = float(stop_loss) if stop_loss else None
+        take_profit = float(take_profit) if take_profit else None
+        
         if success:
             emoji = "🟢" if side == "long" else "🔴"
             status = "TRADE OPENED"
@@ -117,10 +136,18 @@ Tap the button below to open the full dashboard with charts, trades, and analyti
 📉 Stop-Loss: ${stop_loss:.4f}
 📈 Take-Profit: ${take_profit:.4f}"""
         
+        # Get Sydney time
+        try:
+            from datetime import timezone, timedelta
+            sydney_tz = timezone(timedelta(hours=11))  # AEDT (UTC+11)
+            sydney_time = datetime.now(sydney_tz).strftime('%H:%M:%S')
+        except Exception:
+            sydney_time = datetime.now().strftime('%H:%M:%S')
+        
         message = f"""
 {emoji} *{status}* (#{trade_id})
 
-📋 Strategy: `{strategy}`
+📋 Strategy: `{display_strategy}`
 💰 Symbol: {symbol}
 ↕️ Side: *{side.upper()}*
 {market_label}
@@ -128,9 +155,10 @@ Tap the button below to open the full dashboard with charts, trades, and analyti
 💵 Entry: *${price:.4f}*
 📦 Quantity: {quantity:.4f}{sl_tp_info}
 
-⏰ Time: {datetime.now().strftime('%H:%M:%S')}
+⏰ Time: {sydney_time}
 """
-        self.send_message(message)
+        result = self.send_message(message)
+        logger.info(f"📱 Telegram: notify_trade_opened result={result}")
 
     def notify_trade_closed(self, trade_id: int, strategy: str, symbol: str, side: str,
                             entry_price: float, exit_price: float,
@@ -139,10 +167,27 @@ Tap the button below to open the full dashboard with charts, trades, and analyti
         emoji = "✅" if pnl_pct > 0 else "❌"
         profit_emoji = "📈" if pnl_pct > 0 else "📉"
         
+        # Strategy display name mapping
+        display_names = {
+            "ScalpingHybrid_DOGE": "DOGE Scalper 4H",
+            "LLM_v4_LowDD": "Momentum Pro 4H",
+            "LLM_v3_Tight": "Trend Hunter 4H", 
+            "ScalpingHybrid_AVAX": "AVAX Swing 1D"
+        }
+        display_strategy = display_names.get(strategy, strategy)
+        
+        # Get Sydney time
+        try:
+            from datetime import timezone, timedelta
+            sydney_tz = timezone(timedelta(hours=11))  # AEDT (UTC+11)
+            sydney_time = datetime.now(sydney_tz).strftime('%H:%M:%S')
+        except Exception:
+            sydney_time = datetime.now().strftime('%H:%M:%S')
+        
         message = f"""
 {emoji} *TRADE CLOSED* (#{trade_id})
 
-📋 Strategy: `{strategy}`
+📋 Strategy: `{display_strategy}`
 💰 Symbol: {symbol}
 ↕️ Side: {side.upper()}
 
@@ -152,7 +197,7 @@ Tap the button below to open the full dashboard with charts, trades, and analyti
 {profit_emoji} *P&L: {pnl_pct:+.2f}% (${pnl_usd:+.2f})*
 📝 Reason: {reason}
 
-⏰ Time: {datetime.now().strftime('%H:%M:%S')}
+⏰ Time: {sydney_time}
 """
         self.send_message(message)
     

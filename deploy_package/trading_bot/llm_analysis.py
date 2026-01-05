@@ -36,18 +36,63 @@ class LLMAnalyzer:
         self.deployment = AZURE_OPENAI_DEPLOYMENT
         self.api_version = "2024-02-15-preview"
         
-        if not self.endpoint or not self.api_key:
-            logger.warning("Azure OpenAI credentials missing. Analysis disabled.")
-            self.enabled = False
-        else:
+        # Check for local LLM (LM Studio) first, then Azure
+        self.local_llm_url = os.getenv("LOCAL_LLM_URL", "http://localhost:1234/v1")
+        self.use_local_llm = os.getenv("USE_LOCAL_LLM", "false").lower() == "true"
+        
+        if self.use_local_llm:
+            logger.info(f"LLM Analyzer using LOCAL model at: {self.local_llm_url}")
             self.enabled = True
-            logger.info(f"LLM Analyzer initialized with deployment: {self.deployment}")
+            self.mode = "local"
+        elif self.endpoint and self.api_key:
+            self.enabled = True
+            self.mode = "azure"
+            logger.info(f"LLM Analyzer using Azure OpenAI: {self.deployment}")
+        else:
+            logger.warning("No LLM credentials. Set USE_LOCAL_LLM=true for LM Studio or configure Azure.")
+            self.enabled = False
+            self.mode = None
 
     def _call_gpt4(self, system_prompt: str, user_prompt: str) -> str:
-        """Call Azure OpenAI GPT-4"""
+        """Call LLM - either local (LM Studio) or Azure OpenAI"""
         if not self.enabled:
             return "Analysis disabled (no credentials)"
 
+        if self.mode == "local":
+            return self._call_local_llm(system_prompt, user_prompt)
+        else:
+            return self._call_azure_openai(system_prompt, user_prompt)
+    
+    def _call_local_llm(self, system_prompt: str, user_prompt: str) -> str:
+        """Call local LLM via LM Studio's OpenAI-compatible API"""
+        url = f"{self.local_llm_url}/chat/completions"
+        
+        headers = {"Content-Type": "application/json"}
+        
+        payload = {
+            "model": "local-model",  # LM Studio ignores this, uses loaded model
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            "temperature": 0.2,
+            "max_tokens": 1000
+        }
+        
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=60)
+            response.raise_for_status()
+            result = response.json()
+            return result["choices"][0]["message"]["content"]
+        except requests.exceptions.ConnectionError:
+            logger.error("Cannot connect to LM Studio. Make sure it's running at " + self.local_llm_url)
+            return "Error: LM Studio not running. Start LM Studio and load a model."
+        except Exception as e:
+            logger.error(f"Local LLM Error: {e}")
+            return f"Error creating analysis: {str(e)}"
+    
+    def _call_azure_openai(self, system_prompt: str, user_prompt: str) -> str:
+        """Call Azure OpenAI GPT-4"""
         url = f"{self.endpoint}/openai/deployments/{self.deployment}/chat/completions?api-version={self.api_version}"
         
         headers = {

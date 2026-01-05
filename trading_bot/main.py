@@ -291,15 +291,31 @@ class TradingBot:
                 logger.error(f"LLM Training data generation failed: {e}")
         
         # 4. Execute Trades
+        
+        # First check if any open trades hit SL/TP
+        if name in self.open_trades:
+            self._check_exit_conditions(name, current_price)
+        
         if signal:
             logger.info(f"📊 Signal received: {signal.action} for {name}")
             
+            # AUTO-COMPOUNDING: Calculate dynamic capital = base allocation + cumulative profits/losses
+            base_capital = data['capital']
+            cumulative_pnl = self.db.get_strategy_cumulative_pnl(name)
+            dynamic_capital = base_capital + cumulative_pnl
+            
+            # Ensure minimum capital ($50) and cap at 20x base
+            dynamic_capital = max(50.0, min(dynamic_capital, base_capital * 20))
+            
+            if cumulative_pnl != 0:
+                logger.info(f"💰 Auto-compound: Base=${base_capital:.0f} + PnL=${cumulative_pnl:.2f} = ${dynamic_capital:.0f}")
+            
         if signal and signal.action == "buy":
             logger.info(f"🔵 Attempting to open LONG trade for {name} ({config.market_type})...")
-            self._open_trade(name, data['strategy'], config.symbol, "long", current_price, data['capital'], config.market_type, signal)
+            self._open_trade(name, data['strategy'], config.symbol, "long", current_price, dynamic_capital, config.market_type, signal)
         elif signal and signal.action == "sell":
             logger.info(f"🔴 Attempting to open SHORT trade for {name} ({config.market_type})...")
-            self._open_trade(name, data['strategy'], config.symbol, "short", current_price, data['capital'], config.market_type, signal)
+            self._open_trade(name, data['strategy'], config.symbol, "short", current_price, dynamic_capital, config.market_type, signal)
         elif signal and signal.action == "exit":
             if name in self.open_trades:
                 self._close_trade(name, current_price, "Signal Exit")
@@ -345,16 +361,25 @@ class TradingBot:
                 # Regular order (without SL/TP)
                 order = self.exchange.create_order(symbol, order_side, qty, market_type=market_type)
             
-            # Create database record
+            # Create database record with SL/TP
+            # Convert to native Python floats (NumPy floats cause PostgreSQL errors)
+            sl_price = float(signal.stop_loss) if signal and signal.stop_loss else None
+            tp_price = float(signal.take_profit) if signal and signal.take_profit else None
+            entry_price = float(order.price) if order.price else 0.0
+            quantity = float(order.quantity) if order.quantity else 0.0
+            
             record = TradeRecord(
                 strategy=strategy_name,
                 symbol=symbol,
                 side=side,
                 entry_time=datetime.now(),
-                entry_price=order.price,
-                quantity=order.quantity,
+                entry_price=entry_price,
+                quantity=quantity,
                 is_paper=(TRADING_MODE == "paper"),
-                is_open=True
+                is_open=True,
+                market_type=market_type,
+                stop_loss_price=sl_price,
+                take_profit_price=tp_price
             )
             
             trade_id = self.db.save_trade(record)
@@ -399,6 +424,53 @@ class TradingBot:
                     take_profit=signal.take_profit if signal else None,
                     success=False
                 )
+
+    def _check_exit_conditions(self, strategy_name: str, current_price: float):
+        """Check if open trade should be closed based on SL/TP"""
+        if strategy_name not in self.open_trades:
+            return
+            
+        trade_id = self.open_trades[strategy_name]
+        
+        # Get trade from database to check SL/TP
+        session = self.db.Session()
+        try:
+            from .database import TradeRecord
+            trade = session.query(TradeRecord).filter_by(id=trade_id, is_open=True).first()
+            if not trade:
+                return
+                
+            sl = trade.stop_loss_price
+            tp = trade.take_profit_price
+            entry = trade.entry_price
+            side = trade.side
+            
+            if not entry or entry == 0:
+                return  # Invalid entry price
+                
+            # Check SL/TP for LONG positions
+            if side == "long":
+                if sl and current_price <= sl:
+                    logger.info(f"🛑 SL HIT: {strategy_name} | Price ${current_price:.4f} <= SL ${sl:.4f}")
+                    self._close_trade(strategy_name, current_price, "Stop Loss")
+                    return
+                if tp and current_price >= tp:
+                    logger.info(f"🎯 TP HIT: {strategy_name} | Price ${current_price:.4f} >= TP ${tp:.4f}")
+                    self._close_trade(strategy_name, current_price, "Take Profit")
+                    return
+                    
+            # Check SL/TP for SHORT positions
+            elif side == "short":
+                if sl and current_price >= sl:
+                    logger.info(f"🛑 SL HIT: {strategy_name} | Price ${current_price:.4f} >= SL ${sl:.4f}")
+                    self._close_trade(strategy_name, current_price, "Stop Loss")
+                    return
+                if tp and current_price <= tp:
+                    logger.info(f"🎯 TP HIT: {strategy_name} | Price ${current_price:.4f} <= TP ${tp:.4f}")
+                    self._close_trade(strategy_name, current_price, "Take Profit")
+                    return
+        finally:
+            session.close()
 
     def _close_trade(self, strategy_name: str, exit_price: float, exit_reason: str):
         """Close an open trade"""
